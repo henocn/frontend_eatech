@@ -79,8 +79,7 @@ function Hero() {
                     muted
                     playsInline
                 >
-                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
-                    {/* Vidéo de fallback - vous pouvez remplacer par votre propre vidéo */}
+                    <source src="/videos/video1.mp4" type="video/mp4" />
                 </video>
                 <div className="hero-video-overlay"></div>
                 <div className="gradient-orb orb-1"></div>
