@@ -88,10 +88,10 @@
         transform: translate(0, 0) scale(1);
     }
     33% {
-        transform: translate(50px, 50px) scale(1.1);
+        transform: translate(30px, 30px) scale(1.05);
     }
     66% {
-        transform: translate(-50px, -50px) scale(0.9);
+        transform: translate(-30px, -30px) scale(0.95);
     }
 }
 
@@ -100,18 +100,36 @@
     z-index: 2;
     text-align: center;
     color: white;
-    max-width: 900px;
+    max-width: 1000px;
     padding: 2rem;
 }
 
-.hero-title {
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    font-weight: 800;
-    line-height: 1.2;
+.hero-welcome {
+    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.9;
     margin-bottom: 1.5rem;
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
     transition: all 0.8s ease;
+}
+
+.hero-welcome.animate-in {
+    opacity: 0.9;
+    transform: translateY(0);
+}
+
+.hero-title {
+    font-size: clamp(3rem, 10vw, 6.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease 0.2s;
+    letter-spacing: -0.02em;
 }
 
 .hero-title.animate-in {
@@ -119,29 +137,12 @@
     transform: translateY(0);
 }
 
-.title-line {
+.title-main {
     display: block;
-    animation: fadeInUp 0.8s ease forwards;
-}
-
-.title-line:nth-child(1) {
-    animation-delay: 0.2s;
-}
-
-.title-line:nth-child(2) {
-    animation-delay: 0.4s;
-}
-
-.title-line:nth-child(3) {
-    animation-delay: 0.6s;
-}
-
-.title-line.highlight {
-    background: linear-gradient(120deg, #ffffff 0%, #f0f0f0 100%);
+    background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    position: relative;
 }
 
 @keyframes fadeInUp {
@@ -156,16 +157,33 @@
 }
 
 .hero-subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.5rem);
-    margin-bottom: 3rem;
-    opacity: 0.9;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.8s ease 0.3s;
+    transition: all 0.8s ease 0.4s;
 }
 
 .hero-subtitle.animate-in {
-    opacity: 0.9;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-description {
+    font-size: clamp(1rem, 1.8vw, 1.25rem);
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease 0.6s;
+}
+
+.hero-description.animate-in {
+    opacity: 0.95;
     transform: translateY(0);
 }
 
@@ -176,7 +194,7 @@
     flex-wrap: wrap;
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.8s ease 0.6s;
+    transition: all 0.8s ease 0.8s;
 }
 
 .hero-cta.animate-in {
@@ -185,38 +203,42 @@
 }
 
 .btn {
-    padding: 1rem 2.5rem;
-    font-size: 1.1rem;
+    padding: 1.125rem 2.75rem;
+    font-size: 0.875rem;
     font-weight: 600;
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
     display: inline-block;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .btn-primary {
     background: white;
     color: #667eea;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    background: #f8f9fa;
 }
 
 .btn-secondary {
     background: transparent;
     color: white;
-    border: 2px solid white;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
 }
 
 .btn-secondary:hover {
-    background: white;
-    color: #667eea;
-    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+    transform: translateY(-4px);
 }
 
 .scroll-indicator {

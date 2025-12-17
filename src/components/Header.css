@@ -54,22 +54,24 @@
 }
 
 .logo-icon {
-    animation: bounce 2s infinite;
+    animation: gentleBounce 4s ease-in-out infinite;
     color: #667eea;
+    transition: transform 0.3s ease;
+}
+
+@keyframes gentleBounce {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-4px) rotate(2deg);
+    }
 }
 
 [data-theme="dark"] .logo-icon {
     color: #8b9aff;
 }
 
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
 
 .nav {
     display: flex;
@@ -200,4 +202,5 @@
         padding: 1rem;
     }
 }
+
 

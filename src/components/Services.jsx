@@ -13,7 +13,6 @@ function Services() {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [selectedCategory, setSelectedCategory] = useState('all');
     const sectionRef = useRef(null);
     const headerRef = useRef(null);
     const { t } = useLanguage();
@@ -59,20 +58,6 @@ function Services() {
         }
     };
 
-    /**
-     * Filtre les services par catégorie
-     */
-    const filteredServices = selectedCategory === 'all'
-        ? services
-        : services.filter(service => service.category === selectedCategory);
-
-    const categories = ['all', 'design', 'animation', 'icon'];
-    const categoryLabels = {
-        all: t('services.all'),
-        design: t('services.design'),
-        animation: t('services.animation'),
-        icon: t('services.icon')
-    };
 
     if (loading) {
         return (
@@ -112,29 +97,15 @@ function Services() {
                     </p>
                 </div>
 
-                <div className="category-filters">
-                    {categories.map(category => (
-                        <button
-                            key={category}
-                            className={`filter-btn ${selectedCategory === category ? 'active' : ''}`}
-                            onClick={() => setSelectedCategory(category)}
-                        >
-                            {categoryLabels[category]}
-                        </button>
-                    ))}
-                </div>
-
                 <div className="services-grid">
-                    {filteredServices.map(service => (
-                        <ServiceCard key={service.id} service={service} />
+                    {services.map((service, index) => (
+                        <ServiceCard 
+                            key={service.id} 
+                            service={service}
+                            delay={index * 100}
+                        />
                     ))}
                 </div>
-
-                {filteredServices.length === 0 && (
-                    <div className="no-results">
-                        <p>{t('services.noResults')}</p>
-                    </div>
-                )}
             </div>
         </section>
     );

@@ -3,87 +3,26 @@
     {
       "id": 1,
       "title": "Design Graphique",
-      "description": "Création de designs modernes et professionnels pour votre marque",
-      "icon": "🎨",
-      "features": [
-        "Logo design",
-        "Identité visuelle",
-        "Publipostage",
-        "Packaging"
-      ],
-      "price": "À partir de 150€",
+      "description": "Nous créons des designs modernes et professionnels qui donnent vie à votre marque. De la création de logo à l'identité visuelle complète, nous transformons vos idées en visuels impactants.",
       "category": "design"
     },
     {
       "id": 2,
       "title": "Animations JavaScript",
-      "description": "Animations interactives et fluides pour enrichir vos interfaces web",
-      "icon": "✨",
-      "features": [
-        "Animations CSS/JS",
-        "Scroll animations",
-        "Interactions utilisateur",
-        "Effets visuels"
-      ],
-      "price": "À partir de 200€",
+      "description": "Des animations interactives et fluides qui enrichissent vos interfaces web. Nos créations apportent une dimension dynamique à vos projets, captivant l'attention et améliorant l'expérience utilisateur.",
       "category": "animation"
     },
     {
       "id": 3,
       "title": "Icônes Personnalisées",
-      "description": "Bibliothèque d'icônes sur mesure adaptées à votre projet",
-      "icon": "🎯",
-      "features": [
-        "Icônes SVG",
-        "Style personnalisé",
-        "Bibliothèque complète",
-        "Optimisation"
-      ],
-      "price": "À partir de 100€",
+      "description": "Bibliothèque d'icônes sur mesure parfaitement adaptées à votre projet. Chaque icône est pensée pour s'intégrer harmonieusement dans votre identité visuelle et renforcer votre communication.",
       "category": "icon"
     },
     {
       "id": 4,
       "title": "UI/UX Design",
-      "description": "Design d'interfaces utilisateur intuitives et attractives",
-      "icon": "💻",
-      "features": [
-        "Wireframes",
-        "Prototypes",
-        "User testing",
-        "Design system"
-      ],
-      "price": "À partir de 300€",
-      "category": "design"
-    },
-    {
-      "id": 5,
-      "title": "Motion Design",
-      "description": "Animations vidéo et motion graphics pour vos projets",
-      "icon": "🎬",
-      "features": [
-        "Animations vidéo",
-        "Motion graphics",
-        "Explainer videos",
-        "Transitions"
-      ],
-      "price": "À partir de 400€",
-      "category": "animation"
-    },
-    {
-      "id": 6,
-      "title": "Illustrations",
-      "description": "Illustrations originales et créatives pour votre communication",
-      "icon": "🖼️",
-      "features": [
-        "Illustrations vectorielles",
-        "Personnages",
-        "Scènes complexes",
-        "Style adaptatif"
-      ],
-      "price": "À partir de 250€",
+      "description": "Design d'interfaces utilisateur intuitives et attractives. Nous concevons des expériences digitales qui allient esthétique et fonctionnalité, guidant vos utilisateurs vers leurs objectifs avec fluidité.",
       "category": "design"
     }
   ]
 }
-

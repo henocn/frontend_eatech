@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { Palette, Sparkles, Target, Monitor, Video, Image as ImageIcon, Check } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useEffect, useRef } from 'react';
+import { Palette, Sparkles, Target, Layers } from 'lucide-react';
 import './ServiceCard.css';
 
 
@@ -12,25 +11,27 @@ const iconMap = {
     design: Palette,
     animation: Sparkles,
     icon: Target,
+    default: Layers,
 };
 
 
 
 /**
- * Composant ServiceCard pour afficher une carte de service individuelle
+ * Composant ServiceCard simplifié avec icône animée et description
  */
-function ServiceCard({ service }) {
-    const [isHovered, setIsHovered] = useState(false);
+function ServiceCard({ service, delay = 0 }) {
     const cardRef = useRef(null);
-    const { t } = useLanguage();
+    const iconRef = useRef(null);
 
     useEffect(() => {
-        // Animation au scroll
+        // Animation au scroll avec délai
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-in');
+                        setTimeout(() => {
+                            entry.target.classList.add('animate-in');
+                        }, delay);
                     }
                 });
             },
@@ -40,43 +41,23 @@ function ServiceCard({ service }) {
         if (cardRef.current) observer.observe(cardRef.current);
 
         return () => observer.disconnect();
-    }, []);
+    }, [delay]);
 
-    const IconComponent = iconMap[service.category] || Palette;
+    const IconComponent = iconMap[service.category] || iconMap.default;
 
     return (
         <div
             ref={cardRef}
-            className={`service-card ${isHovered ? 'hovered' : ''}`}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            className="service-card"
         >
-            <div className="service-icon">
-                <IconComponent size={48} strokeWidth={1.5} />
+            <div className="service-glow"></div>
+            <div className="service-icon-wrapper" ref={iconRef}>
+                <IconComponent className="service-icon" size={64} strokeWidth={1.5} />
             </div>
             <h3 className="service-title">{service.title}</h3>
             <p className="service-description">{service.description}</p>
-
-            <ul className="service-features">
-                {service.features.map((feature, index) => (
-                    <li key={index} className="feature-item">
-                        <Check className="feature-check" size={18} />
-                        {feature}
-                    </li>
-                ))}
-            </ul>
-
-            <div className="service-footer">
-                <div className="service-price">{service.price}</div>
-                <button className="service-btn">
-                    {t('services.learnMore')}
-                </button>
-            </div>
-
-            <div className="service-gradient"></div>
         </div>
     );
 }
 
 export default ServiceCard;
-

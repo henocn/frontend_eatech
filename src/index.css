@@ -85,7 +85,7 @@ button:focus-visible {
     outline-offset: 2px;
 }
 
-/* Animations globales */
+/* Animations globales subtiles */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -105,6 +105,35 @@ button:focus-visible {
         transform: translateY(0);
     }
 }
+
+@keyframes subtleFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+@keyframes gentlePulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.85;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* Animation subtile sur certains éléments (désactivée pour éviter trop d'animations) */
 
 /* Scrollbar personnalisée */
 ::-webkit-scrollbar {

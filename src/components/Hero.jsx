@@ -9,8 +9,10 @@ import './Hero.css';
  */
 function Hero() {
     const heroRef = useRef(null);
+    const welcomeRef = useRef(null);
     const titleRef = useRef(null);
     const subtitleRef = useRef(null);
+    const descriptionRef = useRef(null);
     const ctaRef = useRef(null);
     const videoRef = useRef(null);
     const { t } = useLanguage();
@@ -28,8 +30,10 @@ function Hero() {
             { threshold: 0.1 }
         );
 
+        if (welcomeRef.current) observer.observe(welcomeRef.current);
         if (titleRef.current) observer.observe(titleRef.current);
         if (subtitleRef.current) observer.observe(subtitleRef.current);
+        if (descriptionRef.current) observer.observe(descriptionRef.current);
         if (ctaRef.current) observer.observe(ctaRef.current);
 
         // Démarrage de la vidéo en boucle
@@ -84,13 +88,17 @@ function Hero() {
                 <div className="gradient-orb orb-3"></div>
             </div>
             <div className="hero-content">
+                <div className="hero-welcome" ref={welcomeRef}>
+                    {t('hero.welcome')}
+                </div>
                 <h1 className="hero-title" ref={titleRef}>
-                    <span className="title-line">{t('hero.title1')}</span>
-                    <span className="title-line">{t('hero.title2')}</span>
-                    <span className="title-line highlight">{t('hero.title3')}</span>
+                    <span className="title-main">{t('hero.titleMain')}</span>
                 </h1>
                 <p className="hero-subtitle" ref={subtitleRef}>
                     {t('hero.subtitle')}
+                </p>
+                <p className="hero-description" ref={descriptionRef}>
+                    {t('hero.description')}
                 </p>
                 <div className="hero-cta" ref={ctaRef}>
                     <button className="btn btn-primary" onClick={scrollToServices}>
