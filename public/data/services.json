@@ -1,0 +1,28 @@
+{
+  "services": [
+    {
+      "id": 1,
+      "title": "Design Graphique",
+      "description": "Nous créons des designs modernes et professionnels qui donnent vie à votre marque. De la création de logo à l'identité visuelle complète, nous transformons vos idées en visuels impactants.",
+      "category": "design"
+    },
+    {
+      "id": 2,
+      "title": "Animations JavaScript",
+      "description": "Des animations interactives et fluides qui enrichissent vos interfaces web. Nos créations apportent une dimension dynamique à vos projets, captivant l'attention et améliorant l'expérience utilisateur.",
+      "category": "animation"
+    },
+    {
+      "id": 3,
+      "title": "Icônes Personnalisées",
+      "description": "Bibliothèque d'icônes sur mesure parfaitement adaptées à votre projet. Chaque icône est pensée pour s'intégrer harmonieusement dans votre identité visuelle et renforcer votre communication.",
+      "category": "icon"
+    },
+    {
+      "id": 4,
+      "title": "UI/UX Design",
+      "description": "Design d'interfaces utilisateur intuitives et attractives. Nous concevons des expériences digitales qui allient esthétique et fonctionnalité, guidant vos utilisateurs vers leurs objectifs avec fluidité.",
+      "category": "design"
+    }
+  ]
+}
