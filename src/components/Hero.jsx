@@ -109,11 +109,6 @@ function Hero() {
                     </button>
                 </div>
             </div>
-            <div className="scroll-indicator">
-                <div className="mouse">
-                    <div className="wheel"></div>
-                </div>
-            </div>
         </section>
     );
 }
