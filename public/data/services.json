@@ -1,0 +1,89 @@
+{
+  "services": [
+    {
+      "id": 1,
+      "title": "Design Graphique",
+      "description": "Création de designs modernes et professionnels pour votre marque",
+      "icon": "🎨",
+      "features": [
+        "Logo design",
+        "Identité visuelle",
+        "Publipostage",
+        "Packaging"
+      ],
+      "price": "À partir de 150€",
+      "category": "design"
+    },
+    {
+      "id": 2,
+      "title": "Animations JavaScript",
+      "description": "Animations interactives et fluides pour enrichir vos interfaces web",
+      "icon": "✨",
+      "features": [
+        "Animations CSS/JS",
+        "Scroll animations",
+        "Interactions utilisateur",
+        "Effets visuels"
+      ],
+      "price": "À partir de 200€",
+      "category": "animation"
+    },
+    {
+      "id": 3,
+      "title": "Icônes Personnalisées",
+      "description": "Bibliothèque d'icônes sur mesure adaptées à votre projet",
+      "icon": "🎯",
+      "features": [
+        "Icônes SVG",
+        "Style personnalisé",
+        "Bibliothèque complète",
+        "Optimisation"
+      ],
+      "price": "À partir de 100€",
+      "category": "icon"
+    },
+    {
+      "id": 4,
+      "title": "UI/UX Design",
+      "description": "Design d'interfaces utilisateur intuitives et attractives",
+      "icon": "💻",
+      "features": [
+        "Wireframes",
+        "Prototypes",
+        "User testing",
+        "Design system"
+      ],
+      "price": "À partir de 300€",
+      "category": "design"
+    },
+    {
+      "id": 5,
+      "title": "Motion Design",
+      "description": "Animations vidéo et motion graphics pour vos projets",
+      "icon": "🎬",
+      "features": [
+        "Animations vidéo",
+        "Motion graphics",
+        "Explainer videos",
+        "Transitions"
+      ],
+      "price": "À partir de 400€",
+      "category": "animation"
+    },
+    {
+      "id": 6,
+      "title": "Illustrations",
+      "description": "Illustrations originales et créatives pour votre communication",
+      "icon": "🖼️",
+      "features": [
+        "Illustrations vectorielles",
+        "Personnages",
+        "Scènes complexes",
+        "Style adaptatif"
+      ],
+      "price": "À partir de 250€",
+      "category": "design"
+    }
+  ]
+}
+
