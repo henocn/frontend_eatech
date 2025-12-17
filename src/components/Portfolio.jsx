@@ -1,14 +1,24 @@
+import { useEffect, useRef } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Video, Image as ImageIcon, Play } from 'lucide-react';
 import './Portfolio.css';
 
 
 
 /**
- * Composant Portfolio pour afficher les réalisations (images/vidéos)
+ * Composant Portfolio avec vidéo background et cards de réalisations
  */
 function Portfolio() {
     const { t } = useLanguage();
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        // Démarrage de la vidéo en boucle
+        if (videoRef.current) {
+            videoRef.current.play().catch(err => {
+                console.log('Video autoplay prevented:', err);
+            });
+        }
+    }, []);
 
     // Données de démonstration - sera remplacé par les vraies données plus tard
     const portfolioItems = [
@@ -22,39 +32,50 @@ function Portfolio() {
 
     return (
         <section id="portfolio" className="portfolio">
-            <div className="portfolio-container">
-                <div className="portfolio-header" data-aos="fade-up">
-                    <h2 className="section-title">{t('portfolio.title')}</h2>
-                    <p className="section-subtitle">
-                        {t('portfolio.subtitle')}
-                    </p>
-                </div>
+            {/* Section vidéo background */}
+            <div className="portfolio-video-section">
+                <video
+                    ref={videoRef}
+                    className="portfolio-video"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                >
+                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+                </video>
+                <div className="portfolio-video-overlay"></div>
+            </div>
 
-                <div className="portfolio-grid">
-                    {portfolioItems.map((item, index) => (
-                        <div
-                            key={item.id}
-                            className="portfolio-item"
-                            data-aos="fade-up"
-                            data-aos-delay={index * 100}
-                        >
-                            <div className="portfolio-media">
-                                {item.type === 'video' ? (
-                                    <>
-                                        <Video className="media-icon" size={48} />
-                                        <div className="play-overlay">
-                                            <Play className="play-icon" size={32} fill="white" />
-                                        </div>
-                                    </>
-                                ) : (
-                                    <ImageIcon className="media-icon" size={48} />
-                                )}
+            {/* Section des réalisations avec cards */}
+            <div className="portfolio-content">
+                <div className="portfolio-container">
+                    <div className="portfolio-header" data-aos="fade-up">
+                        <h2 className="section-title">{t('portfolio.title')}</h2>
+                        <p className="section-subtitle">
+                            {t('portfolio.subtitle')}
+                        </p>
+                    </div>
+
+                    <div className="portfolio-grid">
+                        {portfolioItems.map((item, index) => (
+                            <div
+                                key={item.id}
+                                className="portfolio-card"
+                                data-aos="fade-up"
+                                data-aos-delay={index * 100}
+                            >
+                                <div className="portfolio-card-media">
+                                    <div className="portfolio-placeholder">
+                                        {item.type === 'video' ? '🎬' : '🖼️'}
+                                    </div>
+                                </div>
+                                <div className="portfolio-card-content">
+                                    <h3 className="portfolio-card-title">{item.title}</h3>
+                                </div>
                             </div>
-                            <div className="portfolio-overlay">
-                                <h3 className="portfolio-title">{item.title}</h3>
-                            </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>
@@ -62,4 +83,3 @@ function Portfolio() {
 }
 
 export default Portfolio;
-
