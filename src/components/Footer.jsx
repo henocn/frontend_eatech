@@ -1,3 +1,5 @@
+import { Palette, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 import './Footer.css';
 
 
@@ -7,6 +9,7 @@ import './Footer.css';
  */
 function Footer() {
     const currentYear = new Date().getFullYear();
+    const { t } = useLanguage();
 
     return (
         <footer id="contact" className="footer">
@@ -14,16 +17,16 @@ function Footer() {
                 <div className="footer-content">
                     <div className="footer-section">
                         <h3 className="footer-title">
-                            <span className="footer-logo-icon">🎨</span>
+                            <Palette className="footer-logo-icon" size={28} />
                             EA Tech
                         </h3>
                         <p className="footer-description">
-                            Des solutions créatives et innovantes pour transformer vos idées en réalité.
+                            {t('footer.description')}
                         </p>
                     </div>
 
                     <div className="footer-section">
-                        <h4 className="footer-heading">Services</h4>
+                        <h4 className="footer-heading">{t('footer.services')}</h4>
                         <ul className="footer-links">
                             <li><a href="#services">Design Graphique</a></li>
                             <li><a href="#services">Animations JS</a></li>
@@ -33,27 +36,44 @@ function Footer() {
                     </div>
 
                     <div className="footer-section">
-                        <h4 className="footer-heading">Contact</h4>
+                        <h4 className="footer-heading">{t('footer.contact')}</h4>
                         <ul className="footer-contact">
-                            <li>📧 contact@eatech.com</li>
-                            <li>📱 +33 1 23 45 67 89</li>
-                            <li>📍 123 Rue de la Créativité, 75001 Paris</li>
+                            <li>
+                                <Mail size={18} />
+                                <span>contact@eatech.com</span>
+                            </li>
+                            <li>
+                                <Phone size={18} />
+                                <span>+33 1 23 45 67 89</span>
+                            </li>
+                            <li>
+                                <MapPin size={18} />
+                                <span>123 Rue de la Créativité, 75001 Paris</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div className="footer-section">
-                        <h4 className="footer-heading">Suivez-nous</h4>
+                        <h4 className="footer-heading">{t('footer.follow')}</h4>
                         <div className="footer-social">
-                            <a href="#" className="social-link" aria-label="Facebook">📘</a>
-                            <a href="#" className="social-link" aria-label="Twitter">🐦</a>
-                            <a href="#" className="social-link" aria-label="Instagram">📷</a>
-                            <a href="#" className="social-link" aria-label="LinkedIn">💼</a>
+                            <a href="#" className="social-link" aria-label="Facebook">
+                                <Facebook size={20} />
+                            </a>
+                            <a href="#" className="social-link" aria-label="Twitter">
+                                <Twitter size={20} />
+                            </a>
+                            <a href="#" className="social-link" aria-label="Instagram">
+                                <Instagram size={20} />
+                            </a>
+                            <a href="#" className="social-link" aria-label="LinkedIn">
+                                <Linkedin size={20} />
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 <div className="footer-bottom">
-                    <p>&copy; {currentYear} EA Tech. Tous droits réservés.</p>
+                    <p>&copy; {currentYear} EA Tech. {t('footer.rights')}</p>
                 </div>
             </div>
         </footer>

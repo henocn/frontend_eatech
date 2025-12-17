@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import apiService from '../services/apiService';
 import ServiceCard from './ServiceCard';
+import { useLanguage } from '../contexts/LanguageContext';
 import './Services.css';
 
 
@@ -13,10 +14,32 @@ function Services() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState('all');
+    const sectionRef = useRef(null);
+    const headerRef = useRef(null);
+    const { t } = useLanguage();
 
     useEffect(() => {
         loadServices();
     }, []);
+
+    useEffect(() => {
+        // Animation au scroll
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            },
+            { threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
+        );
+
+        if (headerRef.current) observer.observe(headerRef.current);
+        if (sectionRef.current) observer.observe(sectionRef.current);
+
+        return () => observer.disconnect();
+    }, [services]);
 
     /**
      * Charge les services depuis l'API ou les fichiers JSON
@@ -29,7 +52,7 @@ function Services() {
             setServices(data);
             setError(null);
         } catch (err) {
-            setError('Erreur lors du chargement des services');
+            setError(t('services.error'));
             console.error(err);
         } finally {
             setLoading(false);
@@ -45,10 +68,10 @@ function Services() {
 
     const categories = ['all', 'design', 'animation', 'icon'];
     const categoryLabels = {
-        all: 'Tous',
-        design: 'Design',
-        animation: 'Animations',
-        icon: 'Icônes'
+        all: t('services.all'),
+        design: t('services.design'),
+        animation: t('services.animation'),
+        icon: t('services.icon')
     };
 
     if (loading) {
@@ -57,7 +80,7 @@ function Services() {
                 <div className="services-container">
                     <div className="loading-spinner">
                         <div className="spinner"></div>
-                        <p>Chargement des services...</p>
+                        <p>{t('services.loading')}</p>
                     </div>
                 </div>
             </section>
@@ -71,7 +94,7 @@ function Services() {
                     <div className="error-message">
                         <p>{error}</p>
                         <button onClick={loadServices} className="btn btn-primary">
-                            Réessayer
+                            {t('services.retry')}
                         </button>
                     </div>
                 </div>
@@ -80,12 +103,12 @@ function Services() {
     }
 
     return (
-        <section id="services" className="services">
+        <section id="services" className="services" ref={sectionRef}>
             <div className="services-container">
-                <div className="services-header">
-                    <h2 className="section-title">Nos Services</h2>
+                <div className="services-header" ref={headerRef}>
+                    <h2 className="section-title">{t('services.title')}</h2>
                     <p className="section-subtitle">
-                        Des solutions créatives sur mesure pour transformer vos idées en réalité
+                        {t('services.subtitle')}
                     </p>
                 </div>
 
@@ -109,7 +132,7 @@ function Services() {
 
                 {filteredServices.length === 0 && (
                     <div className="no-results">
-                        <p>Aucun service trouvé dans cette catégorie</p>
+                        <p>{t('services.noResults')}</p>
                     </div>
                 )}
             </div>

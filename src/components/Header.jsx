@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import { Palette, Menu, X, Moon, Sun, Globe } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import './Header.css';
 
 
@@ -9,6 +12,8 @@ import './Header.css';
 function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const { theme, toggleTheme } = useTheme();
+    const { t, toggleLanguage } = useLanguage();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -19,6 +24,9 @@ function Header() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    /**
+     * Bascule le menu mobile
+     */
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
@@ -27,32 +35,36 @@ function Header() {
         <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
             <div className="header-container">
                 <div className="logo">
-                    <span className="logo-icon">🎨</span>
+                    <Palette className="logo-icon" size={28} />
                     <span className="logo-text">EA Tech</span>
                 </div>
 
                 <nav className={`nav ${isMobileMenuOpen ? 'open' : ''}`}>
                     <a href="#home" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                        Accueil
+                        {t('nav.home')}
                     </a>
                     <a href="#services" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                        Services
+                        {t('nav.services')}
                     </a>
                     <a href="#about" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                        À propos
+                        {t('nav.about')}
                     </a>
                     <a href="#contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                        Contact
+                        {t('nav.contact')}
                     </a>
                 </nav>
 
-                <button className="menu-toggle" onClick={toggleMobileMenu}>
-                    <span className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
-                </button>
+                <div className="header-actions">
+                    <button className="icon-button" onClick={toggleLanguage} aria-label="Toggle language">
+                        <Globe size={20} />
+                    </button>
+                    <button className="icon-button" onClick={toggleTheme} aria-label="Toggle theme">
+                        {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+                    </button>
+                    <button className="menu-toggle" onClick={toggleMobileMenu} aria-label="Toggle menu">
+                        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
+                </div>
             </div>
         </header>
     );

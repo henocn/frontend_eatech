@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
+import { ThemeProvider } from './contexts/ThemeContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import Footer from './components/Footer';
+import BookingButton from './components/BookingButton';
 import './App.css';
 
 
@@ -21,14 +24,19 @@ function App() {
     }, []);
 
     return (
-        <div className="app">
-            <Header />
-            <main>
-                <Hero />
-                <Services />
-            </main>
-            <Footer />
-        </div>
+        <ThemeProvider>
+            <LanguageProvider>
+                <div className="app">
+                    <Header />
+                    <main>
+                        <Hero />
+                        <Services />
+                    </main>
+                    <Footer />
+                    <BookingButton />
+                </div>
+            </LanguageProvider>
+        </ThemeProvider>
     );
 }
 

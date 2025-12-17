@@ -19,6 +19,20 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+[data-theme="dark"] {
+    color-scheme: dark;
+    color: #e2e8f0;
+    background-color: #1a202c;
+}
+
+[data-theme="dark"] body {
+    background-color: #1a202c;
+}
+
+[data-theme="dark"] #root {
+    background-color: #1a202c;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -28,6 +42,7 @@ body {
     min-width: 320px;
     min-height: 100vh;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #root {
@@ -49,6 +64,14 @@ a {
 
 a:hover {
     color: #764ba2;
+}
+
+[data-theme="dark"] a {
+    color: #8b9aff;
+}
+
+[data-theme="dark"] a:hover {
+    color: #a5b4fc;
 }
 
 button {
@@ -90,6 +113,10 @@ button:focus-visible {
 
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: #2d3748;
 }
 
 ::-webkit-scrollbar-thumb {

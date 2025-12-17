@@ -1,0 +1,83 @@
+.booking-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: slideInRight 0.5s ease;
+}
+
+.booking-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+}
+
+.booking-button:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+.booking-icon {
+    animation: pulseIcon 2s ease-in-out infinite;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulseIcon {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+[data-theme="dark"] .booking-button {
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+}
+
+[data-theme="dark"] .booking-button:hover {
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.7);
+}
+
+@media (max-width: 768px) {
+    .booking-button {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        padding: 0.875rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .booking-text {
+        display: none;
+    }
+
+    .booking-button {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        padding: 0;
+        justify-content: center;
+    }
+}
+
