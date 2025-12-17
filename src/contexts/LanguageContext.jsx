@@ -44,6 +44,10 @@ const translations = {
         },
         booking: {
             button: 'Réserver maintenant'
+        },
+        portfolio: {
+            title: 'Nos Réalisations',
+            subtitle: 'Découvrez quelques-uns de nos projets réalisés dans notre studio'
         }
     },
     en: {
@@ -83,6 +87,10 @@ const translations = {
         },
         booking: {
             button: 'Book now'
+        },
+        portfolio: {
+            title: 'Our Portfolio',
+            subtitle: 'Discover some of our projects created in our studio'
         }
     }
 };

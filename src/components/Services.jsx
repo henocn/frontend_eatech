@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import apiService from '../services/apiService';
 import ServiceCard from './ServiceCard';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -13,32 +13,13 @@ function Services() {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const sectionRef = useRef(null);
-    const headerRef = useRef(null);
     const { t } = useLanguage();
 
     useEffect(() => {
         loadServices();
     }, []);
 
-    useEffect(() => {
-        // Animation au scroll
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-in');
-                    }
-                });
-            },
-            { threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
-        );
-
-        if (headerRef.current) observer.observe(headerRef.current);
-        if (sectionRef.current) observer.observe(sectionRef.current);
-
-        return () => observer.disconnect();
-    }, [services]);
+    // AOS gère maintenant les animations au scroll
 
     /**
      * Charge les services depuis l'API ou les fichiers JSON
@@ -88,9 +69,9 @@ function Services() {
     }
 
     return (
-        <section id="services" className="services" ref={sectionRef}>
+        <section id="services" className="services">
             <div className="services-container">
-                <div className="services-header" ref={headerRef}>
+                <div className="services-header" data-aos="fade-up">
                     <h2 className="section-title">{t('services.title')}</h2>
                     <p className="section-subtitle">
                         {t('services.subtitle')}
