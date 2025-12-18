@@ -41,9 +41,9 @@ function Header({ current }) {
                 </div>
 
                 <nav className={`nav ${isMobileMenuOpen ? 'open' : ''}`}>
-                    <a href="#home" className={`nav-link ${current === 'home' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+                    <Link to="/" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
                         {t('nav.home')}
-                    </a>
+                    </Link>
                     <a href="#services" className={`nav-link ${current === 'services' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                         {t('nav.services')}
                     </a>
