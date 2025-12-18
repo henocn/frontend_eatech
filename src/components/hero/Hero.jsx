@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../../contexts/LanguageContext';
 import './Hero.css';
 
 
@@ -16,6 +17,7 @@ function Hero() {
     const ctaRef = useRef(null);
     const videoRef = useRef(null);
     const { t } = useLanguage();
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Animation d'entrée au chargement
@@ -49,7 +51,7 @@ function Hero() {
     }, []);
 
     /**
-     * Scroll vers la section des services
+     * Navigue vers la page de réservation
      */
     const scrollToServices = () => {
         const servicesSection = document.getElementById('services');
@@ -58,15 +60,7 @@ function Hero() {
         }
     };
 
-    /**
-     * Scroll vers la section de contact
-     */
-    const scrollToContact = () => {
-        const contactSection = document.getElementById('contact');
-        if (contactSection) {
-            contactSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
+    // Contact scroll removed — secondary CTA will navigate to booking
 
     return (
         <section id="home" className="hero" ref={heroRef}>
@@ -79,8 +73,7 @@ function Hero() {
                     muted
                     playsInline
                 >
-                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
-                    {/* Vidéo de fallback - vous pouvez remplacer par votre propre vidéo */}
+                    <source src="/videos/video1.mp4" type="video/mp4" />
                 </video>
                 <div className="hero-video-overlay"></div>
                 <div className="gradient-orb orb-1"></div>
@@ -104,7 +97,7 @@ function Hero() {
                     <button className="btn btn-primary" onClick={scrollToServices}>
                         {t('hero.cta1')}
                     </button>
-                    <button className="btn btn-secondary" onClick={scrollToContact}>
+                    <button className="btn btn-secondary" onClick={() => navigate('/booking')}>
                         {t('hero.cta2')}
                     </button>
                 </div>

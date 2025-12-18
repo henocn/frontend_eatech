@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Calendar } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import './BookingButton.css';
@@ -11,6 +12,7 @@ import './BookingButton.css';
 function BookingButton() {
     const { t } = useLanguage();
     const [isVisible, setIsVisible] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -26,11 +28,8 @@ function BookingButton() {
      * Gère le clic sur le bouton de réservation
      */
     const handleBookingClick = () => {
-        // Scroll vers la section de réservation ou ouvrir un modal
-        const servicesSection = document.getElementById('services');
-        if (servicesSection) {
-            servicesSection.scrollIntoView({ behavior: 'smooth' });
-        }
+        // Navigue vers la page de réservation
+        navigate('/booking');
     };
 
     if (!isVisible) return null;

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Palette, Menu, X, Moon, Sun, Globe } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useTheme } from '../../contexts/ThemeContext';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { Link } from 'react-router-dom';
 import './Header.css';
 
 
@@ -9,7 +10,7 @@ import './Header.css';
 /**
  * Composant Header avec navigation et animation au scroll
  */
-function Header() {
+function Header({ current }) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { theme, toggleTheme } = useTheme();
@@ -40,18 +41,21 @@ function Header() {
                 </div>
 
                 <nav className={`nav ${isMobileMenuOpen ? 'open' : ''}`}>
-                    <a href="#home" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Link to="/" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
                         {t('nav.home')}
-                    </a>
-                    <a href="#services" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                    </Link>
+                    <a href="#services" className={`nav-link ${current === 'services' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                         {t('nav.services')}
                     </a>
-                    <a href="#about" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                        {t('nav.about')}
-                    </a>
-                    <a href="#contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                    <a href="#contact" className={`nav-link ${current === 'contact' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                         {t('nav.contact')}
                     </a>
+                    <a href="#about" className={`nav-link ${current === 'about' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+                        {t('nav.about')}
+                    </a>
+                    <Link to="/auth/login" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                        {t('nav.account')}
+                    </Link>
                 </nav>
 
                 <div className="header-actions">

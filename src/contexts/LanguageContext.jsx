@@ -11,16 +11,17 @@ const translations = {
         nav: {
             home: 'Accueil',
             services: 'Services',
+            account: 'Compte',
             about: 'À propos',
             contact: 'Contact'
         },
         hero: {
             welcome: 'Bienvenue',
             titleMain: 'Next Level Design',
-            subtitle: "Nous sommes votre agence créative",
-            description: "Nous réalisons votre vision – créatif, individuel, réussi. Notre équipe jeune et créative concrétise vos idées avec passion et savoir-faire.",
-            cta1: 'Découvrir nos services',
-            cta2: 'Nous contacter'
+            subtitle: "Bien fait et vite fait",
+            description: "Nous realisons un travail professionnel, créatif et réussi grace à nos experts en design infographie et developpement. ",
+            cta1: 'Nos services',
+            cta2: 'Reservation'
         },
         services: {
             title: 'Nos Services',
@@ -54,16 +55,17 @@ const translations = {
         nav: {
             home: 'Home',
             services: 'Services',
+            account: 'Account',
             about: 'About',
             contact: 'Contact'
         },
         hero: {
             welcome: 'Welcome',
             titleMain: 'Next Level Design',
-            subtitle: 'We are your creative agency',
-            description: "We build your vision – creative, individual, successful. Our young, creative team brings your ideas to life with passion and expertise.",
-            cta1: 'Discover our services',
-            cta2: 'Contact us'
+            subtitle: "Well done and quickly done",
+            description: "We deliver professional, creative, and successful work thanks to our experts in graphic design and development.",
+            cta1: 'Our services',
+            cta2: 'Book a session'
         },
         services: {
             title: 'Our Services',
