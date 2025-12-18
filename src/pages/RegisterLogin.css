@@ -12,12 +12,10 @@
   align-items: center;
   width: 100%;
   height: 100vh;
-  /* background-image: url(/images/bg2.avif); */
   background-image: url(/images/bg2.jpg);
   background-size: cover;
   background-position: center;
   animation: animateBg 10s linear infinite;
-  /* filter: brightness(0.8); */
 }
 
 @keyframes animateBg{
