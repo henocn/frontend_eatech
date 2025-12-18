@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import apiService from '../services/apiService';
+import apiService from '../../utils/apiService';
 import ServiceCard from './ServiceCard';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 import './Services.css';
 
 

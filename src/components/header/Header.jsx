@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Palette, Menu, X, Moon, Sun, Globe } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useTheme } from '../../contexts/ThemeContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
