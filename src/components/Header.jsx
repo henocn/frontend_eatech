@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Palette, Menu, X, Moon, Sun, Globe } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { Link } from 'react-router-dom';
 import './Header.css';
 
 
@@ -52,9 +53,9 @@ function Header({ current }) {
                     <a href="#about" className={`nav-link ${current === 'about' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                         {t('nav.about')}
                     </a>
-                    <a href="#account" className={`nav-link ${current === 'account' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+                    <Link to="/account" className={`nav-link ${current === 'account' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                         {t('nav.account')}
-                    </a>
+                    </Link>
                 </nav>
 
                 <div className="header-actions">

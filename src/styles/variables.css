@@ -1,0 +1,27 @@
+:root {
+  /* Core colors */
+  --color-bg: #ffffff;
+  --color-text: #2c3e50;
+  --color-primary: #667eea;
+  --color-primary-2: #764ba2;
+  --color-link-hover: #764ba2;
+  --color-outline: #667eea;
+
+  /* Scrollbar */
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb-start: #667eea;
+  --scrollbar-thumb-end: #764ba2;
+}
+
+[data-theme="dark"] {
+  --color-bg: #1a202c;
+  --color-text: #e2e8f0;
+  --color-primary: #8b9aff;
+  --color-primary-2: #a5b4fc;
+  --color-link-hover: #a5b4fc;
+  --color-outline: #8b9aff;
+
+  --scrollbar-track: #2d3748;
+  --scrollbar-thumb-start: #8b9aff;
+  --scrollbar-thumb-end: #a5b4fc;
+}
