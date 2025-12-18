@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import './Hero.css';
 
@@ -16,6 +17,7 @@ function Hero() {
     const ctaRef = useRef(null);
     const videoRef = useRef(null);
     const { t } = useLanguage();
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Animation d'entrée au chargement
@@ -49,24 +51,13 @@ function Hero() {
     }, []);
 
     /**
-     * Scroll vers la section des services
+     * Navigue vers la page de réservation
      */
     const scrollToServices = () => {
-        const servicesSection = document.getElementById('services');
-        if (servicesSection) {
-            servicesSection.scrollIntoView({ behavior: 'smooth' });
-        }
+        navigate('/booking');
     };
 
-    /**
-     * Scroll vers la section de contact
-     */
-    const scrollToContact = () => {
-        const contactSection = document.getElementById('contact');
-        if (contactSection) {
-            contactSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
+    // Contact scroll removed — secondary CTA will navigate to booking
 
     return (
         <section id="home" className="hero" ref={heroRef}>
@@ -103,7 +94,7 @@ function Hero() {
                     <button className="btn btn-primary" onClick={scrollToServices}>
                         {t('hero.cta1')}
                     </button>
-                    <button className="btn btn-secondary" onClick={scrollToContact}>
+                    <button className="btn btn-secondary" onClick={() => navigate('/booking')}>
                         {t('hero.cta2')}
                     </button>
                 </div>
