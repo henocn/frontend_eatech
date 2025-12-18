@@ -42,7 +42,7 @@ function Portfolio() {
                     muted
                     playsInline
                 >
-                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+                    <source src="/videos/video2.mp4" type="video/mp4" />
                 </video>
                 <div className="portfolio-video-overlay"></div>
             </div>
