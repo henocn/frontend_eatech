@@ -54,7 +54,10 @@ function Hero() {
      * Navigue vers la page de réservation
      */
     const scrollToServices = () => {
-        navigate('/booking');
+        const servicesSection = document.getElementById('services');
+        if (servicesSection) {
+            servicesSection.scrollIntoView({ behavior: 'smooth' });
+        }
     };
 
     // Contact scroll removed — secondary CTA will navigate to booking
