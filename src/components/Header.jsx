@@ -9,7 +9,7 @@ import './Header.css';
 /**
  * Composant Header avec navigation et animation au scroll
  */
-function Header() {
+function Header({ current }) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { theme, toggleTheme } = useTheme();
@@ -40,17 +40,20 @@ function Header() {
                 </div>
 
                 <nav className={`nav ${isMobileMenuOpen ? 'open' : ''}`}>
-                    <a href="#home" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                    <a href="#home" className={`nav-link ${current === 'home' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                         {t('nav.home')}
                     </a>
-                    <a href="#services" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                    <a href="#services" className={`nav-link ${current === 'services' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                         {t('nav.services')}
                     </a>
-                    <a href="#about" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                    <a href="#contact" className={`nav-link ${current === 'contact' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+                        {t('nav.contact')}
+                    </a>
+                    <a href="#about" className={`nav-link ${current === 'about' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                         {t('nav.about')}
                     </a>
-                    <a href="#contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                        {t('nav.contact')}
+                    <a href="#account" className={`nav-link ${current === 'account' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+                        {t('nav.account')}
                     </a>
                 </nav>
 

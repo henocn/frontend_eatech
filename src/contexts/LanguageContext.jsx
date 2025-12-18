@@ -11,6 +11,7 @@ const translations = {
         nav: {
             home: 'Accueil',
             services: 'Services',
+            account: 'Compte',
             about: 'À propos',
             contact: 'Contact'
         },
@@ -54,6 +55,7 @@ const translations = {
         nav: {
             home: 'Home',
             services: 'Services',
+            account: 'Account',
             about: 'About',
             contact: 'Contact'
         },

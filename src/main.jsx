@@ -4,6 +4,7 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import './index.css'
 import App from './App.jsx'
+import { BrowserRouter } from 'react-router-dom'
 
 // Initialisation de AOS (Animate On Scroll)
 AOS.init({
@@ -16,6 +17,8 @@ AOS.init({
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>,
 )

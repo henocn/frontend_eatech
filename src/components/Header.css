@@ -107,6 +107,11 @@
     color: #667eea;
 }
 
+.active.nav-link {
+    color: #667eea;
+    font-weight: 700;
+}
+
 .nav-link:hover::after {
     width: 100%;
 }
