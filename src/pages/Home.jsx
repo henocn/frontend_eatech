@@ -9,8 +9,8 @@ import "../App.css";
 
 const Home = () => {
   return (
-    <>
-      <Header current="home" />
+    <div className="app">
+      <Header />
       <main>
         <Hero />
         <Services />
@@ -18,7 +18,7 @@ const Home = () => {
       </main>
       <BookingButton />
       <Footer />
-    </>
+    </div>
   );
 };
 

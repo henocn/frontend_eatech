@@ -4,11 +4,9 @@ import { LanguageProvider } from "./contexts/LanguageContext";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import BookingPage from "./pages/BookingPage";
-import Account from "./pages/Account";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import BookingButton from "./components/BookingButton";
 import "./App.css";
+import Login from "./pages/Login";
+// import Register from "./components/Register";
 
 /**
  * Composant principal de l'application
@@ -26,13 +24,12 @@ function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <div className="app">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/account" element={<Account />} />
             <Route path="/booking" element={<BookingPage />} />
+            <Route path="/auth/login" element={<Login />} />
+            {/* <Route path="/auth/register" element={<Register />} /> */}
           </Routes>
-        </div>
       </LanguageProvider>
     </ThemeProvider>
   );

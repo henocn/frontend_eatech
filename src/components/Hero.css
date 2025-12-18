@@ -29,7 +29,7 @@
     transform: translate(-50%, -50%) scale(1.2);
     object-fit: cover;
     opacity: 0.4;
-    filter: blur(10px) brightness(0.8);
+    filter: blur(5px) brightness(0.8);
     z-index: 0;
 }
 

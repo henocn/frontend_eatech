@@ -50,22 +50,6 @@ const translations = {
             title: 'Nos Réalisations',
             subtitle: 'Découvrez quelques-uns de nos projets réalisés dans notre studio'
         }
-        ,
-        account: {
-            loginTitle: 'Connexion',
-            registerTitle: 'Inscription',
-            email: 'Email',
-            password: 'Mot de passe',
-            fullname: 'Nom complet',
-            phone: 'Téléphone',
-            submitLogin: 'Se connecter',
-            submitRegister: "S'inscrire",
-            switchToRegister: "Pas de compte ? Créer un compte",
-            switchToLogin: 'Déjà un compte ? Se connecter',
-            remember: 'Se souvenir de moi',
-            forget: 'Mot de passe oublié ?',
-            registerLink: 'S\'inscrire'
-        }
     },
     en: {
         nav: {
@@ -109,22 +93,6 @@ const translations = {
         portfolio: {
             title: 'Our Portfolio',
             subtitle: 'Discover some of our projects created in our studio'
-        }
-        ,
-        account: {
-            loginTitle: 'Login',
-            registerTitle: 'Register',
-            email: 'Email',
-            password: 'Password',
-            fullname: 'Full name',
-            phone: 'Phone',
-            submitLogin: 'Sign in',
-            submitRegister: 'Create account',
-            switchToRegister: "Don't have an account? Create one",
-            switchToLogin: 'Already have an account? Sign in',
-            remember: 'Remember me',
-            forget: 'Forgot password?',
-            registerLink: 'Register'
         }
     }
 };
