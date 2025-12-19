@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { useLanguage } from '../../contexts/LanguageContext';
 import './Portfolio.css';
+import PhotographySets from '../photographysets/PhotographySets';
 
 
 
@@ -8,17 +8,8 @@ import './Portfolio.css';
  * Composant Portfolio avec vidéo background et cards de réalisations
  */
 function Portfolio() {
-    const { t } = useLanguage();
-    const videoRef = useRef(null);
-
-    useEffect(() => {
-        // Démarrage de la vidéo en boucle
-        if (videoRef.current) {
-            videoRef.current.play().catch(err => {
-                console.log('Video autoplay prevented:', err);
-            });
-        }
-    }, []);
+    
+    // photography carousel will handle video playback
 
     // Données de démonstration - sera remplacé par les vraies données plus tard
     const portfolioItems = [
@@ -33,27 +24,15 @@ function Portfolio() {
     return (
         <section id="portfolio" className="portfolio">
             {/* Section vidéo background */}
-            <div className="portfolio-video-section">
-                <video
-                    ref={videoRef}
-                    className="portfolio-video"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                >
-                    <source src="/videos/video2.mp4" type="video/mp4" />
-                </video>
-                <div className="portfolio-video-overlay"></div>
-            </div>
+            <PhotographySets />
 
             {/* Section des réalisations avec cards */}
             <div className="portfolio-content">
                 <div className="portfolio-container">
                     <div className="portfolio-header" data-aos="fade-up">
-                        <h2 className="section-title">{t('portfolio.title')}</h2>
+                        <h2 className="section-title">Nos Réalisations</h2>
                         <p className="section-subtitle">
-                            {t('portfolio.subtitle')}
+                            Découvrez quelques-uns de nos projets réalisés dans notre studio
                         </p>
                     </div>
 

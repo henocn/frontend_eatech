@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import { LanguageProvider } from "./contexts/LanguageContext";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import BookingPage from "./pages/BookingPage";
 import "./App.css";
-import Login from "./pages/Login";
-// import Register from "./components/Register";
+// login page is available at /account/login if needed
 
 /**
  * Composant principal de l'application
@@ -23,14 +21,10 @@ function App() {
 
   return (
     <ThemeProvider>
-      <LanguageProvider>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/booking" element={<BookingPage />} />
-            <Route path="/auth/login" element={<Login />} />
-            {/* <Route path="/auth/register" element={<Register />} /> */}
           </Routes>
-      </LanguageProvider>
     </ThemeProvider>
   );
 }
