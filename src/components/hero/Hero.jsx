@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLanguage } from '../../contexts/LanguageContext';
 import './Hero.css';
 
 
@@ -16,8 +15,6 @@ function Hero() {
     const descriptionRef = useRef(null);
     const ctaRef = useRef(null);
     const videoRef = useRef(null);
-    const { t } = useLanguage();
-    const navigate = useNavigate();
 
     useEffect(() => {
         // Animation d'entrée au chargement
@@ -54,10 +51,7 @@ function Hero() {
      * Navigue vers la page de réservation
      */
     const scrollToServices = () => {
-        const servicesSection = document.getElementById('services');
-        if (servicesSection) {
-            servicesSection.scrollIntoView({ behavior: 'smooth' });
-        }
+        navigate('/booking');
     };
 
     // Contact scroll removed — secondary CTA will navigate to booking
@@ -82,23 +76,23 @@ function Hero() {
             </div>
             <div className="hero-content">
                 <div className="hero-welcome" ref={welcomeRef}>
-                    {t('hero.welcome')}
+                    Bienvenue
                 </div>
                 <h1 className="hero-title" ref={titleRef}>
-                    <span className="title-main">{t('hero.titleMain')}</span>
+                    <span className="title-main">Next Level Design</span>
                 </h1>
                 <p className="hero-subtitle" ref={subtitleRef}>
-                    {t('hero.subtitle')}
+                    Bien fait et vite fait
                 </p>
                 <p className="hero-description" ref={descriptionRef}>
-                    {t('hero.description')}
+                    Nous réalisons un travail professionnel, créatif et réussi grâce à nos experts en design infographie et développement.
                 </p>
                 <div className="hero-cta" ref={ctaRef}>
                     <button className="btn btn-primary" onClick={scrollToServices}>
-                        {t('hero.cta1')}
+                        Nos services
                     </button>
                     <button className="btn btn-secondary" onClick={() => navigate('/booking')}>
-                        {t('hero.cta2')}
+                        Réservation
                     </button>
                 </div>
             </div>

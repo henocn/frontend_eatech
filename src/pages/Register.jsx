@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { useLanguage } from '../contexts/LanguageContext'
 import { Mail, User, Phone, Lock } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import './RegisterLogin.css'
 
 const Register = () => {
-  const { t } = useLanguage()
+  
   const [fullname, setFullname] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -13,10 +12,10 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!fullname) return alert(t('account.fullname') + ' is required')
-    if (!email) return alert(t('account.email') + ' is required')
-    if (!phone) return alert(t('account.phone') + ' is required')
-    if (!password) return alert(t('account.password') + ' is required')
+    if (!fullname) return alert('Nom complet is required')
+    if (!email) return alert('Email is required')
+    if (!phone) return alert('Téléphone is required')
+    if (!password) return alert('Mot de passe is required')
     // TODO: call register API
     console.log('register', { fullname, email, phone, password })
   }
@@ -24,7 +23,7 @@ const Register = () => {
   return (
     <div className="login-box">
       <form onSubmit={handleSubmit}>
-        <h2>{t('account.registerTitle')}</h2>
+        <h2>Inscription</h2>
 
         <div className="input-box">
           <span className="icon"><User size={18} /></span>
@@ -33,9 +32,9 @@ const Register = () => {
             required
             value={fullname}
             onChange={(e) => setFullname(e.target.value)}
-            aria-label={t('account.fullname')}
+            aria-label={'Nom complet'}
           />
-          <label>{t('account.fullname')}</label>
+          <label>Nom complet</label>
         </div>
 
         <div className="input-box">
@@ -45,9 +44,9 @@ const Register = () => {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            aria-label={t('account.email')}
+            aria-label={'Email'}
           />
-          <label>{t('account.email')}</label>
+          <label>Email</label>
         </div>
 
         <div className="input-box">
@@ -57,9 +56,9 @@ const Register = () => {
             required
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            aria-label={t('account.phone')}
+            aria-label={'Téléphone'}
           />
-          <label>{t('account.phone')}</label>
+          <label>Téléphone</label>
         </div>
 
         <div className="input-box">
@@ -69,17 +68,17 @@ const Register = () => {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            aria-label={t('account.password')}
+            aria-label={'Mot de passe'}
           />
-          <label>{t('account.password')}</label>
+          <label>Mot de passe</label>
         </div>
 
-        <button type="submit">{t('account.submitRegister')}</button>
+        <button type="submit">S'inscrire</button>
 
         <div className="register-link">
           <p>
-            {t('account.switchToLogin')}{' '}
-            <Link to="/account/login">{t('account.loginTitle')}</Link>
+            Déjà un compte ?{' '}
+            <Link to="/account/login">Connexion</Link>
           </p>
         </div>
       </form>

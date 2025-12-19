@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Calendar } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
 import './BookingButton.css';
 
 
@@ -10,7 +9,7 @@ import './BookingButton.css';
  * Bouton de réservation sticky/floating qui reste visible sur la page
  */
 function BookingButton() {
-    const { t } = useLanguage();
+    const label = 'Réserver maintenant';
     const [isVisible, setIsVisible] = useState(false);
     const navigate = useNavigate();
 
@@ -38,10 +37,10 @@ function BookingButton() {
         <button 
             className="booking-button"
             onClick={handleBookingClick}
-            aria-label={t('booking.button')}
+            aria-label={label}
         >
             <Calendar className="booking-icon" size={20} />
-            <span className="booking-text">{t('booking.button')}</span>
+            <span className="booking-text">{label}</span>
         </button>
     );
 }

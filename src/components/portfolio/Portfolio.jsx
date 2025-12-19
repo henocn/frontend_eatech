@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { useLanguage } from '../../contexts/LanguageContext';
 import './Portfolio.css';
 
 
@@ -8,7 +7,7 @@ import './Portfolio.css';
  * Composant Portfolio avec vidéo background et cards de réalisations
  */
 function Portfolio() {
-    const { t } = useLanguage();
+    
     const videoRef = useRef(null);
 
     useEffect(() => {
@@ -51,9 +50,9 @@ function Portfolio() {
             <div className="portfolio-content">
                 <div className="portfolio-container">
                     <div className="portfolio-header" data-aos="fade-up">
-                        <h2 className="section-title">{t('portfolio.title')}</h2>
+                        <h2 className="section-title">Nos Réalisations</h2>
                         <p className="section-subtitle">
-                            {t('portfolio.subtitle')}
+                            Découvrez quelques-uns de nos projets réalisés dans notre studio
                         </p>
                     </div>
 

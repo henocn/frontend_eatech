@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import apiService from '../../utils/apiService';
 import ServiceCard from './ServiceCard';
-import { useLanguage } from '../../contexts/LanguageContext';
 import './Services.css';
 
 
@@ -13,7 +12,7 @@ function Services() {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { t } = useLanguage();
+    
 
     useEffect(() => {
         loadServices();
@@ -32,7 +31,7 @@ function Services() {
             setServices(data);
             setError(null);
         } catch (err) {
-            setError(t('services.error'));
+            setError('Erreur lors du chargement des services');
             console.error(err);
         } finally {
             setLoading(false);
@@ -46,7 +45,7 @@ function Services() {
                 <div className="services-container">
                     <div className="loading-spinner">
                         <div className="spinner"></div>
-                        <p>{t('services.loading')}</p>
+                        <p>Chargement des services...</p>
                     </div>
                 </div>
             </section>
@@ -60,7 +59,7 @@ function Services() {
                     <div className="error-message">
                         <p>{error}</p>
                         <button onClick={loadServices} className="btn btn-primary">
-                            {t('services.retry')}
+                            Réessayer
                         </button>
                     </div>
                 </div>
@@ -72,9 +71,9 @@ function Services() {
         <section id="services" className="services">
             <div className="services-container">
                 <div className="services-header" data-aos="fade-up">
-                    <h2 className="section-title">{t('services.title')}</h2>
+                    <h2 className="section-title">Nos Services</h2>
                     <p className="section-subtitle">
-                        {t('services.subtitle')}
+                        Des solutions créatives sur mesure pour transformer vos idées en réalité
                     </p>
                 </div>
 
