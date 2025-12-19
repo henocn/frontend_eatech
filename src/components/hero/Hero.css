@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #362602 10%, #764ba2 90%);
     padding-top: 80px;
 }
 
@@ -29,7 +29,7 @@
     transform: translate(-50%, -50%) scale(1.2);
     object-fit: cover;
     opacity: 0.4;
-    filter: blur(5px) brightness(0.8);
+    filter: blur(5px) brightness(0.9);
     z-index: 0;
 }
 
@@ -129,7 +129,7 @@
     transform: translateY(30px);
     transition: all 0.8s ease 0.2s;
     letter-spacing: -0.02em;
-    -webkit-text-stroke: 2.5px #5869b5;
+    -webkit-text-stroke: 2.5px #bda15f;
 }
 
 .hero-title.animate-in {
@@ -218,7 +218,7 @@
 
 .btn-primary {
     background: white;
-    color: #667eea;
+    color: #7b6531;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
@@ -230,7 +230,7 @@
 
 .btn-secondary {
     background: transparent;
-    color: white;
+    color: rgb(255, 255, 255);
     border: 2px solid rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
 }

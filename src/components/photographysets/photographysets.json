@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Creamy",
+    "location": "29 rue des Jeûneurs, 75002 Paris",
+    "maxPeople": 4,
+    "video": "/videos/video1.mp4"
+  },
+  {
+    "id": 2,
+    "name": "Studio Bleu",
+    "location": "12 Rue des Arts, 75003 Paris",
+    "maxPeople": 6,
+    "video": "/videos/video2.mp4"
+  },
+  {
+    "id": 3,
+    "name": "Loft Lumière",
+    "location": "5 Avenue des Studios, 75010 Paris",
+    "maxPeople": 8,
+    "video": "/videos/video3.mp4"
+  }
+]

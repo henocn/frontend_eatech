@@ -15,6 +15,7 @@ function Hero() {
     const descriptionRef = useRef(null);
     const ctaRef = useRef(null);
     const videoRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Animation d'entrée au chargement
@@ -47,12 +48,6 @@ function Hero() {
         };
     }, []);
 
-    /**
-     * Navigue vers la page de réservation
-     */
-    const scrollToServices = () => {
-        navigate('/booking');
-    };
 
     // Contact scroll removed — secondary CTA will navigate to booking
 
@@ -88,7 +83,7 @@ function Hero() {
                     Nous réalisons un travail professionnel, créatif et réussi grâce à nos experts en design infographie et développement.
                 </p>
                 <div className="hero-cta" ref={ctaRef}>
-                    <button className="btn btn-primary" onClick={scrollToServices}>
+                    <button className="btn btn-primary">
                         Nos services
                     </button>
                     <button className="btn btn-secondary" onClick={() => navigate('/booking')}>

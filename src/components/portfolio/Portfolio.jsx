@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import './Portfolio.css';
+import PhotographySets from '../photographysets/PhotographySets';
 
 
 
@@ -8,16 +9,7 @@ import './Portfolio.css';
  */
 function Portfolio() {
     
-    const videoRef = useRef(null);
-
-    useEffect(() => {
-        // Démarrage de la vidéo en boucle
-        if (videoRef.current) {
-            videoRef.current.play().catch(err => {
-                console.log('Video autoplay prevented:', err);
-            });
-        }
-    }, []);
+    // photography carousel will handle video playback
 
     // Données de démonstration - sera remplacé par les vraies données plus tard
     const portfolioItems = [
@@ -32,19 +24,7 @@ function Portfolio() {
     return (
         <section id="portfolio" className="portfolio">
             {/* Section vidéo background */}
-            <div className="portfolio-video-section">
-                <video
-                    ref={videoRef}
-                    className="portfolio-video"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                >
-                    <source src="/videos/video2.mp4" type="video/mp4" />
-                </video>
-                <div className="portfolio-video-overlay"></div>
-            </div>
+            <PhotographySets />
 
             {/* Section des réalisations avec cards */}
             <div className="portfolio-content">
