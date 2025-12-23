@@ -155,30 +155,30 @@
     align-items: center;
     white-space: nowrap;
     will-change: transform;
-    /* linear continuous loop: translate by -50% (we duplicate the items in JSX) */
-    animation: marquee 20s linear infinite;
+    animation: marquee 12s linear infinite;
 }
 .marquee-track {
-    /* ensure the track expands to fit content (duplicate sequence must match exactly) */
     min-width: 200%;
 }
 .marquee-item {
-    /* prevent items from shrinking so the duplicated sequence remains consistent */
     flex: 0 0 auto;
 }
 .marquee-item {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    /* keep title on top and image fixed at bottom */
-    justify-content: space-between;
-    min-width: 240px;
-    height: 120px;
-    padding: 10px 12px;
-    /* subtle translucent background so the underlying page shows through */
+    /* keep title on top; image will be pushed down with margin-top:auto */
+    justify-content: flex-start;
+    min-width: 260px;
+    height: 140px;
+    /* reduced padding but keep bottom padding for image spacing */
+    padding: 6px 8px 12px 8px;
     background: rgba(0,0,0,0.035);
     border-radius: 8px;
     backdrop-filter: blur(4px);
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid rgba(103, 122, 6, 0.096);
 }
 .marquee-title {
     font-weight: 800;
@@ -191,14 +191,15 @@
 }
 
 .marquee-thumb {
-    /* wider than tall thumbnails; show full PNG without cropping */
-    width: 160px;
-    height: 96px;
+    width: 75%;
+    height: 80%;
     object-fit: contain;
     background: rgba(255,255,255,0.06);
     border-radius: 6px;
-    margin-top: 6px;
-    padding: 6px; /* small inner padding so PNG edges are visible */
+    margin-top: auto;
+    margin-bottom: 6px;
+    padding: 4px;
+    filter: drop-shadow(0 0 1px rgba(81,96,5,0.913)) drop-shadow(0 0 4px rgba(81,96,5,0.65));
 }
 
 @keyframes marquee {
@@ -213,8 +214,23 @@
 }
 
 @media (max-width: 768px) {
-    .marquee-item { height: auto; padding-bottom: 8px; }
-    .marquee-thumb { height: 56px; }
+    .marquee-item { height: auto; padding-bottom: 10px; min-width: 220px; }
+    /* larger thumbnails on mobile so they remain visible */
+    .marquee-thumb { width: 82%; height: auto; max-height: 160px; }
+}
+
+@media (min-width: 1200px) {
+    .marquee-item {
+        min-width: 320px;
+        height: 220px;
+        padding: 8px 10px 14px 10px;
+    }
+    .marquee-thumb {
+        width: 80%;
+        height: 80%;
+        max-width: none;
+        max-height: none;
+    }
 }
 
 .loading-spinner,
