@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import apiService from '../../utils/apiService';
+import servicesData from '../../data/services.json';
 import './Services.css';
 
 
@@ -17,17 +17,10 @@ function Services() {
         loadServices();
     }, []);
 
-    // AOS gère maintenant les animations au scroll
-
-    /**
-     * Charge les services depuis l'API ou les fichiers JSON
-     */
-    const loadServices = async () => {
+    const loadServices = () => {
         try {
             setLoading(true);
-            // Utilise les données JSON locales pour les tests
-            const data = await apiService.getServices(true);
-            setServices(data);
+            setServices(servicesData);
             setError(null);
         } catch (err) {
             setError('Erreur lors du chargement des services');
@@ -90,23 +83,23 @@ function Services() {
                     <div className="services-marquee" aria-hidden="false">
                         <div className="marquee-track">
                             {services.map((service) => {
-                                const words = service.description ? service.description.split(' ') : []
-                                const short = service.category || (words.slice(0,2).join(' '))
                                 return (
                                     <div className="marquee-item" key={service.id}>
-                                        <span className="marquee-title">{service.title}</span>
-                                        <span className="marquee-desc">{short}</span>
+                                        <div>
+                                            <span className="marquee-title">{service.title}</span>
+                                        </div>
+                                        <img className="marquee-thumb" src={service.image} alt={service.title} />
                                     </div>
                                 )
                             })}
                             {/* duplicate once to create seamless loop */}
                             {services.map((service) => {
-                                const words = service.description ? service.description.split(' ') : []
-                                const short = service.category || (words.slice(0,2).join(' '))
                                 return (
                                     <div className="marquee-item" key={`${service.id}-dup`}>
-                                        <span className="marquee-title">{service.title}</span>
-                                        <span className="marquee-desc">{short}</span>
+                                        <div>
+                                            <span className="marquee-title">{service.title}</span>
+                                        </div>
+                                        <img className="marquee-thumb" src={service.image} alt={service.title} />
                                     </div>
                                 )
                             })}

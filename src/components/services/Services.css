@@ -149,14 +149,17 @@
     background: transparent;
 }
 .marquee-track {
+    --marquee-gap: 36px;
     display: flex;
-    gap: 48px;
+    gap: var(--marquee-gap);
     align-items: center;
     white-space: nowrap;
-    animation: marquee 18s linear infinite;
+    will-change: transform;
+    /* linear continuous loop: translate by -50% (we duplicate the items in JSX) */
+    animation: marquee 20s linear infinite;
 }
 .marquee-track {
-    /* ensure the track is at least double width so the -50% translate never leaves a gap */
+    /* ensure the track expands to fit content (duplicate sequence must match exactly) */
     min-width: 200%;
 }
 .marquee-item {
@@ -167,10 +170,13 @@
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-width: 220px;
-    padding: 8px 12px;
-    background: rgba(255,255,255,0.04);
+    /* keep title on top and image fixed at bottom */
+    justify-content: space-between;
+    min-width: 240px;
+    height: 120px;
+    padding: 10px 12px;
+    /* subtle translucent background so the underlying page shows through */
+    background: rgba(0,0,0,0.035);
     border-radius: 8px;
     backdrop-filter: blur(4px);
 }
@@ -184,6 +190,17 @@
     color: rgba(0,0,0,0.6);
 }
 
+.marquee-thumb {
+    /* wider than tall thumbnails; show full PNG without cropping */
+    width: 160px;
+    height: 96px;
+    object-fit: contain;
+    background: rgba(255,255,255,0.06);
+    border-radius: 6px;
+    margin-top: 6px;
+    padding: 6px; /* small inner padding so PNG edges are visible */
+}
+
 @keyframes marquee {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
@@ -193,6 +210,11 @@
     .services-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+}
+
+@media (max-width: 768px) {
+    .marquee-item { height: auto; padding-bottom: 8px; }
+    .marquee-thumb { height: 56px; }
 }
 
 .loading-spinner,
