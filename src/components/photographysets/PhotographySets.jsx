@@ -49,7 +49,7 @@ function PhotographySets() {
               <div className="carousel-caption">
                 <div className="tag">Décor</div>
                 <h3><span className="label label-name">{s.name}</span></h3>
-                <button className="book-btn" onClick={() => window.location.href = '/booking'}>Reserver une session</button>
+                <button className="book-btn" onClick={() => window.location.href = '/booking'}>Réserver une session</button>
               </div>
               <div className="carousel-bottom">
                 <div className="bottom-left"><span className="label">{s.location}</span></div>

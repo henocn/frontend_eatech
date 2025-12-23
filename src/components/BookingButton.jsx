@@ -9,7 +9,7 @@ import './BookingButton.css';
  * Bouton de réservation sticky/floating qui reste visible sur la page
  */
 function BookingButton() {
-    const label = 'Réserver maintenant';
+    const label = 'Réserver';
     const [isVisible, setIsVisible] = useState(false);
     const navigate = useNavigate();
 

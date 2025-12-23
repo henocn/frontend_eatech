@@ -69,7 +69,7 @@ function Services() {
     return (
         <section id="services" className="services">
             <div className="services-container">
-                <div className="services-header" data-aos="fade-up">
+                <div className="services-header">
                     <h2 className="section-title">Nos Services</h2>
                     <div className="services-intro">
                         <div className="intro-text">

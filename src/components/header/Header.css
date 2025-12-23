@@ -28,7 +28,7 @@
 .header-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem 2rem;
+    padding: 0.8rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -54,22 +54,23 @@
 }
 
 .logo-icon {
-    animation: gentleBounce 4s ease-in-out infinite;
-    color: #667eea;
-    transition: transform 0.3s ease;
-}
-
-@keyframes gentleBounce {
-    0%, 100% {
-        transform: translateY(0) rotate(0deg);
-    }
-    50% {
-        transform: translateY(-4px) rotate(2deg);
-    }
+    display: block;
+    height: 44px;
+    max-height: 56px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+    transition: transform 0.3s ease, filter 0.25s ease, opacity 0.25s ease;
 }
 
 [data-theme="dark"] .logo-icon {
-    color: #8b9aff;
+    /* make raster/SVG logo appear white in dark mode */
+    filter: brightness(0) invert(1) saturate(0.8);
+    opacity: 0.98;
+}
+
+.logo {
+    overflow: hidden;
 }
 
 

@@ -34,8 +34,7 @@ function Header({ current }) {
         <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
             <div className="header-container">
                 <div className="logo">
-                    <Palette className="logo-icon" size={28} />
-                    <span className="logo-text">EA Tech</span>
+                    <img className='logo-icon' src="/images/logo2.png" alt="GardenDesign" />
                 </div>
 
                 <nav className={`nav ${isMobileMenuOpen ? 'open' : ''}`}>
