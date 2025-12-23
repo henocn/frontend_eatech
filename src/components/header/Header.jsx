@@ -34,8 +34,7 @@ function Header({ current }) {
         <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
             <div className="header-container">
                 <div className="logo">
-                    <Palette className="logo-icon" size={28} />
-                    <span className="logo-text">EA Tech</span>
+                    <img className='logo-icon' src="/images/logo2.png" alt="GardenDesign" />
                 </div>
 
                 <nav className={`nav ${isMobileMenuOpen ? 'open' : ''}`}>
@@ -51,7 +50,7 @@ function Header({ current }) {
                     <a href="#about" className={`nav-link ${current === 'about' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                         À propos
                     </a>
-                    <Link to="/account" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Link to="/auth/login" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
                         Compte
                     </Link>
                 </nav>

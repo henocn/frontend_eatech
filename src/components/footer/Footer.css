@@ -30,8 +30,11 @@
     margin-bottom: 1rem;
 }
 
-.footer-logo-icon {
-    color: #8b9aff;
+.footer-logo-img {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1) saturate(0.85);
 }
 
 .footer-description {

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "s1",
+    "title": "Direction Artistique",
+    "image": "/images/services/artistic.png"
+  },
+  {
+    "id": "s2",
+    "title": "UI / UX",
+    "image": "/images/services/ux.png"
+  },
+  {
+    "id": "s3",
+    "title": "Photographie",
+    "image": "/images/services/photography.png"
+  },
+  {
+    "id": "s4",
+    "title": "Tournage Vidéo",
+    "image": "/images/services/video.png"
+  },
+  {
+    "id": "s5",
+    "title": "Illustration",
+    "image": "/images/services/illustration.png"
+  },
+  {
+    "id": "s6",
+    "title": "Publicités Sociales",
+    "image": "/images/services/adds.png"
+  },
+  {
+    "id": "s7",
+    "title": "Infographie",
+    "image": "/images/services/infographic.png"
+  }
+]
