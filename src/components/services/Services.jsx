@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import apiService from '../../utils/apiService';
-import ServiceCard from './ServiceCard';
 import './Services.css';
 
 
@@ -77,14 +76,32 @@ function Services() {
                     </p>
                 </div>
 
-                <div className="services-grid">
-                    {services.map((service, index) => (
-                        <ServiceCard 
-                            key={service.id} 
-                            service={service}
-                            delay={index * 100}
-                        />
-                    ))}
+                <div className="services-marquee-wrapper">
+                    <div className="services-marquee" aria-hidden="false">
+                        <div className="marquee-track">
+                            {services.map((service) => {
+                                const words = service.description ? service.description.split(' ') : []
+                                const short = service.category || (words.slice(0,2).join(' '))
+                                return (
+                                    <div className="marquee-item" key={service.id}>
+                                        <span className="marquee-title">{service.title}</span>
+                                        <span className="marquee-desc">{short}</span>
+                                    </div>
+                                )
+                            })}
+                            {/* duplicate once to create seamless loop */}
+                            {services.map((service) => {
+                                const words = service.description ? service.description.split(' ') : []
+                                const short = service.category || (words.slice(0,2).join(' '))
+                                return (
+                                    <div className="marquee-item" key={`${service.id}-dup`}>
+                                        <span className="marquee-title">{service.title}</span>
+                                        <span className="marquee-desc">{short}</span>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

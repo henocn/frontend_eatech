@@ -84,6 +84,49 @@
     margin-right: auto;
 }
 
+/* Marquee banner styles */
+.services-marquee-wrapper {
+    margin-top: 2rem;
+    width: 100%;
+}
+.services-marquee {
+    width: 100%;
+    overflow: hidden;
+    background: transparent;
+}
+.marquee-track {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    white-space: nowrap;
+    animation: marquee 18s linear infinite;
+}
+.marquee-item {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+}
+.marquee-title {
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--color-text);
+}
+.marquee-desc {
+    font-size: 13px;
+    color: rgba(0,0,0,0.6);
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
 @media (min-width: 768px) {
     .services-grid {
         grid-template-columns: repeat(2, 1fr);
