@@ -51,7 +51,7 @@ function Header({ current }) {
                     <a href="#about" className={`nav-link ${current === 'about' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                         À propos
                     </a>
-                    <Link to="/account" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Link to="/auth/login" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
                         Compte
                     </Link>
                 </nav>
