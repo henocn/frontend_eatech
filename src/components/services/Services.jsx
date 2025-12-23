@@ -71,9 +71,19 @@ function Services() {
             <div className="services-container">
                 <div className="services-header" data-aos="fade-up">
                     <h2 className="section-title">Nos Services</h2>
-                    <p className="section-subtitle">
-                        Des solutions créatives sur mesure pour transformer vos idées en réalité
-                    </p>
+                    <div className="services-intro">
+                        <div className="intro-text">
+                            <p>
+                                Nous proposons une gamme complète de services créatifs pour accompagner vos projets du concept à la livraison. 
+                                De la conception graphique à l'animation, en passant par l'UI/UX et la création d'icônes sur mesure, notre équipe conçoit des solutions esthétiques et fonctionnelles. 
+                                Nous adaptons nos propositions à vos besoins : identité visuelle, supports print et web, animations interactives et prototypes.
+                                Chaque prestation est pensée pour renforcer votre message et améliorer l'expérience utilisateur, avec un suivi professionnel et des livrables prêts pour la production.
+                            </p>
+                        </div>
+                        <div className="intro-image">
+                            <img src="/images/services.jpg" alt="Services" />
+                        </div>
+                    </div>
                 </div>
 
                 <div className="services-marquee-wrapper">
