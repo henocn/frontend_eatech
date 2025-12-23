@@ -15,8 +15,7 @@ function Footer() {
                 <div className="footer-content">
                     <div className="footer-section">
                         <h3 className="footer-title">
-                            <Palette className="footer-logo-icon" size={28} />
-                            EA Tech
+                            <img src="/images/logo2.png" alt="EA Tech" className="footer-logo-img" />
                         </h3>
                         <p className="footer-description">
                             Des solutions créatives et innovantes pour transformer vos idées en réalité.
