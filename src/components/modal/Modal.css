@@ -11,45 +11,55 @@
 
 /* Conteneur principal */
 .modal-content {
-  background: #0f172a;
-  color: #e5e7eb;
+  background: #ffffff;
+  color: #374151;
   width: 90%;
-  max-width: 800px;
+  max-width: 900px;
   max-height: 85vh;
   border-radius: 16px;
-  padding: 22px;
+  padding: 24px;
   position: relative;
   overflow-y: auto;
   animation: scaleIn 0.25s ease;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* Bouton fermeture */
 .modal-close {
   position: absolute;
-  top: 14px;
-  right: 16px;
+  top: 16px;
+  right: 20px;
   background: none;
   border: none;
-  font-size: 28px;
-  color: #94a3b8;
+  font-size: 32px;
+  color: #9ca3af;
   cursor: pointer;
   transition: color 0.2s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
 .modal-close:hover {
-  color: #f87171;
+  color: #ef4444;
+  background: #f9fafb;
 }
 
 /* Contenu */
 .modal-body h2 {
-  margin-bottom: 10px;
-  font-size: 1.4rem;
-  color: #f8fafc;
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+  color: #1f2937;
+  font-weight: 600;
 }
 
 .modal-body p {
   line-height: 1.6;
-  color: #cbd5f5;
+  color: #4b5563;
 }
 
 /* Animations */
