@@ -3,7 +3,7 @@ import "./StudioList.css";
 import { MapPin } from "lucide-react";
 import api from "../../utils/axiosInstance";
 
-const StudioList = () => {
+const StudioList = ({ onSelectStudio }) => {
   const [studios, setStudios] = useState([]);
 
   useEffect(() => {
@@ -22,7 +22,11 @@ const StudioList = () => {
   return (
     <div className="studio-list">
       {studios.map((studio) => (
-        <div className="studio-card" key={studio.id}>
+        <div
+          className="studio-card"
+          key={studio.id}
+          onClick={() => onSelectStudio && onSelectStudio(studio)} // remonte le studio
+        >
           <div className="studio-image">
             <img src={studio.image} alt={studio.name} />
           </div>
