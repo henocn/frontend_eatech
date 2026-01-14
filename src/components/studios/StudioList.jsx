@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./StudioList.css";
+import { MapPin } from "lucide-react";
 import api from "../../utils/axiosInstance";
 
 const StudioList = () => {
@@ -28,7 +29,13 @@ const StudioList = () => {
 
           <div className="studio-content">
             <h3 className="studio-title">{studio.name}</h3>
-            <p className="studio-location">{studio.location}</p>
+            <p className="studio-location">
+              <MapPin
+                size={16}
+                style={{ marginRight: "6px", verticalAlign: "middle" }}
+              />
+              {studio.location}
+            </p>
             <p className="studio-description">{studio.description}</p>
           </div>
         </div>
