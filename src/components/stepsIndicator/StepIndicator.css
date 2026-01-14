@@ -1,0 +1,103 @@
+.step-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 32px 0;
+  gap: 0;
+  padding-top: 2rem;
+  margin-top: 4.5rem;
+}
+
+/* Étape */
+.step-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: default;
+}
+
+/* Cercle */
+.step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #cbd5e1;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  z-index: 2;
+}
+
+/* Texte */
+.step-label {
+  margin-left: 10px;
+  margin-right: 24px;
+  font-size: 0.95rem;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+/* Ligne */
+.step-line {
+  position: absolute;
+  right: -24px;
+  top: 50%;
+  width: 48px;
+  height: 2px;
+  background: #cbd5e1;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+/* Active */
+.step-item.active .step-circle {
+  border-color: #bda15f;
+  background: #bda15f;
+  color: #ffffff;
+}
+
+.step-item.active .step-label {
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+/* Completed */
+.step-item.completed .step-circle {
+  background: #bda15f;
+  border-color: #bda15f;
+  color: #ffffff;
+}
+
+.step-item.completed .step-line {
+  background: #bda15f;
+}
+
+/* Clickable */
+.step-item.clickable {
+  cursor: pointer;
+}
+
+.step-item.clickable:hover .step-circle {
+  transform: scale(1.05);
+}
+
+/* Disabled */
+.step-item.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .step-label {
+    display: none;
+  }
+
+  .step-line {
+    width: 32px;
+    right: -16px;
+  }
+}
