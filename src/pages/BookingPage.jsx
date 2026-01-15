@@ -26,7 +26,7 @@ const BookingPage = () => {
   const [selectedStudio, setSelectedStudio] = useState(null);
   const [selectedDecor, setSelectedDecor] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedTimeRange, setSelectedTimeRange] = useState(null);
 
   // Disponibilités du studio
   const [availability, setAvailability] = useState([]);
@@ -109,8 +109,8 @@ const BookingPage = () => {
 
                 <TimePicker
                   selectedDate={selectedDate}
-                  selectedTime={selectedTime}
-                  onSelectTime={setSelectedTime}
+                  selectedTimeRange={selectedTimeRange}
+                  onSelectTimeRange={setSelectedTimeRange}
                   availability={availability}
                 />
               </>

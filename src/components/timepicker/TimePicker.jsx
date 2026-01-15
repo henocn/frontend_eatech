@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { Clock } from "lucide-react";
 import "./TimePicker.css";
 
-const TimePicker = ({ selectedDate, selectedTime, onSelectTime, availability }) => {
+const TimePicker = ({ selectedDate, selectedTimeRange, onSelectTimeRange, availability }) => {
   const [availableSlots, setAvailableSlots] = useState([]);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState(null);
+  const [dragEnd, setDragEnd] = useState(null);
 
   useEffect(() => {
     if (selectedDate && availability && availability.length > 0) {
@@ -27,7 +30,9 @@ const TimePicker = ({ selectedDate, selectedTime, onSelectTime, availability }) 
           slots.push({
             time: timeString,
             displayTime: formatTimeDisplay(timeString),
-            isSelected: selectedTime === timeString
+            fullTime: currentTime,
+            isSelected: isTimeInRange(timeString, selectedTimeRange),
+            isInDragRange: isTimeInRange(timeString, { start: dragStart, end: dragEnd })
           });
 
           // Ajouter 30 minutes
@@ -46,7 +51,54 @@ const TimePicker = ({ selectedDate, selectedTime, onSelectTime, availability }) 
     } else {
       setAvailableSlots([]);
     }
-  }, [selectedDate, availability, selectedTime]);
+  }, [selectedDate, availability, selectedTimeRange, dragStart, dragEnd]);
+
+  // Vérifier si une heure est dans une plage
+  const isTimeInRange = (time, range) => {
+    if (!range || !range.start || !range.end) return false;
+
+    const timeDate = new Date(`2000-01-01T${time}`);
+    const startDate = new Date(`2000-01-01T${range.start}`);
+    const endDate = new Date(`2000-01-01T${range.end}`);
+
+    return timeDate >= startDate && timeDate <= endDate;
+  };
+
+  // Gestion du drag pour sélectionner une plage
+  const handleMouseDown = (time) => {
+    setIsDragging(true);
+    setDragStart(time);
+    setDragEnd(time);
+  };
+
+  const handleMouseEnter = (time) => {
+    if (isDragging) {
+      setDragEnd(time);
+    }
+  };
+
+  const handleMouseUp = () => {
+    if (isDragging && dragStart && dragEnd) {
+      // Déterminer le début et la fin de la plage
+      const start = dragStart <= dragEnd ? dragStart : dragEnd;
+      const end = dragStart <= dragEnd ? dragEnd : dragStart;
+
+      onSelectTimeRange({ start, end });
+    }
+
+    setIsDragging(false);
+    setDragStart(null);
+    setDragEnd(null);
+  };
+
+  // Annuler le drag si on sort du composant
+  const handleMouseLeave = () => {
+    if (isDragging) {
+      setIsDragging(false);
+      setDragStart(null);
+      setDragEnd(null);
+    }
+  };
 
   const formatTimeDisplay = (timeString) => {
     const [hours, minutes] = timeString.split(':');
@@ -75,27 +127,32 @@ const TimePicker = ({ selectedDate, selectedTime, onSelectTime, availability }) 
   }
 
   return (
-    <div className="time-picker">
+    <div className="time-picker" onMouseLeave={handleMouseLeave} onMouseUp={handleMouseUp}>
       <div className="time-picker-header">
         <h3>
           <Clock size={20} />
-          Sélectionner une heure
+          Sélectionner une plage horaire
         </h3>
         <p className="time-picker-info">
-          Créneaux disponibles pour le {selectedDate.toLocaleDateString('fr-FR')}
+          Glissez pour sélectionner le début et la fin de votre réservation pour le {selectedDate.toLocaleDateString('fr-FR')}
         </p>
       </div>
 
       <div className="time-slots">
         {availableSlots.length > 0 ? (
           availableSlots.map((slot) => (
-            <button
+            <div
               key={slot.time}
-              className={`time-slot ${slot.isSelected ? 'selected' : ''}`}
-              onClick={() => handleTimeSelect(slot.time)}
+              className={`time-slot ${
+                slot.isSelected ? 'selected' :
+                slot.isInDragRange ? 'in-drag-range' :
+                ''
+              }`}
+              onMouseDown={() => handleMouseDown(slot.time)}
+              onMouseEnter={() => handleMouseEnter(slot.time)}
             >
               {slot.displayTime}
-            </button>
+            </div>
           ))
         ) : (
           <div className="no-slots">
@@ -105,12 +162,18 @@ const TimePicker = ({ selectedDate, selectedTime, onSelectTime, availability }) 
         )}
       </div>
 
-      {selectedTime && (
+      {selectedTimeRange && selectedTimeRange.start && selectedTimeRange.end && (
         <div className="selected-time-info">
-          <span className="selected-label">Heure sélectionnée :</span>
+          <span className="selected-label">Plage sélectionnée :</span>
           <span className="selected-value">
-            {availableSlots.find(slot => slot.time === selectedTime)?.displayTime}
+            {formatTimeDisplay(selectedTimeRange.start)} - {formatTimeDisplay(selectedTimeRange.end)}
           </span>
+        </div>
+      )}
+
+      {isDragging && (
+        <div className="drag-instruction">
+          Relâchez pour confirmer la sélection
         </div>
       )}
     </div>
