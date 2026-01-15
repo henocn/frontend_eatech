@@ -114,6 +114,16 @@
   background: transparent;
 }
 
+.calendar-day-filled.past {
+  color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.calendar-day-filled.past:hover {
+  background: transparent;
+}
+
 .calendar-legend {
   display: flex;
   justify-content: center;
@@ -145,6 +155,11 @@
 
 .legend-color.selected {
   background: #bda15f;
+}
+
+.legend-color.past {
+  background: #9ca3af;
+  opacity: 0.5;
 }
 
 /* Responsive */

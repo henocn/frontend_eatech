@@ -49,7 +49,8 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
         day,
         isAvailable: isDayAvailable(date),
         isToday: date.toDateString() === new Date().toDateString(),
-        isSelected: selectedDate && date.toDateString() === selectedDate.toDateString()
+        isSelected: selectedDate && date.toDateString() === selectedDate.toDateString(),
+        isPast: date < new Date(new Date().setHours(0, 0, 0, 0)) // Date dans le passé
       });
     }
 
@@ -67,7 +68,7 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
   };
 
   const handleDateSelect = (dayInfo) => {
-    if (dayInfo && dayInfo.isAvailable) {
+    if (dayInfo && dayInfo.isAvailable && !dayInfo.isPast) {
       onSelectDate(dayInfo.date);
     }
   };
@@ -122,7 +123,9 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
             } ${
               dayInfo?.isSelected ? 'selected' : ''
             } ${
-              dayInfo?.isAvailable ? 'available' : 'unavailable'
+              dayInfo?.isAvailable && !dayInfo?.isPast ? 'available' : 'unavailable'
+            } ${
+              dayInfo?.isPast ? 'past' : ''
             }`}
             onClick={() => handleDateSelect(dayInfo)}
           >
@@ -139,6 +142,10 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
         <div className="legend-item">
           <div className="legend-color unavailable"></div>
           <span>Indisponible</span>
+        </div>
+        <div className="legend-item">
+          <div className="legend-color past"></div>
+          <span>Date passée</span>
         </div>
         <div className="legend-item">
           <div className="legend-color selected"></div>
