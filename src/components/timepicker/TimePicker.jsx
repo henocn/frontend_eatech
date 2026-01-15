@@ -7,6 +7,7 @@ const TimePicker = ({ selectedDate, selectedTimeRange, onSelectTimeRange, availa
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState(null);
   const [dragEnd, setDragEnd] = useState(null);
+  const [selectionError, setSelectionError] = useState(null);
 
   useEffect(() => {
     if (selectedDate && availability && availability.length > 0) {
@@ -83,7 +84,20 @@ const TimePicker = ({ selectedDate, selectedTimeRange, onSelectTimeRange, availa
       const start = dragStart <= dragEnd ? dragStart : dragEnd;
       const end = dragStart <= dragEnd ? dragEnd : dragStart;
 
-      onSelectTimeRange({ start, end });
+      // Vérifier que la plage fait au moins 30 minutes
+      const startDate = new Date(`2000-01-01T${start}`);
+      const endDate = new Date(`2000-01-01T${end}`);
+      const diffMinutes = (endDate - startDate) / (1000 * 60);
+
+      if (diffMinutes >= 30) {
+        onSelectTimeRange({ start, end });
+        setSelectionError(null);
+      } else {
+        // Afficher un message d'erreur temporaire
+        setSelectionError("La réservation doit durer au moins 30 minutes");
+        // Masquer le message après 3 secondes
+        setTimeout(() => setSelectionError(null), 3000);
+      }
     }
 
     setIsDragging(false);
@@ -101,11 +115,7 @@ const TimePicker = ({ selectedDate, selectedTimeRange, onSelectTimeRange, availa
   };
 
   const formatTimeDisplay = (timeString) => {
-    const [hours, minutes] = timeString.split(':');
-    const hour = parseInt(hours, 10);
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
-    return `${displayHour}:${minutes} ${ampm}`;
+    return timeString; // Afficher directement HH:MM sans AM/PM
   };
 
   const handleTimeSelect = (timeString) => {
@@ -134,7 +144,7 @@ const TimePicker = ({ selectedDate, selectedTimeRange, onSelectTimeRange, availa
           Sélectionner une plage horaire
         </h3>
         <p className="time-picker-info">
-          Glissez pour sélectionner le début et la fin de votre réservation pour le {selectedDate.toLocaleDateString('fr-FR')}
+          Glissez pour sélectionner une plage d'au moins 30 minutes pour le {selectedDate.toLocaleDateString('fr-FR')}
         </p>
       </div>
 
@@ -174,6 +184,12 @@ const TimePicker = ({ selectedDate, selectedTimeRange, onSelectTimeRange, availa
       {isDragging && (
         <div className="drag-instruction">
           Relâchez pour confirmer la sélection
+        </div>
+      )}
+
+      {selectionError && (
+        <div className="selection-error">
+          {selectionError}
         </div>
       )}
     </div>
