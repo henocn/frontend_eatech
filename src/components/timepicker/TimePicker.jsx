@@ -174,10 +174,19 @@ const TimePicker = ({ selectedDate, selectedTimeRange, onSelectTimeRange, availa
 
       {selectedTimeRange && selectedTimeRange.start && selectedTimeRange.end && (
         <div className="selected-time-info">
-          <span className="selected-label">Plage sélectionnée :</span>
-          <span className="selected-value">
-            {formatTimeDisplay(selectedTimeRange.start)} - {formatTimeDisplay(selectedTimeRange.end)}
-          </span>
+          <div className="selected-time-display">
+            <span className="selected-label">Plage sélectionnée :</span>
+            <span className="selected-value">
+              {formatTimeDisplay(selectedTimeRange.start)} - {formatTimeDisplay(selectedTimeRange.end)}
+            </span>
+          </div>
+          <button
+            className="cancel-selection-btn"
+            onClick={() => onSelectTimeRange(null)}
+            title="Annuler la sélection"
+          >
+            ✕
+          </button>
         </div>
       )}
 
