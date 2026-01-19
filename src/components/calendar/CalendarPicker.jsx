@@ -75,7 +75,12 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability, se
 
   const handleDateSelect = (dayInfo) => {
     if (dayInfo && !dayInfo.isUnavailable) {
-      onSelectDate(dayInfo.date);
+      // Si on clique sur la date déjà sélectionnée, on la désélectionne
+      if (selectedDate && dayInfo.date.toDateString() === selectedDate.toDateString()) {
+        onSelectDate(null);
+      } else {
+        onSelectDate(dayInfo.date);
+      }
     }
   };
 
