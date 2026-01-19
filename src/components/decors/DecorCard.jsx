@@ -68,11 +68,11 @@ const DecorCard = ({ decor, onSelect }) => {
             </span>
             <span className="decor-price">
               <DollarSign size={16} className="decor-icon" />
-              {decor.hour_price} FCFA/h
+              {decor.hour_price} F/h
             </span>
           </div>
           <button className="decor-select-btn" onClick={onSelect}>
-            Réserver ce décor
+            Choisir
           </button>
         </div>
       </div>
