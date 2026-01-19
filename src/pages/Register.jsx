@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { Mail, User, Phone, Lock, Eye, EyeOff, UserPlus } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Mail, User, Phone, Lock, Eye, EyeOff } from "lucide-react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import "./RegisterLogin.css";
 
 const Register = () => {
@@ -17,6 +18,16 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const location = useLocation();
+  const { isAuthenticated } = useAuth();
+
+  // Rediriger si déjà connecté
+  useEffect(() => {
+    if (isAuthenticated) {
+      const from = location.state?.from?.pathname || "/";
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, navigate, location]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -94,8 +105,12 @@ const Register = () => {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      // On success, navigate to login or auto-login
-      navigate("/login");
+      // On success, navigate to login
+      navigate("/login", {
+        state: {
+          message: "Inscription réussie ! Vous pouvez maintenant vous connecter."
+        }
+      });
 
     } catch (error) {
       setErrors({ general: "Erreur lors de l'inscription. Veuillez réessayer." });

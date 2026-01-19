@@ -24,6 +24,9 @@ const Login = () => {
     }
   }, [isAuthenticated, navigate, location]);
 
+  // Message de succès après inscription
+  const successMessage = location.state?.message;
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -77,6 +80,12 @@ const Login = () => {
             </div>
 
             <form onSubmit={handleSubmit} className="auth-form">
+              {successMessage && (
+                <div className="success-message">
+                  {successMessage}
+                </div>
+              )}
+
               {errors.general && (
                 <div className="error-message">
                   {errors.general}
@@ -147,19 +156,8 @@ const Login = () => {
               <button
                 type="submit"
                 className="auth-button"
-                disabled={isLoading}
               >
-                {isLoading ? (
-                  <>
-                    <div className="loading-spinner"></div>
-                    Connexion en cours...
-                  </>
-                ) : (
-                  <>
-                    <LogIn size={18} />
-                    Se connecter
-                  </>
-                )}
+                Se connecter
               </button>
             </form>
 

@@ -240,7 +240,18 @@
   100% { transform: rotate(360deg); }
 }
 
-/* ===== ERRORS ===== */
+/* ===== MESSAGES ===== */
+.success-message {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: #166534;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
 .error-message {
   background: #fef2f2;
   border: 1px solid #fecaca;
