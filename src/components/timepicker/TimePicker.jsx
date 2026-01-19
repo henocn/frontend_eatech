@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Clock } from "lucide-react";
 import "./TimePicker.css";
 
-const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability }) => {
+const TimePicker = ({ selectedDate, selectedSessions, onAddSession }) => {
   const [hours, setHours] = useState(1);
   const [inputError, setInputError] = useState(null);
 
@@ -10,26 +10,6 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
   const isDateAlreadySelected = selectedDate && selectedSessions.some(session =>
     session.date.toDateString() === selectedDate.toDateString()
   );
-
-  // Calculer les heures disponibles pour la date sélectionnée
-  const getAvailableHoursForDate = () => {
-    if (!selectedDate || !availability) return 0;
-
-    const dayOfWeek = selectedDate.getDay();
-    const apiDay = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-    const dayAvailability = availability.filter(slot => slot.day === apiDay);
-
-    let totalMinutes = 0;
-    dayAvailability.forEach(slot => {
-      const start = new Date(`2000-01-01T${slot.start_hour}`);
-      const end = new Date(`2000-01-01T${slot.end_hour}`);
-      totalMinutes += (end - start) / (1000 * 60);
-    });
-
-    return Math.floor(totalMinutes / 60);
-  };
-
-  const availableHours = getAvailableHoursForDate();
 
   // Gestionnaire pour ajouter une session
   const handleAddSession = () => {
@@ -47,35 +27,10 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
       return;
     }
 
-    // Vérifier la disponibilité (simplifié - on pourrait faire une vérification plus poussée)
-    const dayOfWeek = selectedDate.getDay();
-    const apiDay = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-    const dayAvailability = availability.filter(slot => slot.day === apiDay);
-
-    if (dayAvailability.length === 0) {
-      setInputError("Aucun créneau disponible pour cette date");
-      return;
-    }
-
-    // Calculer la durée totale disponible pour ce jour
-    let totalMinutes = 0;
-    dayAvailability.forEach(slot => {
-      const start = new Date(`2000-01-01T${slot.start_hour}`);
-      const end = new Date(`2000-01-01T${slot.end_hour}`);
-      totalMinutes += (end - start) / (1000 * 60);
-    });
-
-    const requestedMinutes = hours * 60;
-    if (requestedMinutes > totalMinutes) {
-      setInputError(`Maximum ${Math.floor(totalMinutes / 60)}h disponibles pour cette date`);
-      return;
-    }
-
     // Ajouter la session
     onAddSession({
       date: selectedDate,
-      hours: hours,
-      dayOfWeek: apiDay
+      hours: hours
     });
 
     // Reset
@@ -86,11 +41,6 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
   // Gestionnaire pour supprimer une session
   const handleRemoveSession = (dateToRemove) => {
     onAddSession(null, dateToRemove); // Passer null pour supprimer
-  };
-
-
-  const handleTimeSelect = (timeString) => {
-    onSelectTime(timeString);
   };
 
   // Si pas de date sélectionnée ET pas de sessions, afficher seulement le header
@@ -144,9 +94,6 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
           <div className="hours-input-group">
             <label htmlFor="hours-input">
               Nombre d'heures :
-              {availableHours > 0 && (
-                <span className="available-hours">({availableHours}h disponibles)</span>
-              )}
             </label>
             <div className="input-with-controls">
               <button

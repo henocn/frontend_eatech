@@ -28,10 +28,6 @@ const BookingPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedSessions, setSelectedSessions] = useState([]);
 
-  // Disponibilités du studio
-  const [availability, setAvailability] = useState([]);
-  const [loadingAvailability, setLoadingAvailability] = useState(false);
-
   // Gestionnaire pour ajouter/supprimer des sessions
   const handleAddSession = (newSession, dateToRemove = null) => {
     if (dateToRemove) {
@@ -46,29 +42,6 @@ const BookingPage = () => {
       setSelectedSessions(prev => [...prev, newSession]);
     }
   };
-
-  // Récupérer les disponibilités quand un studio est sélectionné
-  useEffect(() => {
-    const fetchAvailability = async () => {
-      if (!selectedStudio) {
-        setAvailability([]);
-        return;
-      }
-
-      setLoadingAvailability(true);
-      try {
-        const data = await api.get(`/studios/${selectedStudio.id}/availability/`);
-        setAvailability(data);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des disponibilités:", error);
-        setAvailability([]);
-      } finally {
-        setLoadingAvailability(false);
-      }
-    };
-
-    fetchAvailability();
-  }, [selectedStudio]);
 
   return (
     <div className="app">
@@ -108,29 +81,18 @@ const BookingPage = () => {
         {/* ===== ÉTAPE 3 : DATE & HEURE ===== */}
         {currentStep === 3 && selectedDecor && (
           <div className="schedule-step">
-            {loadingAvailability ? (
-              <div className="loading-availability">
-                <div className="loading-spinner"></div>
-                <p>Chargement des disponibilités...</p>
-              </div>
-            ) : (
-              <>
-                <CalendarPicker
-                  selectedDate={selectedDate}
-                  onSelectDate={setSelectedDate}
-                  studioId={selectedStudio?.id}
-                  availability={availability}
-                  selectedSessions={selectedSessions}
-                />
+            <CalendarPicker
+              selectedDate={selectedDate}
+              onSelectDate={setSelectedDate}
+              studioId={selectedStudio?.id}
+              selectedSessions={selectedSessions}
+            />
 
-                <TimePicker
-                  selectedDate={selectedDate}
-                  selectedSessions={selectedSessions}
-                  onAddSession={handleAddSession}
-                  availability={availability}
-                />
-              </>
-            )}
+            <TimePicker
+              selectedDate={selectedDate}
+              selectedSessions={selectedSessions}
+              onAddSession={handleAddSession}
+            />
           </div>
         )}
       </main>
