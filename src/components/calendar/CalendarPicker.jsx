@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Calendar } from "lucide-react";
 import "./CalendarPicker.css";
 
-const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) => {
+const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability, selectedSessions = [] }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [availableDays, setAvailableDays] = useState(new Set());
 
@@ -44,6 +44,10 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
     // Jours du mois
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(year, month, day);
+      const hasSession = selectedSessions.some(session =>
+        session.date.toDateString() === date.toDateString()
+      );
+
       days.push({
         date,
         day,
@@ -51,7 +55,8 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
         isToday: date.toDateString() === new Date().toDateString(),
         isSelected: selectedDate && date.toDateString() === selectedDate.toDateString(),
         isPast: date < new Date(new Date().setHours(0, 0, 0, 0)), // Date dans le passé
-        isUnavailable: !isDayAvailable(date) || date < new Date(new Date().setHours(0, 0, 0, 0)) // Indisponible = non disponible OU dans le passé
+        isUnavailable: !isDayAvailable(date) || date < new Date(new Date().setHours(0, 0, 0, 0)), // Indisponible = non disponible OU dans le passé
+        hasSession: hasSession
       });
     }
 
@@ -120,7 +125,8 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
           <div
             key={index}
             className={`calendar-day ${dayInfo ? 'calendar-day-filled' : ''} ${
-              dayInfo?.isSelected ? 'selected' : ''
+              dayInfo?.isSelected ? 'selected' :
+              dayInfo?.hasSession ? 'has-session' : ''
             } ${
               dayInfo?.isUnavailable ? 'unavailable' : 'available'
             }`}

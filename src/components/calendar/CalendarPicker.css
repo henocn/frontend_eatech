@@ -95,7 +95,8 @@
   background: #f3f4f6;
 }
 
-.calendar-day-filled.available.selected {
+.calendar-day-filled.available.selected,
+.calendar-day-filled.available.has-session {
   background: rgba(189, 161, 95, 0.2);
   color: #374151;
   font-weight: 600;

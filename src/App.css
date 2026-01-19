@@ -101,10 +101,12 @@
 
     .schedule-step .calendar-picker {
         order: 1;
+        width: 100%; /* Calendrier prend toute la largeur sur mobile */
     }
 
     .schedule-step .time-picker {
         order: 2;
+        width: 100%; /* Sélection heures prend toute la largeur sur mobile */
     }
 
     .loading-availability {

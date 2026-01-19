@@ -120,6 +120,7 @@ const BookingPage = () => {
                   onSelectDate={setSelectedDate}
                   studioId={selectedStudio?.id}
                   availability={availability}
+                  selectedSessions={selectedSessions}
                 />
 
                 <TimePicker
