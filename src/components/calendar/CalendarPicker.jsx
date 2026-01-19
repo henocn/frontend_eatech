@@ -55,7 +55,7 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability, se
         isToday: date.toDateString() === new Date().toDateString(),
         isSelected: selectedDate && date.toDateString() === selectedDate.toDateString(),
         isPast: date < new Date(new Date().setHours(0, 0, 0, 0)), // Date dans le passé
-        isUnavailable: !isDayAvailable(date) || date < new Date(new Date().setHours(0, 0, 0, 0)), // Indisponible = non disponible OU dans le passé
+        isUnavailable: !isDayAvailable(date) || date <= new Date(new Date().setHours(23, 59, 59, 999)), // Indisponible = non disponible OU aujourd'hui inclus
         hasSession: hasSession
       });
     }
@@ -126,7 +126,8 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability, se
             key={index}
             className={`calendar-day ${dayInfo ? 'calendar-day-filled' : ''} ${
               dayInfo?.isSelected ? 'selected' :
-              dayInfo?.hasSession ? 'has-session' : ''
+              dayInfo?.hasSession ? 'has-session' :
+              dayInfo?.isToday ? 'today' : ''
             } ${
               dayInfo?.isUnavailable ? 'unavailable' : 'available'
             }`}
@@ -140,7 +141,11 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability, se
       <div className="calendar-legend">
         <div className="legend-item">
           <div className="legend-color selected"></div>
-          <span>Sélectionné</span>
+          <span>En cours de sélection</span>
+        </div>
+        <div className="legend-item">
+          <div className="legend-color has-session"></div>
+          <span>Session programmée</span>
         </div>
         <div className="legend-item">
           <div className="legend-color unavailable"></div>

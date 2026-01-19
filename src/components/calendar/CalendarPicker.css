@@ -95,12 +95,28 @@
   background: #f3f4f6;
 }
 
-.calendar-day-filled.available.selected,
+/* Date actuellement sélectionnée (pour nouvelle session) */
+.calendar-day-filled.available.selected {
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-weight: 600;
+  border: 2px solid #3b82f6;
+}
+
+/* Dates avec sessions programmées */
 .calendar-day-filled.available.has-session {
   background: rgba(189, 161, 95, 0.2);
   color: #374151;
   font-weight: 600;
   border: 2px solid #bda15f;
+}
+
+/* Date du jour (bleu mais indisponible) */
+.calendar-day-filled.unavailable.today {
+  background: #dbeafe;
+  color: #1d4ed8;
+  opacity: 0.6;
+  font-weight: 600;
 }
 
 .calendar-day-filled.unavailable {
@@ -143,6 +159,11 @@
 }
 
 .legend-color.selected {
+  background: #dbeafe;
+  border: 2px solid #3b82f6;
+}
+
+.legend-color.has-session {
   background: rgba(189, 161, 95, 0.2);
   border: 2px solid #bda15f;
 }
