@@ -2,7 +2,7 @@
   background: #ffffff;
   border-radius: 12px;
   border: 1px solid #e5e7eb;
-  padding: 24px;
+  padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   min-height: fit-content;
 }
@@ -60,8 +60,8 @@
 
 /* ===== SECTION SAISIE HEURES ===== */
 .hours-input-section {
-  margin-bottom: 24px;
-  padding: 20px;
+  margin-bottom: 16px;
+  padding: 16px;
   background: #f9fafb;
   border-radius: 8px;
   border: 1px solid #e5e7eb;
@@ -70,8 +70,8 @@
 .hours-input-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 6px;
+  margin-bottom: 12px;
 }
 
 .hours-input-group label {
@@ -171,12 +171,12 @@
 
 /* ===== LISTE DES SESSIONS ===== */
 .sessions-list {
-  margin-top: 24px;
+  margin-top: 16px;
 }
 
 .sessions-list h4 {
-  margin: 0 0 16px 0;
-  font-size: 1.1rem;
+  margin: 0 0 8px 0;
+  font-size: 1rem;
   font-weight: 600;
   color: #374151;
 }
@@ -184,18 +184,18 @@
 .sessions-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .session-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 8px 12px;
   background: #f9fafb;
   border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border-radius: 6px;
   transition: all 0.2s ease;
 }
 
@@ -206,19 +206,23 @@
 
 .session-info {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
 }
 
 .session-date {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #1f2937;
 }
 
 .session-hours {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #6b7280;
+  background: #e5e7eb;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 .remove-session-btn {
@@ -226,12 +230,12 @@
   color: white;
   border: none;
   border-radius: 50%;
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -244,23 +248,23 @@
 }
 
 .sessions-summary {
-  padding: 12px 16px;
+  padding: 8px 12px;
   background: #fef7f0;
   border: 1px solid #fed7aa;
-  border-radius: 8px;
+  border-radius: 6px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .summary-label {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   color: #9a6b3a;
 }
 
 .summary-value {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #7c2d12;
 }
@@ -270,42 +274,88 @@
   .mobile-hint {
     display: flex !important;
   }
+
+  .time-picker {
+    padding: 16px;
+  }
+
+  .sessions-list {
+    margin-top: 12px;
+  }
 }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {
   .time-picker {
-    padding: 16px;
+    padding: 12px;
+  }
+
+  .time-picker-header h3 {
+    font-size: 1rem;
   }
 
   .hours-input-section {
-    padding: 16px;
+    padding: 12px;
+    margin-bottom: 12px;
   }
 
   .input-with-controls {
-    gap: 8px;
+    gap: 6px;
   }
 
   .hours-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
   }
 
   .hours-input {
-    width: 60px;
-    height: 36px;
-  }
-
-  .add-session-btn {
-    padding: 10px 16px;
+    width: 50px;
+    height: 32px;
     font-size: 0.9rem;
   }
 
+  .add-session-btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+
+  .session-item {
+    padding: 6px 10px;
+  }
+
+  .session-info {
+    gap: 8px;
+  }
+
+  .session-date {
+    font-size: 0.85rem;
+  }
+
+  .session-hours {
+    font-size: 0.75rem;
+    padding: 1px 4px;
+  }
+
+  .remove-session-btn {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+  }
+
   .sessions-summary {
+    padding: 6px 10px;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
     text-align: center;
+  }
+
+  .summary-label {
+    font-size: 0.8rem;
+  }
+
+  .summary-value {
+    font-size: 0.85rem;
   }
 }
 
