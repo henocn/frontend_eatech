@@ -143,7 +143,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     try {
-      const response = await api.get(`/carts/?client=${currentUser.id}`);
+      const response = await api.get(`/carts/?user=${currentUser.id}`);
 
       if (response && response.length > 0) {
         const cartData = response[0];
