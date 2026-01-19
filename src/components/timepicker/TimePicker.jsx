@@ -6,114 +6,68 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
   const [hours, setHours] = useState(1);
   const [inputError, setInputError] = useState(null);
 
-  useEffect(() => {
-    if (selectedDate && availability && availability.length > 0) {
-      // Convertir la date sélectionnée en jour de la semaine (0-6)
-      const dayOfWeek = selectedDate.getDay(); // 0 = dimanche, 1 = lundi, etc.
-      const apiDay = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Convertir en format API
+  // Vérifier si la date est déjà sélectionnée
+  const isDateAlreadySelected = selectedDate && selectedSessions.some(session =>
+    session.date.toDateString() === selectedDate.toDateString()
+  );
 
-      // Filtrer les créneaux pour ce jour
-      const daySlots = availability.filter(slot => slot.day === apiDay);
+  // Gestionnaire pour ajouter une session
+  const handleAddSession = () => {
+    if (!selectedDate) return;
 
-      // Générer tous les créneaux de 30 minutes entre start_hour et end_hour
-      const slots = [];
-      daySlots.forEach(slot => {
-        const startTime = new Date(`2000-01-01T${slot.start_hour}`);
-        const endTime = new Date(`2000-01-01T${slot.end_hour}`);
-
-        let currentTime = new Date(startTime);
-
-        while (currentTime < endTime) {
-          const timeString = currentTime.toTimeString().slice(0, 5); // HH:MM format
-          slots.push({
-            time: timeString,
-            displayTime: formatTimeDisplay(timeString),
-            fullTime: currentTime,
-            isSelected: isTimeInRange(timeString, selectedTimeRange),
-            isInDragRange: isTimeInRange(timeString, { start: dragStart, end: dragEnd })
-          });
-
-          // Ajouter 30 minutes
-          currentTime.setMinutes(currentTime.getMinutes() + 30);
-        }
-      });
-
-      // Trier et supprimer les doublons
-      const uniqueSlots = slots
-        .filter((slot, index, self) =>
-          index === self.findIndex(s => s.time === slot.time)
-        )
-        .sort((a, b) => a.time.localeCompare(b.time));
-
-      setAvailableSlots(uniqueSlots);
-    } else {
-      setAvailableSlots([]);
-    }
-  }, [selectedDate, availability, selectedTimeRange, dragStart, dragEnd]);
-
-  // Vérifier si une heure est dans une plage
-  const isTimeInRange = (time, range) => {
-    if (!range || !range.start || !range.end) return false;
-
-    const timeDate = new Date(`2000-01-01T${time}`);
-    const startDate = new Date(`2000-01-01T${range.start}`);
-    const endDate = new Date(`2000-01-01T${range.end}`);
-
-    return timeDate >= startDate && timeDate <= endDate;
-  };
-
-  // Gestion du drag pour sélectionner une plage
-  const handleMouseDown = (time) => {
-    setIsDragging(true);
-    setDragStart(time);
-    setDragEnd(time);
-  };
-
-  const handleMouseEnter = (time) => {
-    if (isDragging) {
-      setDragEnd(time);
-    }
-  };
-
-  const handleMouseUp = () => {
-    if (isDragging && dragStart && dragEnd) {
-      // Déterminer le début et la fin de la plage
-      const start = dragStart <= dragEnd ? dragStart : dragEnd;
-      const end = dragStart <= dragEnd ? dragEnd : dragStart;
-
-      // Vérifier que la plage fait au moins 30 minutes
-      const startDate = new Date(`2000-01-01T${start}`);
-      const endDate = new Date(`2000-01-01T${end}`);
-      const diffMinutes = (endDate - startDate) / (1000 * 60);
-
-      if (diffMinutes >= 30) {
-        onSelectTimeRange({ start, end });
-        setSelectionError(null);
-      } else {
-        // Afficher un message d'erreur temporaire
-        setSelectionError("La réservation doit durer au moins 30 minutes");
-        // Masquer le message après 3 secondes
-        setTimeout(() => setSelectionError(null), 3000);
-      }
+    // Validation du nombre d'heures
+    if (hours < 1 || hours > 8) {
+      setInputError("Le nombre d'heures doit être entre 1 et 8");
+      return;
     }
 
-    setIsDragging(false);
-    setDragStart(null);
-    setDragEnd(null);
-  };
-
-  // Annuler le drag si on sort du composant
-  const handleMouseLeave = () => {
-    if (isDragging) {
-      setIsDragging(false);
-      setDragStart(null);
-      setDragEnd(null);
+    // Vérifier si la date est déjà sélectionnée
+    if (isDateAlreadySelected) {
+      setInputError("Cette date est déjà sélectionnée");
+      return;
     }
+
+    // Vérifier la disponibilité (simplifié - on pourrait faire une vérification plus poussée)
+    const dayOfWeek = selectedDate.getDay();
+    const apiDay = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    const dayAvailability = availability.filter(slot => slot.day === apiDay);
+
+    if (dayAvailability.length === 0) {
+      setInputError("Aucun créneau disponible pour cette date");
+      return;
+    }
+
+    // Calculer la durée totale disponible pour ce jour
+    let totalMinutes = 0;
+    dayAvailability.forEach(slot => {
+      const start = new Date(`2000-01-01T${slot.start_hour}`);
+      const end = new Date(`2000-01-01T${slot.end_hour}`);
+      totalMinutes += (end - start) / (1000 * 60);
+    });
+
+    const requestedMinutes = hours * 60;
+    if (requestedMinutes > totalMinutes) {
+      setInputError(`Maximum ${Math.floor(totalMinutes / 60)}h disponibles pour cette date`);
+      return;
+    }
+
+    // Ajouter la session
+    onAddSession({
+      date: selectedDate,
+      hours: hours,
+      dayOfWeek: apiDay
+    });
+
+    // Reset
+    setHours(1);
+    setInputError(null);
   };
 
-  const formatTimeDisplay = (timeString) => {
-    return timeString; // Afficher directement HH:MM sans AM/PM
+  // Gestionnaire pour supprimer une session
+  const handleRemoveSession = (dateToRemove) => {
+    onAddSession(null, dateToRemove); // Passer null pour supprimer
   };
+
 
   const handleTimeSelect = (timeString) => {
     onSelectTime(timeString);
@@ -134,68 +88,106 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
   }
 
   return (
-    <div className="time-picker" onMouseLeave={handleMouseLeave} onMouseUp={handleMouseUp}>
+    <div className="time-picker">
       <div className="time-picker-header">
         <h3>
           <Clock size={20} />
-          Sélectionner une plage horaire
+          Durée de tournage
         </h3>
         <p className="time-picker-info">
-          Glissez pour sélectionner une plage d'au moins 30 minutes pour le {selectedDate.toLocaleDateString('fr-FR')}
+          {selectedDate
+            ? `Nombre d'heures souhaité pour le ${selectedDate.toLocaleDateString('fr-FR')}`
+            : "Sélectionnez d'abord une date dans le calendrier"
+          }
         </p>
       </div>
 
-      <div className="time-slots">
-        {availableSlots.length > 0 ? (
-          availableSlots.map((slot) => (
-            <div
-              key={slot.time}
-              className={`time-slot ${
-                slot.isSelected ? 'selected' :
-                slot.isInDragRange ? 'in-drag-range' :
-                ''
-              }`}
-              onMouseDown={() => handleMouseDown(slot.time)}
-              onMouseEnter={() => handleMouseEnter(slot.time)}
-            >
-              {slot.displayTime}
+      {selectedDate && (
+        <div className="hours-input-section">
+          <div className="hours-input-group">
+            <label htmlFor="hours-input">Nombre d'heures :</label>
+            <div className="input-with-controls">
+              <button
+                type="button"
+                className="hours-btn"
+                onClick={() => setHours(Math.max(1, hours - 1))}
+                disabled={hours <= 1}
+              >
+                -
+              </button>
+              <input
+                id="hours-input"
+                type="number"
+                min="1"
+                max="8"
+                value={hours}
+                onChange={(e) => {
+                  const value = parseInt(e.target.value);
+                  if (!isNaN(value) && value >= 1 && value <= 8) {
+                    setHours(value);
+                    setInputError(null);
+                  }
+                }}
+                className="hours-input"
+              />
+              <button
+                type="button"
+                className="hours-btn"
+                onClick={() => setHours(Math.min(8, hours + 1))}
+                disabled={hours >= 8}
+              >
+                +
+              </button>
             </div>
-          ))
-        ) : (
-          <div className="no-slots">
-            <Clock size={24} />
-            <p>Aucun créneau disponible pour cette date</p>
           </div>
-        )}
-      </div>
 
-      {selectedTimeRange && selectedTimeRange.start && selectedTimeRange.end && (
-        <div className="selected-time-info">
-          <div className="selected-time-display">
-            <span className="selected-label">Plage sélectionnée :</span>
-            <span className="selected-value">
-              {formatTimeDisplay(selectedTimeRange.start)} - {formatTimeDisplay(selectedTimeRange.end)}
+          <button
+            className="add-session-btn"
+            onClick={handleAddSession}
+            disabled={isDateAlreadySelected}
+          >
+            {isDateAlreadySelected ? 'Date déjà sélectionnée' : 'Ajouter cette session'}
+          </button>
+
+          {inputError && (
+            <div className="input-error">
+              {inputError}
+            </div>
+          )}
+        </div>
+      )}
+
+      {selectedSessions && selectedSessions.length > 0 && (
+        <div className="sessions-list">
+          <h4>Sessions programmées :</h4>
+          <div className="sessions-container">
+            {selectedSessions.map((session, index) => (
+              <div key={index} className="session-item">
+                <div className="session-info">
+                  <span className="session-date">
+                    {session.date.toLocaleDateString('fr-FR')}
+                  </span>
+                  <span className="session-hours">
+                    {session.hours}h de tournage
+                  </span>
+                </div>
+                <button
+                  className="remove-session-btn"
+                  onClick={() => handleRemoveSession(session.date)}
+                  title="Supprimer cette session"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+
+          <div className="sessions-summary">
+            <span className="summary-label">Total :</span>
+            <span className="summary-value">
+              {selectedSessions.length} session{selectedSessions.length > 1 ? 's' : ''} • {selectedSessions.reduce((total, session) => total + session.hours, 0)}h de tournage
             </span>
           </div>
-          <button
-            className="cancel-selection-btn"
-            onClick={() => onSelectTimeRange(null)}
-            title="Annuler la sélection"
-          >
-            ✕
-          </button>
-        </div>
-      )}
-
-      {isDragging && (
-        <div className="drag-instruction">
-          Relâchez pour confirmer la sélection
-        </div>
-      )}
-
-      {selectionError && (
-        <div className="selection-error">
-          {selectionError}
         </div>
       )}
     </div>
