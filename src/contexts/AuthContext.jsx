@@ -20,11 +20,11 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = () => {
       const accessToken = localStorage.getItem('access_token');
-      const userData = localStorage.getItem('user_data');
+      const user = localStorage.getItem('user_data');
 
-      if (accessToken && userData) {
+      if (accessToken && user) {
         try {
-          const parsedUser = JSON.parse(userData);
+          const parsedUser = JSON.parse(user);
           setUser(parsedUser);
           setIsAuthenticated(true);
           api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
@@ -59,22 +59,23 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const response = await api.post('/auth/token/', {
-        username: email, // L'API attend 'username' mais c'est en fait l'email
+        username: email,
         password: password
       });
+      
 
-      const { access, refresh, user: userData } = response.data;
+      const { access, refresh, user } = response;
 
       // Stocker les tokens
       localStorage.setItem('access_token', access);
       localStorage.setItem('refresh_token', refresh);
-      localStorage.setItem('user_data', JSON.stringify(userData));
+      localStorage.setItem('user', JSON.stringify(user));
 
       // Configurer axios avec le token
       api.defaults.headers.common['Authorization'] = `Bearer ${access}`;
 
       // Mettre à jour l'état
-      setUser(userData);
+      setUser(user);
       setIsAuthenticated(true);
 
       return { success: true };
