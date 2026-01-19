@@ -79,7 +79,7 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
   ];
 
   return (
-    <div className="calendar-picker">
+    <div className="calendar-picker booking-component">
       <div className="calendar-header">
         <h3>
           <Calendar size={20} />

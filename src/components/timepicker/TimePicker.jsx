@@ -88,7 +88,7 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
   }
 
   return (
-    <div className="time-picker">
+    <div className="time-picker booking-component">
       <div className="time-picker-header">
         <h3>
           <Clock size={20} />
@@ -100,6 +100,12 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
             : "Sélectionnez d'abord une date dans le calendrier"
           }
         </p>
+        {!selectedDate && (
+          <div className="mobile-hint">
+            <span className="hint-icon">👆</span>
+            <span className="hint-text">Choisissez une date ci-dessus</span>
+          </div>
+        )}
       </div>
 
       {selectedDate && (
