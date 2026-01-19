@@ -75,7 +75,6 @@ const Login = () => {
           <div className="auth-card">
             <div className="auth-header">
               <img src="/images/logo2.png" alt="Golden Studio" className="auth-logo" />
-              <h1>Connexion</h1>
             </div>
 
             <form onSubmit={handleSubmit} className="auth-form">
