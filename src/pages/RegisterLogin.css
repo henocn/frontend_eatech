@@ -26,26 +26,22 @@
 /* ===== HEADER ===== */
 .auth-header {
   text-align: center;
-  padding: 2rem 2rem 1.5rem;
+  padding: 1.25rem 1.5rem 0.75rem;
   background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
   border-bottom: 1px solid #e5e7eb;
 }
 
-.auth-icon {
-  color: #bda15f;
-  margin-bottom: 1rem;
+.auth-logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 0.75rem;
+  object-fit: contain;
 }
 
 .auth-header h1 {
   font-size: 2rem;
   font-weight: 700;
   color: #1f2937;
-  margin: 0 0 0.5rem 0;
-}
-
-.auth-header p {
-  font-size: 1rem;
-  color: #6b7280;
   margin: 0;
 }
 
@@ -327,6 +323,12 @@
 @media (max-width: 480px) {
   .auth-header {
     padding: 1.25rem 1.25rem 0.75rem;
+  }
+
+  .auth-logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 0.75rem;
   }
 
   .auth-header h1 {

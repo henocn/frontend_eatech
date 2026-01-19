@@ -74,9 +74,8 @@ const Login = () => {
         <div className="auth-container">
           <div className="auth-card">
             <div className="auth-header">
-              <LogIn size={32} className="auth-icon" />
+              <img src="/images/logo2.png" alt="Golden Studio" className="auth-logo" />
               <h1>Connexion</h1>
-              <p>Accédez à votre compte EATECH</p>
             </div>
 
             <form onSubmit={handleSubmit} className="auth-form">

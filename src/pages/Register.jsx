@@ -109,9 +109,8 @@ const Register = () => {
         <div className="auth-container">
           <div className="auth-card">
             <div className="auth-header">
-              <UserPlus size={32} className="auth-icon" />
+              <img src="/images/logo2.png" alt="Golden Studio" className="auth-logo" />
               <h1>Inscription</h1>
-              <p>Créez votre compte EATECH</p>
             </div>
 
             <form onSubmit={handleSubmit} className="auth-form">
