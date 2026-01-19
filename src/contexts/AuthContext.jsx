@@ -15,12 +15,13 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [cartItems, setCartItems] = useState(0);
 
   // Vérifier l'authentification au démarrage
   useEffect(() => {
     const checkAuth = () => {
       const accessToken = localStorage.getItem('access_token');
-      const user = localStorage.getItem('user_data');
+      const user = localStorage.getItem('user');
 
       if (accessToken && user) {
         try {
@@ -78,6 +79,9 @@ export const AuthProvider = ({ children }) => {
       setUser(user);
       setIsAuthenticated(true);
 
+      // Récupérer le panier
+      setTimeout(() => fetchCartItems(), 100);
+
       return { success: true };
     } catch (error) {
       console.error('Login error:', error);
@@ -92,7 +96,7 @@ export const AuthProvider = ({ children }) => {
     // Supprimer les données stockées
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
-    localStorage.removeItem('user_data');
+    localStorage.removeItem('user');
 
     // Supprimer l'Authorization header
     delete api.defaults.headers.common['Authorization'];
@@ -128,13 +132,34 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const fetchCartItems = async () => {
+    if (!user) return;
+
+    try {
+      const response = await api.get(`/carts/?user=${user.id}`);
+      console.log(response);
+      if (response && response.length > 0) {
+        const cartData = response[0];
+        const itemCount = cartData.photography_sessions ? cartData.photography_sessions.length : 0;
+        setCartItems(itemCount);
+      } else {
+        setCartItems(0);
+      }
+    } catch (error) {
+      console.error('Error fetching cart:', error);
+      setCartItems(0);
+    }
+  };
+
   const value = {
     user,
     isAuthenticated,
     loading,
+    cartItems,
     login,
     logout,
-    refreshToken
+    refreshToken,
+    fetchCartItems
   };
 
   return (

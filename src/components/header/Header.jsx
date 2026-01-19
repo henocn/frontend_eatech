@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Palette, Menu, X, Moon, Sun, Globe, User, LogOut, Home } from 'lucide-react';
+import { Palette, Menu, X, Moon, Sun, Globe, User, LogOut, Home, ShoppingCart } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,7 +14,7 @@ function Header({ current }) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { theme, toggleTheme } = useTheme();
-    const { isAuthenticated, user, logout } = useAuth();
+    const { isAuthenticated, user, logout, cartItems } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -64,13 +64,25 @@ function Header({ current }) {
                     </a>
 
                     {isAuthenticated ? (
-                        <button
-                            className="nav-link logout-btn"
-                            onClick={handleLogout}
-                        >
-                            <LogOut className="nav-icon" size={18} />
-                            Déconnexion
-                        </button>
+                        <>
+                            <Link to="/cart" className="nav-link cart-link" onClick={() => setIsMobileMenuOpen(false)}>
+                                <div className="cart-container">
+                                    <ShoppingCart className="nav-icon" size={18} />
+                                    Panier
+                                    {cartItems > 0 && (
+                                        <span className="cart-badge">{cartItems}</span>
+                                    )}
+                                </div>
+                            </Link>
+
+                            <button
+                                className="nav-link logout-btn"
+                                onClick={handleLogout}
+                            >
+                                <LogOut className="nav-icon" size={18} />
+                                Déconnexion
+                            </button>
+                        </>
                     ) : (
                         <Link to="/login" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
                             <User className="nav-icon" size={18} />
