@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Palette, Menu, X, Moon, Sun, Globe, User, LogOut, ShoppingCart, Home, Info } from 'lucide-react';
+import { Palette, Menu, X, Moon, Sun, Globe, User, LogOut, Home } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
@@ -62,25 +62,15 @@ function Header({ current }) {
                         <Globe className="nav-icon" size={18} />
                         Contact
                     </a>
-                    <a href="#about" className={`nav-link ${current === 'about' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
-                        <Info className="nav-icon" size={18} />
-                        À propos
-                    </a>
 
                     {isAuthenticated ? (
-                        <>
-                            <Link to="/booking" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                                <ShoppingCart className="nav-icon" size={18} />
-                                Réservation
-                            </Link>
-                            <button
-                                className="nav-link logout-btn"
-                                onClick={handleLogout}
-                            >
-                                <LogOut className="nav-icon" size={18} />
-                                Déconnexion
-                            </button>
-                        </>
+                        <button
+                            className="nav-link logout-btn"
+                            onClick={handleLogout}
+                        >
+                            <LogOut className="nav-icon" size={18} />
+                            Déconnexion
+                        </button>
                     ) : (
                         <Link to="/login" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
                             <User className="nav-icon" size={18} />
