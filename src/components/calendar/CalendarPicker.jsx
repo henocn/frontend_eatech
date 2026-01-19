@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Calendar } from "lucide-react";
 import "./CalendarPicker.css";
 
-const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) => {
+const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability, selectedSessions = [] }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [availableDays, setAvailableDays] = useState(new Set());
 
@@ -44,12 +44,19 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
     // Jours du mois
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(year, month, day);
+      const hasSession = selectedSessions.some(session =>
+        session.date.toDateString() === date.toDateString()
+      );
+
       days.push({
         date,
         day,
         isAvailable: isDayAvailable(date),
         isToday: date.toDateString() === new Date().toDateString(),
-        isSelected: selectedDate && date.toDateString() === selectedDate.toDateString()
+        isSelected: selectedDate && date.toDateString() === selectedDate.toDateString(),
+        isPast: date < new Date(new Date().setHours(0, 0, 0, 0)), // Date dans le passé
+        isUnavailable: !isDayAvailable(date) || date <= new Date(new Date().setHours(23, 59, 59, 999)), // Indisponible = non disponible OU aujourd'hui inclus
+        hasSession: hasSession
       });
     }
 
@@ -67,8 +74,13 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
   };
 
   const handleDateSelect = (dayInfo) => {
-    if (dayInfo && dayInfo.isAvailable) {
-      onSelectDate(dayInfo.date);
+    if (dayInfo && !dayInfo.isUnavailable) {
+      // Si on clique sur la date déjà sélectionnée, on la désélectionne
+      if (selectedDate && dayInfo.date.toDateString() === selectedDate.toDateString()) {
+        onSelectDate(null);
+      } else {
+        onSelectDate(dayInfo.date);
+      }
     }
   };
 
@@ -78,7 +90,7 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
   ];
 
   return (
-    <div className="calendar-picker">
+    <div className="calendar-picker booking-component">
       <div className="calendar-header">
         <h3>
           <Calendar size={20} />
@@ -118,11 +130,11 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
           <div
             key={index}
             className={`calendar-day ${dayInfo ? 'calendar-day-filled' : ''} ${
+              dayInfo?.isSelected ? 'selected' :
+              dayInfo?.hasSession ? 'has-session' :
               dayInfo?.isToday ? 'today' : ''
             } ${
-              dayInfo?.isSelected ? 'selected' : ''
-            } ${
-              dayInfo?.isAvailable ? 'available' : 'unavailable'
+              dayInfo?.isUnavailable ? 'unavailable' : 'available'
             }`}
             onClick={() => handleDateSelect(dayInfo)}
           >
@@ -133,16 +145,16 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
 
       <div className="calendar-legend">
         <div className="legend-item">
-          <div className="legend-color available"></div>
-          <span>Disponible</span>
+          <div className="legend-color selected"></div>
+          <span>En cours de sélection</span>
+        </div>
+        <div className="legend-item">
+          <div className="legend-color has-session"></div>
+          <span>Session programmée</span>
         </div>
         <div className="legend-item">
           <div className="legend-color unavailable"></div>
           <span>Indisponible</span>
-        </div>
-        <div className="legend-item">
-          <div className="legend-color selected"></div>
-          <span>Sélectionné</span>
         </div>
       </div>
     </div>

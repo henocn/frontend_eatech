@@ -36,10 +36,20 @@
 }
 
 .schedule-step {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
     gap: 2rem;
     margin-top: 2rem;
+    align-items: start;
+}
+
+.schedule-step .calendar-picker {
+    grid-column: 1;
+}
+
+.schedule-step .time-picker {
+    grid-column: 2;
+    align-self: start;
 }
 
 /* Loading availability */
@@ -83,12 +93,36 @@
     }
 
     .schedule-step {
+        display: flex;
+        flex-direction: column;
         gap: 1.5rem;
         margin-top: 1.5rem;
     }
 
+    .schedule-step .calendar-picker {
+        order: 1;
+        width: 100%; /* Calendrier prend toute la largeur sur mobile */
+    }
+
+    .schedule-step .time-picker {
+        order: 2;
+        width: 100%; /* Sélection heures prend toute la largeur sur mobile */
+    }
+
     .loading-availability {
         padding: 2rem 1rem;
+    }
+
+    /* Masquer l'indicateur mobile sur desktop */
+    .mobile-hint {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    /* Masquer l'indicateur sur desktop */
+    .mobile-hint {
+        display: none !important;
     }
 }
 

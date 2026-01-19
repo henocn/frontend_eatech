@@ -26,11 +26,26 @@ const BookingPage = () => {
   const [selectedStudio, setSelectedStudio] = useState(null);
   const [selectedDecor, setSelectedDecor] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedSessions, setSelectedSessions] = useState([]);
 
   // Disponibilités du studio
   const [availability, setAvailability] = useState([]);
   const [loadingAvailability, setLoadingAvailability] = useState(false);
+
+  // Gestionnaire pour ajouter/supprimer des sessions
+  const handleAddSession = (newSession, dateToRemove = null) => {
+    if (dateToRemove) {
+      // Supprimer une session
+      setSelectedSessions(prev =>
+        prev.filter(session =>
+          session.date.toDateString() !== dateToRemove.toDateString()
+        )
+      );
+    } else if (newSession) {
+      // Ajouter une session
+      setSelectedSessions(prev => [...prev, newSession]);
+    }
+  };
 
   // Récupérer les disponibilités quand un studio est sélectionné
   useEffect(() => {
@@ -105,12 +120,13 @@ const BookingPage = () => {
                   onSelectDate={setSelectedDate}
                   studioId={selectedStudio?.id}
                   availability={availability}
+                  selectedSessions={selectedSessions}
                 />
 
                 <TimePicker
                   selectedDate={selectedDate}
-                  selectedTime={selectedTime}
-                  onSelectTime={setSelectedTime}
+                  selectedSessions={selectedSessions}
+                  onAddSession={handleAddSession}
                   availability={availability}
                 />
               </>

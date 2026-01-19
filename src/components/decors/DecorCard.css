@@ -172,6 +172,11 @@
   color: #4b5563;
   font-weight: 500;
 }
+.decor-price {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #bda15f;
+}
 
 .decor-icon {
   margin-right: 6px;
@@ -182,7 +187,7 @@
 /* ===== BOUTON ===== */
 .decor-select-btn {
   margin-top: 8px;
-  padding: 12px 20px;
+  padding: 6px 10px;
   border-radius: 8px;
   border: 2px solid #bda15f;
   background: #bda15f;
@@ -191,7 +196,7 @@
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.25s ease;
-  align-self: flex-start;
+  /* align-self: center; */
 }
 
 .decor-select-btn:hover {

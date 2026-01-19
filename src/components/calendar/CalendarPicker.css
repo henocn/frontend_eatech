@@ -4,6 +4,7 @@
   border: 1px solid #e5e7eb;
   padding: 24px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  height: fit-content;
 }
 
 .calendar-header {
@@ -87,27 +88,41 @@
 
 .calendar-day-filled.available {
   color: #374151;
+  cursor: pointer;
 }
 
 .calendar-day-filled.available:hover {
   background: #f3f4f6;
 }
 
+/* Date actuellement sélectionnée (pour nouvelle session) */
 .calendar-day-filled.available.selected {
-  background: #bda15f;
-  color: white;
-  font-weight: 600;
-}
-
-.calendar-day-filled.available.today {
   background: #dbeafe;
   color: #1d4ed8;
+  font-weight: 600;
+  border: 2px solid #3b82f6;
+}
+
+/* Dates avec sessions programmées */
+.calendar-day-filled.available.has-session {
+  background: rgba(189, 161, 95, 0.2);
+  color: #374151;
+  font-weight: 600;
+  border: 2px solid #bda15f;
+}
+
+/* Date du jour (bleu mais indisponible) */
+.calendar-day-filled.unavailable.today {
+  background: #dbeafe;
+  color: #1d4ed8;
+  opacity: 0.6;
   font-weight: 600;
 }
 
 .calendar-day-filled.unavailable {
   color: #d1d5db;
   cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .calendar-day-filled.unavailable:hover {
@@ -144,7 +159,13 @@
 }
 
 .legend-color.selected {
-  background: #bda15f;
+  background: #dbeafe;
+  border: 2px solid #3b82f6;
+}
+
+.legend-color.has-session {
+  background: rgba(189, 161, 95, 0.2);
+  border: 2px solid #bda15f;
 }
 
 /* Responsive */
