@@ -88,6 +88,7 @@
 
 .calendar-day-filled.available {
   color: #374151;
+  cursor: pointer;
 }
 
 .calendar-day-filled.available:hover {
@@ -95,33 +96,19 @@
 }
 
 .calendar-day-filled.available.selected {
-  background: #bda15f;
-  color: white;
+  background: rgba(189, 161, 95, 0.2);
+  color: #374151;
   font-weight: 600;
-}
-
-.calendar-day-filled.available.today {
-  background: #dbeafe;
-  color: #1d4ed8;
-  font-weight: 600;
+  border: 2px solid #bda15f;
 }
 
 .calendar-day-filled.unavailable {
   color: #d1d5db;
   cursor: not-allowed;
-}
-
-.calendar-day-filled.unavailable:hover {
-  background: transparent;
-}
-
-.calendar-day-filled.past {
-  color: #9ca3af;
-  cursor: not-allowed;
   opacity: 0.5;
 }
 
-.calendar-day-filled.past:hover {
+.calendar-day-filled.unavailable:hover {
   background: transparent;
 }
 
@@ -155,12 +142,8 @@
 }
 
 .legend-color.selected {
-  background: #bda15f;
-}
-
-.legend-color.past {
-  background: #9ca3af;
-  opacity: 0.5;
+  background: rgba(189, 161, 95, 0.2);
+  border: 2px solid #bda15f;
 }
 
 /* Responsive */

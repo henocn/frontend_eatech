@@ -50,7 +50,8 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
         isAvailable: isDayAvailable(date),
         isToday: date.toDateString() === new Date().toDateString(),
         isSelected: selectedDate && date.toDateString() === selectedDate.toDateString(),
-        isPast: date < new Date(new Date().setHours(0, 0, 0, 0)) // Date dans le passé
+        isPast: date < new Date(new Date().setHours(0, 0, 0, 0)), // Date dans le passé
+        isUnavailable: !isDayAvailable(date) || date < new Date(new Date().setHours(0, 0, 0, 0)) // Indisponible = non disponible OU dans le passé
       });
     }
 
@@ -68,7 +69,7 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
   };
 
   const handleDateSelect = (dayInfo) => {
-    if (dayInfo && dayInfo.isAvailable && !dayInfo.isPast) {
+    if (dayInfo && !dayInfo.isUnavailable) {
       onSelectDate(dayInfo.date);
     }
   };
@@ -119,13 +120,9 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
           <div
             key={index}
             className={`calendar-day ${dayInfo ? 'calendar-day-filled' : ''} ${
-              dayInfo?.isToday ? 'today' : ''
-            } ${
               dayInfo?.isSelected ? 'selected' : ''
             } ${
-              dayInfo?.isAvailable && !dayInfo?.isPast ? 'available' : 'unavailable'
-            } ${
-              dayInfo?.isPast ? 'past' : ''
+              dayInfo?.isUnavailable ? 'unavailable' : 'available'
             }`}
             onClick={() => handleDateSelect(dayInfo)}
           >
@@ -136,20 +133,12 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability }) 
 
       <div className="calendar-legend">
         <div className="legend-item">
-          <div className="legend-color available"></div>
-          <span>Disponible</span>
+          <div className="legend-color selected"></div>
+          <span>Sélectionné</span>
         </div>
         <div className="legend-item">
           <div className="legend-color unavailable"></div>
           <span>Indisponible</span>
-        </div>
-        <div className="legend-item">
-          <div className="legend-color past"></div>
-          <span>Date passée</span>
-        </div>
-        <div className="legend-item">
-          <div className="legend-color selected"></div>
-          <span>Sélectionné</span>
         </div>
       </div>
     </div>
