@@ -67,77 +67,76 @@
   border: 1px solid #e5e7eb;
 }
 
-.hours-input-group {
+.time-inputs-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 12px;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
-.hours-input-group label {
+.time-inputs-group label {
   font-size: 0.9rem;
   font-weight: 500;
   color: #374151;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
-.available-hours {
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: #6b7280;
-  font-style: italic;
-}
-
-.input-with-controls {
+.time-range-container {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
-.hours-btn {
-  width: 40px;
-  height: 40px;
+.time-select {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px 12px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
-  background: #ffffff;
-  color: #6b7280;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hours-btn:hover:not(:disabled) {
-  background: #f3f4f6;
-  border-color: #9ca3af;
-}
-
-.hours-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.hours-input {
-  width: 80px;
-  height: 40px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  text-align: center;
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 0.95rem;
   color: #374151;
   background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.hours-input:focus {
+.time-select:hover {
+  border-color: #bda15f;
+}
+
+.time-select:focus {
   outline: none;
   border-color: #bda15f;
   box-shadow: 0 0 0 3px rgba(189, 161, 95, 0.1);
+}
+
+.time-separator {
+  font-weight: 500;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.duration-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  margin-left: auto;
+}
+
+.duration-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.duration-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #bda15f;
 }
 
 .add-session-btn {

@@ -38,25 +38,13 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession }) => {
   const handleAddSession = () => {
     if (!selectedDate) return;
 
-    // Vérifier si la date est déjà sélectionnée
-    if (isDateAlreadySelected) {
-      setInputError("Cette date est déjà sélectionnée");
-      return;
-    }
-
     // Vérifier que l'heure de fin est après l'heure de début
     if (startTime >= endTime) {
       setInputError("L'heure de fin doit être après l'heure de début");
       return;
     }
 
-    // Vérifier que la durée ne dépasse pas 8 heures
-    if (hours > 8) {
-      setInputError("La durée maximale est de 8 heures");
-      return;
-    }
-
-    // Ajouter la session
+    // Ajouter la session (ou remplacer si date déjà existante)
     onAddSession({
       date: selectedDate,
       startTime: startTime,
@@ -124,12 +112,11 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession }) => {
       {selectedDate && (
         <div className="hours-input-section">
           <div className="time-inputs-group">
-            <div className="time-input-wrapper">
-              <label htmlFor="start-time">
-                Heure de début :
-              </label>
+            <label htmlFor="plage-time">Plage</label>
+            
+            <div className="time-range-container">
               <select
-                id="start-time"
+                id="plage-time"
                 value={startTime}
                 onChange={(e) => {
                   setStartTime(e.target.value);
@@ -141,12 +128,9 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession }) => {
                   <option key={time} value={time}>{time}</option>
                 ))}
               </select>
-            </div>
-
-            <div className="time-input-wrapper">
-              <label htmlFor="end-time">
-                Heure de fin :
-              </label>
+              
+              <span className="time-separator">à</span>
+              
               <select
                 id="end-time"
                 value={endTime}
@@ -160,22 +144,22 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession }) => {
                   <option key={time} value={time}>{time}</option>
                 ))}
               </select>
-            </div>
 
-            <div className="duration-display">
-              <span className="duration-label">Durée :</span>
-              <span className="duration-value">
-                {hours > 0 ? `${hours.toFixed(1)}h` : "Invalide"}
-              </span>
+              <div className="duration-display">
+                <span className="duration-label">Durée :</span>
+                <span className="duration-value">
+                  {hours > 0 ? `${hours.toFixed(1)}h` : "Invalide"}
+                </span>
+              </div>
             </div>
           </div>
 
           <button
             className="add-session-btn"
             onClick={handleAddSession}
-            disabled={isDateAlreadySelected || hours <= 0 || hours > 8}
+            disabled={hours <= 0}
           >
-            {isDateAlreadySelected ? 'Date déjà sélectionnée' : 'Ajouter cette session'}
+            Ajouter cette session
           </button>
 
           {inputError && (
