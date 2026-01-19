@@ -2,12 +2,9 @@ import { useState, useEffect } from "react";
 import { Clock } from "lucide-react";
 import "./TimePicker.css";
 
-const TimePicker = ({ selectedDate, selectedTimeRange, onSelectTimeRange, availability }) => {
-  const [availableSlots, setAvailableSlots] = useState([]);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState(null);
-  const [dragEnd, setDragEnd] = useState(null);
-  const [selectionError, setSelectionError] = useState(null);
+const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability }) => {
+  const [hours, setHours] = useState(1);
+  const [inputError, setInputError] = useState(null);
 
   useEffect(() => {
     if (selectedDate && availability && availability.length > 0) {
