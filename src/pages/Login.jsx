@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { Mail, Lock, Eye, EyeOff, LogIn } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import "./RegisterLogin.css";
 
 const Login = () => {
@@ -10,9 +11,18 @@ const Login = () => {
     rememberMe: false
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const location = useLocation();
+  const { login, isAuthenticated } = useAuth();
+
+  // Rediriger si déjà connecté
+  useEffect(() => {
+    if (isAuthenticated) {
+      const from = location.state?.from?.pathname || "/";
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, navigate, location]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -50,23 +60,12 @@ const Login = () => {
 
     if (!validateForm()) return;
 
-    setIsLoading(true);
+    const result = await login(formData.email, formData.password);
 
-    try {
-      // TODO: Replace with actual API call
-      console.log("Login attempt:", { email: formData.email, rememberMe: formData.rememberMe });
-
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      // On success, navigate to home or dashboard
-      navigate("/");
-
-    } catch (error) {
-      setErrors({ general: "Erreur de connexion. Vérifiez vos identifiants." });
-    } finally {
-      setIsLoading(false);
+    if (!result.success) {
+      setErrors({ general: result.error });
     }
+    // La redirection se fait automatiquement via useEffect quand isAuthenticated change
   };
 
   return (
