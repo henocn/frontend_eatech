@@ -11,6 +11,26 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
     session.date.toDateString() === selectedDate.toDateString()
   );
 
+  // Calculer les heures disponibles pour la date sélectionnée
+  const getAvailableHoursForDate = () => {
+    if (!selectedDate || !availability) return 0;
+
+    const dayOfWeek = selectedDate.getDay();
+    const apiDay = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    const dayAvailability = availability.filter(slot => slot.day === apiDay);
+
+    let totalMinutes = 0;
+    dayAvailability.forEach(slot => {
+      const start = new Date(`2000-01-01T${slot.start_hour}`);
+      const end = new Date(`2000-01-01T${slot.end_hour}`);
+      totalMinutes += (end - start) / (1000 * 60);
+    });
+
+    return Math.floor(totalMinutes / 60);
+  };
+
+  const availableHours = getAvailableHoursForDate();
+
   // Gestionnaire pour ajouter une session
   const handleAddSession = () => {
     if (!selectedDate) return;
@@ -122,7 +142,12 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
       {selectedDate && (
         <div className="hours-input-section">
           <div className="hours-input-group">
-            <label htmlFor="hours-input">Nombre d'heures :</label>
+            <label htmlFor="hours-input">
+              Nombre d'heures :
+              {availableHours > 0 && (
+                <span className="available-hours">({availableHours}h disponibles)</span>
+              )}
+            </label>
             <div className="input-with-controls">
               <button
                 type="button"

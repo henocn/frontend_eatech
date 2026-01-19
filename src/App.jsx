@@ -1,8 +1,11 @@
 import { useEffect } from "react";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { AuthProvider } from "./contexts/AuthContext";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import BookingPage from "./pages/BookingPage";
+import Cart from "./pages/Cart";
+import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -23,12 +26,25 @@ function App() {
 
   return (
     <ThemeProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/booking" element={<BookingPage />} />
-            <Route path="/auth/login" element={<Login />} />
-            <Route path="/auth/register" element={<Register />} />
-          </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/booking" element={
+            <ProtectedRoute>
+              <BookingPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/cart" element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          } />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/register" element={<Register />} />
+        </Routes>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

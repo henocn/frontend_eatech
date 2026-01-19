@@ -93,16 +93,6 @@
     color: #e2e8f0;
 }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-    transition: width 0.3s ease;
-}
 
 .nav-link:hover {
     color: #667eea;
@@ -207,6 +197,102 @@
     .header-container {
         padding: 1rem;
     }
+}
+
+/* ===== NAVIGATION ICONS ===== */
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+    padding: 0.5rem 0.2rem;
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+[data-theme="dark"] .nav-link {
+    color: #e2e8f0;
+}
+
+.nav-link:hover {
+    color: #806b3b;
+    border-bottom: 2px solid #bda15f;
+}
+
+[data-theme="dark"] .nav-link:hover {
+    color: #806b3b;
+    border-bottom: 2px solid #bda15f;
+}
+
+.nav-icon {
+    flex-shrink: 0;
+    opacity: 0.8;
+}
+
+.nav-link.active {
+    color: #bda15f;
+    border-bottom: 2px solid #bda15f;
+    font-weight: 600;
+}
+
+[data-theme="dark"] .nav-link.active {
+    color: #bda15f;
+    border-bottom: 2px solid #bda15f;
+}
+
+/* ===== LOGOUT BUTTON ===== */
+.logout-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.logout-btn:hover {
+    color: #dc2626;
+    border-bottom: 2px solid #dc2626;
+}
+
+/* ===== CART STYLES ===== */
+.cart-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #bb8533;
+    border: 1px solid #87631c;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.cart-badge[data-count="0"] {
+    opacity: 0.6;
+}
+
+[data-theme="dark"] .cart-badge {
+    border-color: #1a202c;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 
