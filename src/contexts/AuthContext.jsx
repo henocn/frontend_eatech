@@ -29,6 +29,9 @@ export const AuthProvider = ({ children }) => {
           setUser(parsedUser);
           setIsAuthenticated(true);
           api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
+          // Récupérer le panier après vérification de l'authentification
+          setTimeout(() => fetchCartItems(parsedUser), 100);
         } catch (error) {
           console.error('Error parsing stored user data:', error);
           logout();
@@ -80,7 +83,7 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
 
       // Récupérer le panier
-      setTimeout(() => fetchCartItems(), 100);
+      setTimeout(() => fetchCartItems(user), 100);
 
       return { success: true };
     } catch (error) {
@@ -132,15 +135,19 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const fetchCartItems = async () => {
-    if (!user) return;
+  const fetchCartItems = async (userParam = null) => {
+    const currentUser = userParam || user;
+
+    if (!currentUser) {
+      return;
+    }
 
     try {
-      const response = await api.get(`/carts/?user=${user.id}`);
-      console.log(response);
+      const response = await api.get(`/carts/?client=${currentUser.id}`);
+
       if (response && response.length > 0) {
         const cartData = response[0];
-        const itemCount = cartData.photography_sessions ? cartData.photography_sessions.length : 0;
+        const itemCount = cartData.session_count ? cartData.session_count : 0;
         setCartItems(itemCount);
       } else {
         setCartItems(0);

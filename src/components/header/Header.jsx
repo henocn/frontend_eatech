@@ -69,9 +69,7 @@ function Header({ current }) {
                                 <div className="cart-container">
                                     <ShoppingCart className="nav-icon" size={18} />
                                     Panier
-                                    {cartItems > 0 && (
-                                        <span className="cart-badge">{cartItems}</span>
-                                    )}
+                                    <span className="cart-badge" data-count={cartItems}>{cartItems}</span>
                                 </div>
                             </Link>
 
