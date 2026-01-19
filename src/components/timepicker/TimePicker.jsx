@@ -73,15 +73,26 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
     onSelectTime(timeString);
   };
 
-  if (!selectedDate) {
+  // Si pas de date sélectionnée ET pas de sessions, afficher seulement le header
+  const showOnlyHeader = !selectedDate && (!selectedSessions || selectedSessions.length === 0);
+
+  if (showOnlyHeader) {
     return (
       <div className="time-picker">
         <div className="time-picker-header">
           <h3>
             <Clock size={20} />
-            Sélectionner une heure
+            Durée de tournage
           </h3>
-          <p className="time-picker-info">Veuillez d'abord sélectionner une date</p>
+          <p className="time-picker-info">
+            Sélectionnez d'abord une date dans le calendrier
+          </p>
+          {!selectedDate && (
+            <div className="mobile-hint">
+              <span className="hint-icon">👆</span>
+              <span className="hint-text">Choisissez une date ci-dessus</span>
+            </div>
+          )}
         </div>
       </div>
     );
@@ -97,7 +108,7 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
         <p className="time-picker-info">
           {selectedDate
             ? `Nombre d'heures souhaité pour le ${selectedDate.toLocaleDateString('fr-FR')}`
-            : "Sélectionnez d'abord une date dans le calendrier"
+            : "Sélectionnez une date dans le calendrier pour ajouter une session"
           }
         </p>
         {!selectedDate && (
