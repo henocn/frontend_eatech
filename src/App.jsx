@@ -4,6 +4,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import BookingPage from "./pages/BookingPage";
+import Cart from "./pages/Cart";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
 import Login from "./pages/Login";
@@ -31,6 +32,11 @@ function App() {
           <Route path="/booking" element={
             <ProtectedRoute>
               <BookingPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/cart" element={
+            <ProtectedRoute>
+              <Cart />
             </ProtectedRoute>
           } />
           <Route path="/login" element={<Login />} />

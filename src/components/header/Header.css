@@ -270,7 +270,8 @@
     position: absolute;
     top: -8px;
     right: -8px;
-    background: #dc2626;
+    background: #bb8533;
+    border: 1px solid #87631c;
     color: white;
     border-radius: 50%;
     width: 18px;
@@ -280,7 +281,6 @@
     justify-content: center;
     font-size: 0.75rem;
     font-weight: 600;
-    border: 2px solid #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     opacity: 1;
     transition: opacity 0.2s ease;
