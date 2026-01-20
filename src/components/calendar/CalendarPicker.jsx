@@ -4,25 +4,26 @@ import "./CalendarPicker.css";
 
 const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability, selectedSessions = [] }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [availableDays, setAvailableDays] = useState(new Set());
 
   // Jours de la semaine (0 = lundi, 6 = dimanche)
   const weekDays = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 
-  useEffect(() => {
-    if (availability && availability.length > 0) {
-      // Créer un set des jours disponibles (0-6)
-      const days = new Set(availability.map(slot => slot.day));
-      setAvailableDays(days);
-    }
-  }, [availability]);
-
-  // Fonction pour vérifier si un jour est disponible
+  // Fonction pour vérifier si un jour est disponible (lundi à samedi, exclut date actuelle et passée)
   const isDayAvailable = (date) => {
-    const dayOfWeek = date.getDay(); // 0 = dimanche, 1 = lundi, etc.
-    // Convertir en format API (0 = lundi, 6 = dimanche)
-    const apiDay = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-    return availableDays.has(apiDay);
+    const dayOfWeek = date.getDay(); // 0 = dimanche, 1 = lundi, ..., 6 = samedi
+    
+    // Vérifier si c'est lundi (1) à samedi (6), exclure dimanche (0)
+    if (dayOfWeek === 0) return false;
+    
+    // Vérifier si la date n'est pas dans le passé et n'est pas aujourd'hui
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const checkDate = new Date(date);
+    checkDate.setHours(0, 0, 0, 0);
+    
+    if (checkDate <= today) return false;
+    
+    return true;
   };
 
   // Générer les jours du mois
@@ -55,7 +56,7 @@ const CalendarPicker = ({ selectedDate, onSelectDate, studioId, availability, se
         isToday: date.toDateString() === new Date().toDateString(),
         isSelected: selectedDate && date.toDateString() === selectedDate.toDateString(),
         isPast: date < new Date(new Date().setHours(0, 0, 0, 0)), // Date dans le passé
-        isUnavailable: !isDayAvailable(date) || date <= new Date(new Date().setHours(23, 59, 59, 999)), // Indisponible = non disponible OU aujourd'hui inclus
+        isUnavailable: !isDayAvailable(date),
         hasSession: hasSession
       });
     }

@@ -140,7 +140,7 @@ button:focus-visible {
 
 /* Scrollbar personnalisée */
 ::-webkit-scrollbar {
-    width: 7px;
+    width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -152,6 +152,6 @@ button:focus-visible {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #8c98cd 20%, #19263f 90%);
+    background: rgb(131, 126, 104);
     border-radius: 5px;
 }

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Clock } from "lucide-react";
+import { Clock, Plus, ShoppingCart } from "lucide-react";
 import "./TimePicker.css";
 
-const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability }) => {
-  const [hours, setHours] = useState(1);
+const TimePicker = ({ selectedDate, selectedSessions, onAddSession, selectedDecor, onAddToCart }) => {
+  const [startTime, setStartTime] = useState("08:00");
+  const [endTime, setEndTime] = useState("09:00");
   const [inputError, setInputError] = useState(null);
 
   // Vérifier si la date est déjà sélectionnée
@@ -11,86 +12,73 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
     session.date.toDateString() === selectedDate.toDateString()
   );
 
-  // Calculer les heures disponibles pour la date sélectionnée
-  const getAvailableHoursForDate = () => {
-    if (!selectedDate || !availability) return 0;
+  // Charger les valeurs de start/end time si la date a déjà une session
+  useEffect(() => {
+    if (selectedDate && isDateAlreadySelected) {
+      const existingSession = selectedSessions.find(session =>
+        session.date.toDateString() === selectedDate.toDateString()
+      );
+      if (existingSession) {
+        setStartTime(existingSession.startTime);
+        setEndTime(existingSession.endTime);
+      }
+    }
+  }, [selectedDate, isDateAlreadySelected, selectedSessions]);
 
-    const dayOfWeek = selectedDate.getDay();
-    const apiDay = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-    const dayAvailability = availability.filter(slot => slot.day === apiDay);
-
-    let totalMinutes = 0;
-    dayAvailability.forEach(slot => {
-      const start = new Date(`2000-01-01T${slot.start_hour}`);
-      const end = new Date(`2000-01-01T${slot.end_hour}`);
-      totalMinutes += (end - start) / (1000 * 60);
-    });
-
-    return Math.floor(totalMinutes / 60);
+  // Calculer le nombre d'heures entre les deux horaires
+  const calculateHours = () => {
+    const [startH, startM] = startTime.split(":").map(Number);
+    const [endH, endM] = endTime.split(":").map(Number);
+    const startMinutes = startH * 60 + startM;
+    const endMinutes = endH * 60 + endM;
+    return (endMinutes - startMinutes) / 60;
   };
 
-  const availableHours = getAvailableHoursForDate();
+  const hours = calculateHours();
+
+  // Générer les heures disponibles (8:00 à 18:00)
+  const generateTimeOptions = () => {
+    const options = [];
+    for (let hour = 8; hour <= 18; hour++) {
+      options.push(`${String(hour).padStart(2, "0")}:00`);
+    }
+    return options;
+  };
+
+  const timeOptions = generateTimeOptions();
 
   // Gestionnaire pour ajouter une session
   const handleAddSession = () => {
     if (!selectedDate) return;
 
-    // Validation du nombre d'heures
-    if (hours < 1 || hours > 8) {
-      setInputError("Le nombre d'heures doit être entre 1 et 8");
+    // Vérifier que l'heure de fin est après l'heure de début
+    if (startTime >= endTime) {
+      setInputError("L'heure de fin doit être après l'heure de début");
       return;
     }
 
-    // Vérifier si la date est déjà sélectionnée
+    // Si la date a déjà une session, la supprimer d'abord
     if (isDateAlreadySelected) {
-      setInputError("Cette date est déjà sélectionnée");
-      return;
+      onAddSession(null, selectedDate);
     }
 
-    // Vérifier la disponibilité (simplifié - on pourrait faire une vérification plus poussée)
-    const dayOfWeek = selectedDate.getDay();
-    const apiDay = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-    const dayAvailability = availability.filter(slot => slot.day === apiDay);
-
-    if (dayAvailability.length === 0) {
-      setInputError("Aucun créneau disponible pour cette date");
-      return;
-    }
-
-    // Calculer la durée totale disponible pour ce jour
-    let totalMinutes = 0;
-    dayAvailability.forEach(slot => {
-      const start = new Date(`2000-01-01T${slot.start_hour}`);
-      const end = new Date(`2000-01-01T${slot.end_hour}`);
-      totalMinutes += (end - start) / (1000 * 60);
-    });
-
-    const requestedMinutes = hours * 60;
-    if (requestedMinutes > totalMinutes) {
-      setInputError(`Maximum ${Math.floor(totalMinutes / 60)}h disponibles pour cette date`);
-      return;
-    }
-
-    // Ajouter la session
+    // Ajouter la nouvelle session (ou mettre à jour si date existante)
     onAddSession({
       date: selectedDate,
-      hours: hours,
-      dayOfWeek: apiDay
+      startTime: startTime,
+      endTime: endTime,
+      hours: hours
     });
 
     // Reset
-    setHours(1);
+    setStartTime("08:00");
+    setEndTime("09:00");
     setInputError(null);
   };
 
   // Gestionnaire pour supprimer une session
   const handleRemoveSession = (dateToRemove) => {
-    onAddSession(null, dateToRemove); // Passer null pour supprimer
-  };
-
-
-  const handleTimeSelect = (timeString) => {
-    onSelectTime(timeString);
+    onAddSession(null, dateToRemove);
   };
 
   // Si pas de date sélectionnée ET pas de sessions, afficher seulement le header
@@ -141,54 +129,55 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
 
       {selectedDate && (
         <div className="hours-input-section">
-          <div className="hours-input-group">
-            <label htmlFor="hours-input">
-              Nombre d'heures :
-              {availableHours > 0 && (
-                <span className="available-hours">({availableHours}h disponibles)</span>
-              )}
-            </label>
-            <div className="input-with-controls">
-              <button
-                type="button"
-                className="hours-btn"
-                onClick={() => setHours(Math.max(1, hours - 1))}
-                disabled={hours <= 1}
-              >
-                -
-              </button>
-              <input
-                id="hours-input"
-                type="number"
-                min="1"
-                max="8"
-                value={hours}
-                onChange={(e) => {
-                  const value = parseInt(e.target.value);
-                  if (!isNaN(value) && value >= 1 && value <= 8) {
-                    setHours(value);
-                    setInputError(null);
-                  }
-                }}
-                className="hours-input"
-              />
-              <button
-                type="button"
-                className="hours-btn"
-                onClick={() => setHours(Math.min(8, hours + 1))}
-                disabled={hours >= 8}
-              >
-                +
-              </button>
+          <div className="time-inputs-group">
+            <label htmlFor="plage-time">Plage</label>
+            <div className="duration-display">
+              <span className="duration-label">Durée :</span>
+              <span className="duration-value">
+                {hours > 0 ? `${hours.toFixed(1)}h` : "Invalide"}
+              </span>
             </div>
+          </div>
+
+          <div className="time-range-container">
+            <select
+              id="plage-time"
+              value={startTime}
+              onChange={(e) => {
+                setStartTime(e.target.value);
+                setInputError(null);
+              }}
+              className="time-select"
+            >
+              {timeOptions.map(time => (
+                <option key={time} value={time}>{time}</option>
+              ))}
+            </select>
+            
+            <span className="time-separator">à</span>
+            
+            <select
+              id="end-time"
+              value={endTime}
+              onChange={(e) => {
+                setEndTime(e.target.value);
+                setInputError(null);
+              }}
+              className="time-select"
+            >
+              {timeOptions.map(time => (
+                <option key={time} value={time}>{time}</option>
+              ))}
+            </select>
           </div>
 
           <button
             className="add-session-btn"
             onClick={handleAddSession}
-            disabled={isDateAlreadySelected}
+            disabled={hours <= 0}
           >
-            {isDateAlreadySelected ? 'Date déjà sélectionnée' : 'Ajouter cette session'}
+            <Plus size={18} />
+            <span>Valider</span>
           </button>
 
           {inputError && (
@@ -230,6 +219,18 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, availability
               {selectedSessions.length} session{selectedSessions.length > 1 ? 's' : ''} • {selectedSessions.reduce((total, session) => total + session.hours, 0)}h de tournage
             </span>
           </div>
+
+          {onAddToCart && (
+            <button
+              className="add-to-cart-btn"
+              onClick={() => {
+                onAddToCart(selectedSessions);
+              }}
+            >
+              <ShoppingCart size={18} />
+              <span>Ajouter au panier</span>
+            </button>
+          )}
         </div>
       )}
     </div>

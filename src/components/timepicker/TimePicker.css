@@ -4,7 +4,7 @@
   border: 1px solid #e5e7eb;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  min-height: fit-content;
+  min-height: 300px;
 }
 
 .time-picker-header {
@@ -67,77 +67,76 @@
   border: 1px solid #e5e7eb;
 }
 
-.hours-input-group {
+.time-inputs-group {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 12px;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 16px;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.hours-input-group label {
+.time-inputs-group label {
   font-size: 0.9rem;
   font-weight: 500;
   color: #374151;
+  white-space: nowrap;
+}
+
+.time-range-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: nowrap;
+  margin-bottom: 20px;
+  justify-content: space-between;
+}
+
+.time-select {
+  flex: 0 0 auto;
+  width: 100px;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #374151;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.time-select:hover {
+  border-color: #bda15f;
+}
+
+.time-select:focus {
+  outline: none;
+  border-color: #bda15f;
+  box-shadow: 0 0 0 3px rgba(189, 161, 95, 0.1);
+}
+
+.time-separator {
+  font-weight: 500;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.duration-display {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.available-hours {
-  font-size: 0.8rem;
-  font-weight: 400;
+.duration-label {
+  font-size: 0.9rem;
+  font-weight: 500;
   color: #6b7280;
-  font-style: italic;
 }
 
-.input-with-controls {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.hours-btn {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  background: #ffffff;
-  color: #6b7280;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hours-btn:hover:not(:disabled) {
-  background: #f3f4f6;
-  border-color: #9ca3af;
-}
-
-.hours-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.hours-input {
-  width: 80px;
-  height: 40px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  text-align: center;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #374151;
-  background: #ffffff;
-}
-
-.hours-input:focus {
-  outline: none;
-  border-color: #bda15f;
-  box-shadow: 0 0 0 3px rgba(189, 161, 95, 0.1);
+.duration-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #bda15f;
 }
 
 .add-session-btn {
@@ -151,6 +150,10 @@
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .add-session-btn:hover:not(:disabled) {
@@ -177,6 +180,35 @@
   color: #dc2626;
   font-size: 0.85rem;
   text-align: center;
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 2px solid #10b981;
+  background: #10b981;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.add-to-cart-btn:hover {
+  background: #059669;
+  border-color: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.add-to-cart-btn:active {
+  transform: translateY(0);
 }
 
 /* ===== LISTE DES SESSIONS ===== */
