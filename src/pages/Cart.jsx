@@ -167,8 +167,8 @@ const Cart = () => {
                                     <thead>
                                         <tr>
                                             <th>Date</th>
-                                            <th>Horaires</th>
-                                            <th>Équipements</th>
+                                            <th>Début</th>
+                                            <th>Fin</th>
                                             <th>Statut</th>
                                             <th>Actions</th>
                                         </tr>
@@ -177,24 +177,13 @@ const Cart = () => {
                                         {cartData.session_details.map((session) => (
                                             <tr key={session.id}>
                                                 <td>
-                                                    {session.period_details && session.period_details.length > 0
-                                                        ? formatDate(session.period_details[0].day)
-                                                        : '-'
-                                                    }
+                                                    {formatDate(session.day)}
                                                 </td>
                                                 <td>
-                                                    {session.period_details && session.period_details.map((period, index) => (
-                                                        <div key={period.id} className="time-slot">
-                                                            {formatTime(period.start_time)} - {formatTime(period.end_time)}
-                                                            {index < session.period_details.length - 1 && <br />}
-                                                        </div>
-                                                    ))}
+                                                    {formatTime(session.start_time)}
                                                 </td>
                                                 <td>
-                                                    {session.equipments && session.equipments.length > 0
-                                                        ? `${session.equipments.length} élément(s)`
-                                                        : '-'
-                                                    }
+                                                    {formatTime(session.end_time)}
                                                 </td>
                                                 <td>
                                                     <span className={`status-badge ${session.status}`}>
@@ -206,8 +195,8 @@ const Cart = () => {
                                                     <button
                                                         className="cancel-btn"
                                                         onClick={() => handleCancelSession(session.id)}
-                                                        disabled={cancellingSession === session.id}
-                                                        title="Annuler la session"
+                                                        disabled={cancellingSession === session.id || session.status === 'confirmed'}
+                                                        title={session.status === 'confirmed' ? 'Impossible de supprimer une session confirmée' : 'Annuler la session'}
                                                     >
                                                         {cancellingSession === session.id ? (
                                                             <div className="loading-spinner-small"></div>

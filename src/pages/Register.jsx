@@ -180,7 +180,7 @@ const Register = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    placeholder="+228 XX XX XX XX XX"
+                    placeholder="+228 XX XX XX XX"
                     className={errors.phone ? "error" : ""}
                     required
                   />

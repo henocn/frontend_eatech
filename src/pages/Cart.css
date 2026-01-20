@@ -221,11 +221,11 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
-.cart-table th:nth-child(1) { width: 15%; } /* Date */
-.cart-table th:nth-child(2) { width: 25%; } /* Horaires */
-.cart-table th:nth-child(3) { width: 20%; } /* Équipements */
-.cart-table th:nth-child(4) { width: 20%; } /* Statut */
-.cart-table th:nth-child(5) { width: 20%; } /* Actions */
+.cart-table th:nth-child(1) { width: 20%; } /* Date */
+.cart-table th:nth-child(2) { width: 15%; } /* Début */
+.cart-table th:nth-child(3) { width: 15%; } /* Fin */
+.cart-table th:nth-child(4) { width: 25%; } /* Statut */
+.cart-table th:nth-child(5) { width: 25%; } /* Actions */
 
 .cart-table td {
   padding: 1rem 0.75rem;
@@ -538,11 +538,12 @@
   .cart-table thead th:nth-child(4) { width: 25%; } /* Statut */
   .cart-table thead th:nth-child(5) { width: 20%; } /* Actions */
 
-  /* Masquer la colonne équipements sur très petits écrans */
-  .cart-table thead th:nth-child(3),
-  .cart-table tbody td:nth-child(3) {
-    display: none;
-  }
+  /* Ajuster les largeurs des colonnes sur mobile */
+  .cart-table thead th:nth-child(1) { width: 25%; } /* Date */
+  .cart-table thead th:nth-child(2) { width: 15%; } /* Début */
+  .cart-table thead th:nth-child(3) { width: 15%; } /* Fin */
+  .cart-table thead th:nth-child(4) { width: 25%; } /* Statut */
+  .cart-table thead th:nth-child(5) { width: 20%; } /* Actions */
 
   .time-slot {
     font-size: 0.75rem;
