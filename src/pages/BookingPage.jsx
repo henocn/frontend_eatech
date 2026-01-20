@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import Modal from "../components/modal/Modal";
+import { useAuth } from "../contexts/AuthContext";
 import api from "../utils/axiosInstance";
 
 import StudioList from "../components/studios/StudioList";
@@ -22,6 +23,7 @@ import "../App.css";
  */
 const BookingPage = () => {
   const navigate = useNavigate();
+  const { fetchCartItems } = useAuth();
 
   // Étape courante
   const [currentStep, setCurrentStep] = useState(1);
@@ -93,6 +95,9 @@ const BookingPage = () => {
         };
         await api.post("/sessions/", payload);
       }
+
+      // Actualiser le badge du panier
+      fetchCartItems();
 
       // Fermer le modal de confirmation et afficher le modal de succès
       setShowConfirmModal(false);
