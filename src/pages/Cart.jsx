@@ -25,6 +25,11 @@ const Cart = () => {
         }
 
         fetchCartData();
+
+        const interval = setInterval(() => {
+            fetchCartData();
+        }, 30000);
+        return () => clearInterval(interval);
     }, [isAuthenticated, navigate]);
 
     const fetchCartData = async () => {
@@ -91,22 +96,7 @@ const Cart = () => {
         return timeString.slice(0, 5);
     };
 
-    if (loading) {
-        return (
-            <div className="app">
-                <Header />
-                <main className="cart-main">
-                    <div className="cart-container">
-                        <div className="loading-state">
-                            <div className="loading-spinner"></div>
-                            <p>Chargement du panier...</p>
-                        </div>
-                    </div>
-                </main>
-                <Footer />
-            </div>
-        );
-    }
+    
 
     if (error) {
         return (
