@@ -282,7 +282,6 @@ const BookingPage = () => {
             <span>Valider le paiement</span>
             <ArrowRight size={18} />
           </button>
-          </button>
         </div>
       </Modal>
 
