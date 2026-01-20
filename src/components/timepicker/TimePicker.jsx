@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { Clock } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Clock, Check } from "lucide-react";
 import "./TimePicker.css";
 
-const TimePicker = ({ selectedDate, selectedSessions, onAddSession }) => {
+const TimePicker = ({ selectedDate, selectedSessions, onAddSession, selectedDecor, onAddToCart }) => {
   const [startTime, setStartTime] = useState("08:00");
   const [endTime, setEndTime] = useState("09:00");
   const [inputError, setInputError] = useState(null);
@@ -11,6 +11,19 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession }) => {
   const isDateAlreadySelected = selectedDate && selectedSessions.some(session =>
     session.date.toDateString() === selectedDate.toDateString()
   );
+
+  // Charger les valeurs de start/end time si la date a déjà une session
+  useEffect(() => {
+    if (selectedDate && isDateAlreadySelected) {
+      const existingSession = selectedSessions.find(session =>
+        session.date.toDateString() === selectedDate.toDateString()
+      );
+      if (existingSession) {
+        setStartTime(existingSession.startTime);
+        setEndTime(existingSession.endTime);
+      }
+    }
+  }, [selectedDate, isDateAlreadySelected, selectedSessions]);
 
   // Calculer le nombre d'heures entre les deux horaires
   const calculateHours = () => {
@@ -44,7 +57,12 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession }) => {
       return;
     }
 
-    // Ajouter la session (ou remplacer si date déjà existante)
+    // Si la date a déjà une session, la supprimer d'abord
+    if (isDateAlreadySelected) {
+      onAddSession(null, selectedDate);
+    }
+
+    // Ajouter la nouvelle session (ou mettre à jour si date existante)
     onAddSession({
       date: selectedDate,
       startTime: startTime,
@@ -60,7 +78,7 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession }) => {
 
   // Gestionnaire pour supprimer une session
   const handleRemoveSession = (dateToRemove) => {
-    onAddSession(null, dateToRemove); // Passer null pour supprimer
+    onAddSession(null, dateToRemove);
   };
 
   // Si pas de date sélectionnée ET pas de sessions, afficher seulement le header
@@ -113,45 +131,44 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession }) => {
         <div className="hours-input-section">
           <div className="time-inputs-group">
             <label htmlFor="plage-time">Plage</label>
-            
-            <div className="time-range-container">
-              <select
-                id="plage-time"
-                value={startTime}
-                onChange={(e) => {
-                  setStartTime(e.target.value);
-                  setInputError(null);
-                }}
-                className="time-select"
-              >
-                {timeOptions.map(time => (
-                  <option key={time} value={time}>{time}</option>
-                ))}
-              </select>
-              
-              <span className="time-separator">à</span>
-              
-              <select
-                id="end-time"
-                value={endTime}
-                onChange={(e) => {
-                  setEndTime(e.target.value);
-                  setInputError(null);
-                }}
-                className="time-select"
-              >
-                {timeOptions.map(time => (
-                  <option key={time} value={time}>{time}</option>
-                ))}
-              </select>
-
-              <div className="duration-display">
-                <span className="duration-label">Durée :</span>
-                <span className="duration-value">
-                  {hours > 0 ? `${hours.toFixed(1)}h` : "Invalide"}
-                </span>
-              </div>
+            <div className="duration-display">
+              <span className="duration-label">Durée :</span>
+              <span className="duration-value">
+                {hours > 0 ? `${hours.toFixed(1)}h` : "Invalide"}
+              </span>
             </div>
+          </div>
+
+          <div className="time-range-container">
+            <select
+              id="plage-time"
+              value={startTime}
+              onChange={(e) => {
+                setStartTime(e.target.value);
+                setInputError(null);
+              }}
+              className="time-select"
+            >
+              {timeOptions.map(time => (
+                <option key={time} value={time}>{time}</option>
+              ))}
+            </select>
+            
+            <span className="time-separator">à</span>
+            
+            <select
+              id="end-time"
+              value={endTime}
+              onChange={(e) => {
+                setEndTime(e.target.value);
+                setInputError(null);
+              }}
+              className="time-select"
+            >
+              {timeOptions.map(time => (
+                <option key={time} value={time}>{time}</option>
+              ))}
+            </select>
           </div>
 
           <button
@@ -159,7 +176,8 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession }) => {
             onClick={handleAddSession}
             disabled={hours <= 0}
           >
-            Ajouter cette session
+            <Check size={18} />
+            <span>Confirmer</span>
           </button>
 
           {inputError && (

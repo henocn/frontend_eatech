@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { ShoppingCart, Check } from "lucide-react";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
+import Modal from "../components/modal/Modal";
 import api from "../utils/axiosInstance";
 
 import StudioList from "../components/studios/StudioList";
@@ -28,6 +30,11 @@ const BookingPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedSessions, setSelectedSessions] = useState([]);
 
+  // Modals
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [sessionsToAdd, setSessionsToAdd] = useState([]);
+
   // Gestionnaire pour ajouter/supprimer des sessions
   const handleAddSession = (newSession, dateToRemove = null) => {
     if (dateToRemove) {
@@ -41,6 +48,67 @@ const BookingPage = () => {
       // Ajouter une session
       setSelectedSessions(prev => [...prev, newSession]);
     }
+  };
+
+  // Gestionnaire pour ajouter au panier
+  const handleAddToCart = async (session) => {
+    try {
+      // Récupérer les informations utilisateur du localStorage
+      const userStr = localStorage.getItem("user");
+      if (!userStr) {
+        alert("Veuillez vous reconnecter pour ajouter au panier");
+        return;
+      }
+
+      const user = JSON.parse(userStr);
+      const clientId = user.client_id;
+
+      if (!clientId) {
+        alert("ID client introuvable. Veuillez vous reconnecter");
+        return;
+      }
+
+      // Formater la date au format YYYY-MM-DD
+      const sessionDate = session.date.toISOString().split('T')[0];
+
+      // Construire le payload selon la structure demandée
+      const payload = {
+        client: clientId,
+        day: sessionDate,
+        start_time: `${session.startTime}:00`,
+        end_time: `${session.endTime}:00`,
+        photography_set: selectedDecor?.id,
+        status: "pending"
+      };
+
+      // Envoyer la requête à l'API
+      const response = await api.post("/sessions/", payload);
+
+      // Afficher le modal de succès
+      setShowSuccessModal(true);
+
+      // Réinitialiser après 3 secondes
+      setTimeout(() => {
+        setShowSuccessModal(false);
+        setSelectedSessions([]);
+        setCurrentStep(1);
+        setMaxStepReached(1);
+        setSelectedStudio(null);
+        setSelectedDecor(null);
+        setSelectedDate(null);
+      }, 3000);
+    } catch (error) {
+      console.error("Erreur lors de l'ajout au panier:", error);
+      alert("Erreur: " + (error.message || "Une erreur est survenue"));
+    }
+  };
+
+  // Gestionnaire pour confirmer l'ajout au panier
+  const handleConfirmAddToCart = () => {
+    setShowConfirmModal(false);
+    selectedSessions.forEach(session => {
+      handleAddToCart(session);
+    });
   };
 
   return (
@@ -92,7 +160,24 @@ const BookingPage = () => {
               selectedDate={selectedDate}
               selectedSessions={selectedSessions}
               onAddSession={handleAddSession}
+              selectedDecor={selectedDecor}
+              onAddToCart={handleAddToCart}
             />
+
+            {selectedSessions && selectedSessions.length > 0 && (
+              <button
+                className="add-to-cart-btn"
+                onClick={() => {
+                  selectedSessions.forEach(session => {
+                    handleAddToCart(session);
+                  });
+                }}
+                style={{ marginTop: "20px" }}
+              >
+                <ShoppingCart size={18} />
+                <span>Ajouter au panier</span>
+              </button>
+            )}
           </div>
         )}
       </main>

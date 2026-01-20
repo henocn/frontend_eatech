@@ -4,7 +4,7 @@
   border: 1px solid #e5e7eb;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  min-height: fit-content;
+  min-height: 300px;
 }
 
 .time-picker-header {
@@ -69,27 +69,32 @@
 
 .time-inputs-group {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
   margin-bottom: 16px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .time-inputs-group label {
   font-size: 0.9rem;
   font-weight: 500;
   color: #374151;
+  white-space: nowrap;
 }
 
 .time-range-container {
   display: flex;
   align-items: center;
   gap: 12px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  margin-bottom: 20px;
+  justify-content: space-between;
 }
 
 .time-select {
-  flex: 1;
-  min-width: 120px;
+  flex: 0 0 auto;
+  width: 100px;
   padding: 10px 12px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
@@ -120,11 +125,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 12px;
-  background: #ffffff;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  margin-left: auto;
 }
 
 .duration-label {
@@ -135,7 +135,7 @@
 
 .duration-value {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #bda15f;
 }
 
@@ -150,6 +150,10 @@
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .add-session-btn:hover:not(:disabled) {
