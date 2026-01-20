@@ -177,7 +177,7 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, selectedDeco
             disabled={hours <= 0}
           >
             <Plus size={18} />
-            <span>Ajouter</span>
+            <span>Valider</span>
           </button>
 
           {inputError && (

@@ -173,9 +173,44 @@ const BookingPage = () => {
       <Modal isOpen={showConfirmModal} onClose={() => setShowConfirmModal(false)}>
         <div style={{ textAlign: "center", padding: "20px" }}>
           <h2 style={{ marginBottom: "16px", color: "#1f2937" }}>Confirmer l'ajout au panier?</h2>
-          <p style={{ color: "#6b7280", marginBottom: "24px" }}>
-            {selectedSessions.length} session{selectedSessions.length > 1 ? 's' : ''} • {selectedSessions.reduce((total, session) => total + session.hours, 0)}h de tournage
+          
+          <div style={{ 
+            background: "#f9fafb", 
+            borderRadius: "8px", 
+            padding: "16px", 
+            marginBottom: "24px", 
+            textAlign: "left",
+            maxHeight: "300px",
+            overflowY: "auto"
+          }}>
+            {sessionsToAdd.map((session, index) => {
+              const date = new Date(session.date);
+              const dayName = date.toLocaleDateString('fr-FR', { weekday: 'long' });
+              const formattedDate = date.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+              const startHour = session.startTime.split(':')[0];
+              const endHour = session.endTime.split(':')[0];
+              
+              return (
+                <div key={index} style={{ 
+                  padding: "12px", 
+                  marginBottom: index < sessionsToAdd.length - 1 ? "12px" : "0",
+                  borderBottom: index < sessionsToAdd.length - 1 ? "1px solid #e5e7eb" : "none"
+                }}>
+                  <p style={{ margin: "0", color: "#374151", fontWeight: "600" }}>
+                    {dayName.charAt(0).toUpperCase() + dayName.slice(1)} {formattedDate}
+                  </p>
+                  <p style={{ margin: "8px 0 0 0", color: "#6b7280" }}>
+                    de {session.startTime} à {session.endTime}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          <p style={{ color: "#6b7280", marginBottom: "24px", fontSize: "0.9rem" }}>
+            {sessionsToAdd.length} session{sessionsToAdd.length > 1 ? 's' : ''} • {sessionsToAdd.reduce((total, session) => total + session.hours, 0)}h de tournage
           </p>
+
           <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
             <button
               onClick={() => setShowConfirmModal(false)}
