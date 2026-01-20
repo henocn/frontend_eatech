@@ -224,9 +224,7 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, selectedDeco
             <button
               className="add-to-cart-btn"
               onClick={() => {
-                selectedSessions.forEach(session => {
-                  onAddToCart(session);
-                });
+                onAddToCart(selectedSessions);
               }}
             >
               <ShoppingCart size={18} />

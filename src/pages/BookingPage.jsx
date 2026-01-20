@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ShoppingCart, Check } from "lucide-react";
+import { ShoppingCart, Check, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import Modal from "../components/modal/Modal";
@@ -20,6 +21,8 @@ import "../App.css";
  * 3. Date & heure
  */
 const BookingPage = () => {
+  const navigate = useNavigate();
+
   // Étape courante
   const [currentStep, setCurrentStep] = useState(1);
   const [maxStepReached, setMaxStepReached] = useState(1);
@@ -51,9 +54,9 @@ const BookingPage = () => {
   };
 
   // Gestionnaire pour ajouter au panier
-  const handleAddToCart = async (session) => {
-    // Afficher le modal de confirmation
-    setSessionsToAdd([session]);
+  const handleAddToCart = (sessions) => {
+    // Afficher le modal de confirmation avec toutes les sessions
+    setSessionsToAdd(Array.isArray(sessions) ? sessions : [sessions]);
     setShowConfirmModal(true);
   };
 
@@ -95,7 +98,7 @@ const BookingPage = () => {
       setShowConfirmModal(false);
       setShowSuccessModal(true);
 
-      // Réinitialiser après 3 secondes
+      // Rediriger vers le panier après 5 secondes
       setTimeout(() => {
         setShowSuccessModal(false);
         setSelectedSessions([]);
@@ -105,7 +108,8 @@ const BookingPage = () => {
         setSelectedDecor(null);
         setSelectedDate(null);
         setSessionsToAdd([]);
-      }, 3000);
+        navigate('/cart');
+      }, 5000);
     } catch (error) {
       console.error("Erreur lors de l'ajout au panier:", error);
       alert("Erreur: " + (error.message || "Une erreur est survenue"));
@@ -257,18 +261,27 @@ const BookingPage = () => {
             Vos sessions ont été ajoutées au panier. Allez dans l'onglet panier et validez le paiement pour terminer la procédure.
           </p>
           <button
-            onClick={() => setShowSuccessModal(false)}
+            onClick={() => {
+              setShowSuccessModal(false);
+              navigate('/cart');
+            }}
             style={{
-              padding: "10px 20px",
+              padding: "12px 24px",
               borderRadius: "6px",
               border: "none",
               background: "#10b981",
               color: "white",
               cursor: "pointer",
-              fontWeight: "600"
+              fontWeight: "600",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              margin: "0 auto"
             }}
           >
-            Fermer
+            <span>Valider le paiement</span>
+            <ArrowRight size={18} />
+          </button>
           </button>
         </div>
       </Modal>
