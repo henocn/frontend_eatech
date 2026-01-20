@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Clock, Check } from "lucide-react";
+import { Clock, Plus, ShoppingCart } from "lucide-react";
 import "./TimePicker.css";
 
 const TimePicker = ({ selectedDate, selectedSessions, onAddSession, selectedDecor, onAddToCart }) => {
@@ -176,8 +176,8 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, selectedDeco
             onClick={handleAddSession}
             disabled={hours <= 0}
           >
-            <Check size={18} />
-            <span>Confirmer</span>
+            <Plus size={18} />
+            <span>Ajouter</span>
           </button>
 
           {inputError && (
@@ -219,6 +219,20 @@ const TimePicker = ({ selectedDate, selectedSessions, onAddSession, selectedDeco
               {selectedSessions.length} session{selectedSessions.length > 1 ? 's' : ''} • {selectedSessions.reduce((total, session) => total + session.hours, 0)}h de tournage
             </span>
           </div>
+
+          {onAddToCart && (
+            <button
+              className="add-to-cart-btn"
+              onClick={() => {
+                selectedSessions.forEach(session => {
+                  onAddToCart(session);
+                });
+              }}
+            >
+              <ShoppingCart size={18} />
+              <span>Ajouter au panier</span>
+            </button>
+          )}
         </div>
       )}
     </div>

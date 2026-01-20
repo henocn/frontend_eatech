@@ -52,11 +52,19 @@ const BookingPage = () => {
 
   // Gestionnaire pour ajouter au panier
   const handleAddToCart = async (session) => {
+    // Afficher le modal de confirmation
+    setSessionsToAdd([session]);
+    setShowConfirmModal(true);
+  };
+
+  // Gestionnaire pour confirmer l'ajout au panier
+  const handleConfirmAddToCart = async () => {
     try {
       // Récupérer les informations utilisateur du localStorage
       const userStr = localStorage.getItem("user");
       if (!userStr) {
         alert("Veuillez vous reconnecter pour ajouter au panier");
+        setShowConfirmModal(false);
         return;
       }
 
@@ -65,26 +73,26 @@ const BookingPage = () => {
 
       if (!clientId) {
         alert("ID client introuvable. Veuillez vous reconnecter");
+        setShowConfirmModal(false);
         return;
       }
 
-      // Formater la date au format YYYY-MM-DD
-      const sessionDate = session.date.toISOString().split('T')[0];
+      // Ajouter chaque session au panier
+      for (const session of sessionsToAdd) {
+        const sessionDate = session.date.toISOString().split('T')[0];
+        const payload = {
+          client: clientId,
+          day: sessionDate,
+          start_time: `${session.startTime}:00`,
+          end_time: `${session.endTime}:00`,
+          photography_set: selectedDecor?.id,
+          status: "pending"
+        };
+        await api.post("/sessions/", payload);
+      }
 
-      // Construire le payload selon la structure demandée
-      const payload = {
-        client: clientId,
-        day: sessionDate,
-        start_time: `${session.startTime}:00`,
-        end_time: `${session.endTime}:00`,
-        photography_set: selectedDecor?.id,
-        status: "pending"
-      };
-
-      // Envoyer la requête à l'API
-      const response = await api.post("/sessions/", payload);
-
-      // Afficher le modal de succès
+      // Fermer le modal de confirmation et afficher le modal de succès
+      setShowConfirmModal(false);
       setShowSuccessModal(true);
 
       // Réinitialiser après 3 secondes
@@ -96,19 +104,13 @@ const BookingPage = () => {
         setSelectedStudio(null);
         setSelectedDecor(null);
         setSelectedDate(null);
+        setSessionsToAdd([]);
       }, 3000);
     } catch (error) {
       console.error("Erreur lors de l'ajout au panier:", error);
       alert("Erreur: " + (error.message || "Une erreur est survenue"));
+      setShowConfirmModal(false);
     }
-  };
-
-  // Gestionnaire pour confirmer l'ajout au panier
-  const handleConfirmAddToCart = () => {
-    setShowConfirmModal(false);
-    selectedSessions.forEach(session => {
-      handleAddToCart(session);
-    });
   };
 
   return (
@@ -163,24 +165,78 @@ const BookingPage = () => {
               selectedDecor={selectedDecor}
               onAddToCart={handleAddToCart}
             />
-
-            {selectedSessions && selectedSessions.length > 0 && (
-              <button
-                className="add-to-cart-btn"
-                onClick={() => {
-                  selectedSessions.forEach(session => {
-                    handleAddToCart(session);
-                  });
-                }}
-                style={{ marginTop: "20px" }}
-              >
-                <ShoppingCart size={18} />
-                <span>Ajouter au panier</span>
-              </button>
-            )}
           </div>
         )}
       </main>
+
+      {/* Modal de confirmation */}
+      <Modal isOpen={showConfirmModal} onClose={() => setShowConfirmModal(false)}>
+        <div style={{ textAlign: "center", padding: "20px" }}>
+          <h2 style={{ marginBottom: "16px", color: "#1f2937" }}>Confirmer l'ajout au panier?</h2>
+          <p style={{ color: "#6b7280", marginBottom: "24px" }}>
+            {selectedSessions.length} session{selectedSessions.length > 1 ? 's' : ''} • {selectedSessions.reduce((total, session) => total + session.hours, 0)}h de tournage
+          </p>
+          <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
+            <button
+              onClick={() => setShowConfirmModal(false)}
+              style={{
+                padding: "10px 20px",
+                borderRadius: "6px",
+                border: "1px solid #d1d5db",
+                background: "#ffffff",
+                color: "#374151",
+                cursor: "pointer",
+                fontWeight: "600"
+              }}
+            >
+              Annuler
+            </button>
+            <button
+              onClick={handleConfirmAddToCart}
+              style={{
+                padding: "10px 20px",
+                borderRadius: "6px",
+                border: "none",
+                background: "#10b981",
+                color: "white",
+                cursor: "pointer",
+                fontWeight: "600",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px"
+              }}
+            >
+              <Check size={18} />
+              Confirmer
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Modal de succès */}
+      <Modal isOpen={showSuccessModal} onClose={() => {}}>
+        <div style={{ textAlign: "center", padding: "30px" }}>
+          <div style={{ fontSize: "48px", marginBottom: "16px" }}>✓</div>
+          <h2 style={{ marginBottom: "16px", color: "#10b981" }}>Panier validé!</h2>
+          <p style={{ color: "#6b7280", marginBottom: "24px" }}>
+            Vos sessions ont été ajoutées au panier. Allez dans l'onglet panier et validez le paiement pour terminer la procédure.
+          </p>
+          <button
+            onClick={() => setShowSuccessModal(false)}
+            style={{
+              padding: "10px 20px",
+              borderRadius: "6px",
+              border: "none",
+              background: "#10b981",
+              color: "white",
+              cursor: "pointer",
+              fontWeight: "600"
+            }}
+          >
+            Fermer
+          </button>
+        </div>
+      </Modal>
 
       <Footer />
     </div>
