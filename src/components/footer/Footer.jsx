@@ -26,8 +26,8 @@ function Footer() {
                         <h4 className="footer-heading">Services</h4>
                         <ul className="footer-links">
                             <li><a href="#services">Design Graphique</a></li>
-                            <li><a href="#services">Animations JS</a></li>
-                            <li><a href="#services">Icônes</a></li>
+                            <li><a href="#services">Publicité sociales</a></li>
+                            <li><a href="#services">Tournage video</a></li>
                             <li><a href="#services">UI/UX Design</a></li>
                         </ul>
                     </div>
@@ -37,15 +37,15 @@ function Footer() {
                         <ul className="footer-contact">
                             <li>
                                 <Mail size={18} />
-                                <span>contact@eatech.com</span>
+                                <span>contact@goldenstudio.com</span>
                             </li>
                             <li>
                                 <Phone size={18} />
-                                <span>+33 1 23 45 67 89</span>
+                                <span>+228 99 88 77 66</span>
                             </li>
                             <li>
                                 <MapPin size={18} />
-                                <span>123 Rue de la Créativité, 75001 Paris</span>
+                                <span>Agoè 2 Lions, Près de l'école MARIAM, Lomé - Togo</span>
                             </li>
                         </ul>
                     </div>
@@ -70,7 +70,7 @@ function Footer() {
                 </div>
 
                 <div className="footer-bottom">
-                    <p>&copy; {currentYear} EA Tech. Tous droits réservés.</p>
+                    <p>&copy; {currentYear} Golden Studio. Tous droits réservés.</p>
                 </div>
             </div>
         </footer>
