@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Mail, User, Phone, Lock, Eye, EyeOff } from "lucide-react";
+import { Mail, User, Phone, Lock, Eye, EyeOff, UserPlus } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "./RegisterLogin.css";
@@ -180,7 +180,7 @@ const Register = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    placeholder="+225 XX XX XX XX XX"
+                    placeholder="+228 XX XX XX XX"
                     className={errors.phone ? "error" : ""}
                     required
                   />
