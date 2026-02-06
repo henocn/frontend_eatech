@@ -50,8 +50,6 @@ const Login = () => {
 
     if (!formData.password) {
       newErrors.password = "Le mot de passe est requis";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Le mot de passe doit contenir au moins 6 caractères";
     }
 
     setErrors(newErrors);
