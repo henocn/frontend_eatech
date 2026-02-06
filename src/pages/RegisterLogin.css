@@ -45,6 +45,14 @@
   margin: 0;
 }
 
+.step-indicator {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  font-weight: 500;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
 /* ===== FORM ===== */
 .auth-form {
   padding: 1.25rem;
@@ -119,40 +127,48 @@
 }
 
 /* ===== CHECKBOX STYLES ===== */
+.checkbox-group {
+  margin: 1.5rem 0;
+}
+
 .checkbox-label {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.75rem;
   font-size: 0.9rem;
   color: #4b5563;
   cursor: pointer;
-  line-height: 1.5;
+  position: relative;
 }
 
 .checkbox-label input[type="checkbox"] {
   position: absolute;
   opacity: 0;
   cursor: pointer;
+  width: 0;
+  height: 0;
 }
 
-.checkmark {
+.custom-checkbox {
   position: relative;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   background: #ffffff;
   border: 2px solid #d1d5db;
   border-radius: 4px;
   flex-shrink: 0;
-  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.2s ease;
 }
 
-.checkbox-label input[type="checkbox"]:checked + .checkmark {
+.checkbox-label input[type="checkbox"]:checked + .custom-checkbox {
   background: #bda15f;
   border-color: #bda15f;
 }
 
-.checkmark:after {
+.custom-checkbox::after {
   content: "";
   position: absolute;
   display: none;
@@ -165,8 +181,25 @@
   transform: rotate(45deg);
 }
 
-.checkbox-label input[type="checkbox"]:checked + .checkmark:after {
+.checkbox-label input[type="checkbox"]:checked + .custom-checkbox::after {
   display: block;
+}
+
+.checkbox-text {
+  flex: 1;
+  line-height: 1.5;
+}
+
+.checkbox-text a {
+  color: #bda15f;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.checkbox-text a:hover {
+  color: #a88f4a;
+  text-decoration: underline;
 }
 
 /* ===== FORM OPTIONS ===== */
@@ -223,6 +256,32 @@
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+}
+
+.auth-button.primary {
+  flex: 1;
+}
+
+.auth-button.secondary {
+  flex: 1;
+  background: #f3f4f6;
+  color: #374151;
+  border-color: #e5e7eb;
+}
+
+.auth-button.secondary:hover:not(:disabled) {
+  background: #e5e7eb;
+  border-color: #d1d5db;
+}
+
+.auth-button.secondary svg {
+  color: #6b7280;
+}
+
+.step-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 /* ===== LOADING SPINNER ===== */
