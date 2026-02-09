@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Mail, Lock, Eye, EyeOff, Send, ChevronRight, ChevronLeft, CheckCircle } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, Send, ChevronRight, ChevronLeft, CheckCircle, Hash } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../utils/axiosInstance";
@@ -10,11 +10,9 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [formData, setFormData] = useState({
     code: "",
-    new_password: "",
-    confirm_password: ""
+    new_password: ""
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
@@ -76,12 +74,6 @@ const ForgotPassword = () => {
       newErrors.new_password = "Le mot de passe doit contenir au moins 4 caractères";
     }
 
-    if (!formData.confirm_password) {
-      newErrors.confirm_password = "La confirmation du mot de passe est requise";
-    } else if (formData.new_password !== formData.confirm_password) {
-      newErrors.confirm_password = "Les mots de passe ne correspondent pas";
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -101,7 +93,7 @@ const ForgotPassword = () => {
       // Si succès, passer à l'étape 2
       setCurrentStep(2);
       setErrors({});
-      setFormData({ code: "", new_password: "", confirm_password: "" });
+      setFormData({ code: "", new_password: "" });
 
     } catch (error) {
       console.error("Forgot password error:", error);
@@ -149,7 +141,7 @@ const ForgotPassword = () => {
   const handlePreviousStep = () => {
     setCurrentStep(1);
     setErrors({});
-    setFormData({ code: "", new_password: "", confirm_password: "" });
+    setFormData({ code: "", new_password: "" });
   };
 
   return (
@@ -230,7 +222,7 @@ const ForgotPassword = () => {
                   <div className="form-group">
                     <label htmlFor="code">Code de réinitialisation</label>
                     <div className="input-wrapper">
-                      <span style={{ position: 'absolute', left: '1rem', color: '#9ca3af', fontSize: '0.9rem' }}>🔐</span>
+                      <Hash size={18} className="input-icon" />
                       <input
                         type="text"
                         id="code"
@@ -240,7 +232,6 @@ const ForgotPassword = () => {
                         placeholder="000000"
                         maxLength="6"
                         className={errors.code ? "error" : ""}
-                        style={{ paddingLeft: '3rem' }}
                         required
                       />
                     </div>
@@ -271,32 +262,6 @@ const ForgotPassword = () => {
                       </button>
                     </div>
                     {errors.new_password && <span className="field-error">{errors.new_password}</span>}
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="confirm_password">Confirmer le mot de passe</label>
-                    <div className="input-wrapper">
-                      <Lock size={18} className="input-icon" />
-                      <input
-                        type={showConfirmPassword ? "text" : "password"}
-                        id="confirm_password"
-                        name="confirm_password"
-                        value={formData.confirm_password}
-                        onChange={handleInputChange}
-                        placeholder="Répétez votre mot de passe"
-                        className={errors.confirm_password ? "error" : ""}
-                        required
-                      />
-                      <button
-                        type="button"
-                        className="password-toggle"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        tabIndex={-1}
-                      >
-                        {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                      </button>
-                    </div>
-                    {errors.confirm_password && <span className="field-error">{errors.confirm_password}</span>}
                   </div>
 
                   <div className="step-buttons">
