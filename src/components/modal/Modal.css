@@ -9,20 +9,34 @@
   animation: fadeIn 0.25s ease;
 }
 
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.25s ease;
+  overflow: hidden;
+}
+
 /* Conteneur principal */
 .modal-content {
   background: #ffffff;
   color: #374151;
   width: 90%;
   max-width: 900px;
-  max-height: 85vh;
+  max-height: 80vh;
   border-radius: 16px;
-  padding: 24px;
+  padding: 0;
   position: relative;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
   animation: scaleIn 0.25s ease;
   border: 1px solid #e5e7eb;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
 }
 
 /* Bouton fermeture */
@@ -42,6 +56,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  z-index: 10;
 }
 
 .modal-close:hover {
@@ -49,9 +64,35 @@
   background: #f9fafb;
 }
 
-/* Contenu */
+/* Contenu scrollable */
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 24px;
+  padding-top: 16px;
+  scrollbar-gutter: stable;
+}
+
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
 .modal-body h2 {
-  margin-bottom: 12px;
+  margin: 0 0 12px 0;
   font-size: 1.5rem;
   color: #1f2937;
   font-weight: 600;
@@ -60,6 +101,7 @@
 .modal-body p {
   line-height: 1.6;
   color: #4b5563;
+  margin: 0 0 12px 0;
 }
 
 /* Animations */
@@ -84,6 +126,25 @@
 /* Mobile */
 @media (max-width: 480px) {
   .modal-content {
+    width: 95%;
+    max-height: 85vh;
+    border-radius: 12px;
+  }
+
+  .modal-body {
     padding: 16px;
+    padding-top: 12px;
+  }
+
+  .modal-close {
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    font-size: 28px;
+  }
+
+  .modal-body h2 {
+    font-size: 1.25rem;
   }
 }
