@@ -17,21 +17,41 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [cartItems, setCartItems] = useState(0);
 
+  // Vérifier la validité du token
+  const verifyToken = async (accessToken) => {
+    try {
+      await api.post('/auth/token/verify/', {
+        token: accessToken
+      });
+      return true;
+    } catch (error) {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('user');
+      delete api.defaults.headers.common['Authorization'];
+      setUser(null);
+      setIsAuthenticated(false);
+      return false;
+    }
+  };
+
   // Vérifier l'authentification au démarrage
   useEffect(() => {
-    const checkAuth = () => {
+    const checkAuth = async () => {
       const accessToken = localStorage.getItem('access_token');
       const user = localStorage.getItem('user');
 
       if (accessToken && user) {
         try {
           const parsedUser = JSON.parse(user);
-          setUser(parsedUser);
-          setIsAuthenticated(true);
           api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-
-          // Récupérer le panier après vérification de l'authentification
-          setTimeout(() => fetchCartItems(parsedUser), 100);
+          const isTokenValid = await verifyToken(accessToken);
+          
+          if (isTokenValid) {
+            setUser(parsedUser);
+            setIsAuthenticated(true);
+            setTimeout(() => fetchCartItems(parsedUser), 100);
+          }
         } catch (error) {
           console.error('Error parsing stored user data:', error);
           logout();
