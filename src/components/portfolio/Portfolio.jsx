@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, Sparkles } from 'lucide-react';
 import './Portfolio.css';
 import PhotographySets from '../photographysets/PhotographySets';
 import Modal from '../modal/Modal';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -10,6 +11,7 @@ import Modal from '../modal/Modal';
  * Composant Portfolio avec vidéo background et cards de réalisations
  */
 function Portfolio() {
+    const navigate = useNavigate();
     const [selectedProject, setSelectedProject] = useState(null);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     
@@ -108,6 +110,31 @@ function Portfolio() {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                </div>
+
+                {/* Section CTA - Réserver une session */}
+                <div className="portfolio-cta-section" data-aos="fade-up">
+                    <div className="portfolio-cta-content">
+                        <div className="portfolio-cta-sparkles">
+                            <Sparkles size={32} />
+                        </div>
+                        <h2 className="portfolio-cta-title">Prêt à réaliser votre projet ?</h2>
+                        <p className="portfolio-cta-description">
+                            Réservez dès maintenant votre session de tournage et donnez vie à votre vision cinématographique. Nos professionnels sont à votre écoute pour créer des contenus exceptionnels.
+                        </p>
+                        <button 
+                            className="portfolio-cta-button"
+                            onClick={() => navigate('/booking')}
+                        >
+                            <span>Réserver une session de tournage</span>
+                            <ArrowRight size={20} />
+                        </button>
+                    </div>
+                    <div className="portfolio-cta-decoration">
+                        <div className="portfolio-cta-circle portfolio-cta-circle-1"></div>
+                        <div className="portfolio-cta-circle portfolio-cta-circle-2"></div>
+                        <div className="portfolio-cta-circle portfolio-cta-circle-3"></div>
                     </div>
                 </div>
             </div>
