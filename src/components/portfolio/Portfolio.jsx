@@ -118,15 +118,18 @@ function Portfolio() {
                     <div className="portfolio-cta-marquee">
                         <div className="portfolio-cta-text-wrapper">
                             <Clapperboard size={20} className="portfolio-cta-icon" />
-                            <span className="portfolio-cta-text">Réservez votre session de tournage</span>
-                            <span className="portfolio-cta-divider">•</span>
+                            <a href="/booking" className="portfolio-cta-text">Réservez votre session de tournage</a>
+                            <a href="/booking" className="portfolio-cta-divider">•</a>
                             <Clapperboard size={20} className="portfolio-cta-icon" />
-                            <span className="portfolio-cta-text">Réservez votre session de tournage</span>
+                            <a href="/booking" className="portfolio-cta-text">Réservez votre session de tournage</a>
+                            <a href="/booking" className="portfolio-cta-divider">•</a>
+                            <Clapperboard size={20} className="portfolio-cta-icon" />
+                            <a href="/booking" className="portfolio-cta-text">Réservez votre session de tournage</a>
+                            <a href="/booking" className="portfolio-cta-divider">•</a>
+                            <Clapperboard size={20} className="portfolio-cta-icon" />
+                            <a href="/booking" className="portfolio-cta-text">Réservez votre session de tournage</a>
                         </div>
                     </div>
-                    <p className="portfolio-cta-link-text">
-                        Prêt? <a href="/booking" className="portfolio-cta-link">Cliquez ici</a>
-                    </p>
                 </div>
             </div>
 
