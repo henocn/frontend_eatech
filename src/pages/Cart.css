@@ -587,6 +587,127 @@
   }
 }
 
+/* ===== DARK MODE ===== */
+[data-theme="dark"] .cart-main {
+  background: #0f172a;
+}
+
+[data-theme="dark"] .cart-header h1 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .cart-header p {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .cart-summary {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .summary-row {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .summary-row.total {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .summary-label {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .summary-row.total .summary-label {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .summary-value {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .summary-icon-wrapper.sessions {
+  background: #1e40af25;
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .cart-table-container {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .cart-table th {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .cart-table td {
+  color: #e2e8f0;
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .cart-table tbody tr:hover {
+  background: #334155;
+}
+
+[data-theme="dark"] .status-badge.confirmed {
+  background: #10b98125;
+  color: #86efac;
+}
+
+[data-theme="dark"] .status-badge.pending {
+  background: #f59e0b25;
+  color: #fcd34d;
+}
+
+[data-theme="dark"] .status-badge.cancelled {
+  background: #ef444425;
+  color: #fca5a5;
+}
+
+[data-theme="dark"] .empty-cart {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .empty-cart h2 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .empty-cart p {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .error-state h2 {
+  color: #fca5a5;
+}
+
+[data-theme="dark"] .loading-spinner {
+  border-color: #334155;
+  border-top-color: #bda15f;
+}
+
+[data-theme="dark"] .add-more-btn {
+  background: #1e293b;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .add-more-btn:hover:not(:disabled) {
+  background: #334155;
+  border-color: #bda15f;
+  color: #bda15f;
+}
+
+[data-theme="dark"] .cancel-btn {
+  background: #dc2626;
+}
+
+[data-theme="dark"] .cancel-btn:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
 /* ===== BOUTON AJOUTER AU PANIER ===== */
 .add-to-cart-btn {
   width: 100%;
