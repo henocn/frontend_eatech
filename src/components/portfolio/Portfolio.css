@@ -60,6 +60,19 @@
     margin-bottom: 3rem;
 }
 
+.portfolio-description {
+    font-size: 1.1rem;
+    color: #6b7280;
+    line-height: 1.8;
+    max-width: 900px;
+    margin: 1.5rem auto 0;
+    text-align: center;
+}
+
+[data-theme="dark"] .portfolio-description {
+    color: #cbd5e1;
+}
+
 /* Grille de cards - 3 colonnes */
 .portfolio-grid {
     display: grid;
@@ -344,6 +357,11 @@
         margin-bottom: 2rem;
     }
 
+    .portfolio-description {
+        font-size: 0.95rem;
+        margin: 1rem auto 0;
+    }
+
     .portfolio-grid {
         grid-template-columns: 1fr;
         gap: 1.25rem;
@@ -393,6 +411,11 @@
     .portfolio-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
+    }
+
+    .portfolio-description {
+        font-size: 0.875rem;
+        margin: 0.75rem auto 0;
     }
 
     .portfolio-modal-video {

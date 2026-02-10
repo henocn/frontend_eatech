@@ -81,6 +81,9 @@ function Portfolio() {
                         <p className="section-subtitle">
                             Découvrez quelques-uns de nos projets réalisés dans notre studio
                         </p>
+                        <p className="portfolio-description">
+                            Nous avons eu le privilège de travailler avec des clients variés : des particuliers souhaitant immortaliser leurs moments précieux, des agences créatives en quête de contenu de qualité, et même l'État togolais pour des projets d'envergure nationale. Nos réalisations couvrent plusieurs thématiques telles que la vidéographie publicitaire, les tournages haute gamme, les événements professionnels et bien d'autres, le tout avec des équipements et un support technique professionnel de pointe.
+                        </p>
                     </div>
 
                     <div className="portfolio-grid">
