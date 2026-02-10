@@ -90,10 +90,10 @@
   transform: scale(1.03);
 }
 
-/* Multiples images (3+) */
+/* Multiples images (3+) - Grille 2x2 */
 .decor-images-multi {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   height: 280px;
   gap: 2px;
@@ -112,7 +112,7 @@
 }
 
 .decor-image-main {
-  grid-row: span 2;
+  /* Pas de span pour la grille 2x2 équilibrée */
 }
 
 .decor-images-multi:hover .decor-image-item img {
@@ -310,14 +310,13 @@
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .decor-images-multi {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    height: auto;
-    max-height: 320px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 240px;
   }
 
   .decor-image-main {
-    grid-row: span 2;
+    /* Pas de span pour mobile non plus */
   }
 
   .decor-details {

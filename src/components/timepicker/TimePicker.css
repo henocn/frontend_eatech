@@ -435,3 +435,124 @@
     text-align: center;
   }
 }
+
+/* ===== DARK MODE ===== */
+[data-theme="dark"] .time-picker {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .time-picker-header h3 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .time-picker-info {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .mobile-hint {
+  background: #334155;
+  border-color: #475569;
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .hint-text {
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .hours-input-section {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .time-inputs-group label {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .time-separator {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .time-select {
+  background: #334155;
+  border-color: #475569;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .time-select:hover {
+  border-color: #bda15f;
+}
+
+[data-theme="dark"] .time-select:focus {
+  border-color: #bda15f;
+  box-shadow: 0 0 0 3px rgba(189, 161, 95, 0.2);
+}
+
+[data-theme="dark"] .duration-label {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .add-session-btn {
+  background: #bda15f;
+  border-color: #bda15f;
+  color: #0f172a;
+}
+
+[data-theme="dark"] .add-session-btn:hover:not(:disabled) {
+  background: #a88f4a;
+  border-color: #a88f4a;
+}
+
+[data-theme="dark"] .input-error {
+  background: #7c2d12;
+  border-color: #92400e;
+  color: #fca5a5;
+}
+
+[data-theme="dark"] .add-to-cart-btn {
+  background: #10b981;
+  border-color: #10b981;
+}
+
+[data-theme="dark"] .add-to-cart-btn:hover {
+  background: #059669;
+  border-color: #059669;
+}
+
+[data-theme="dark"] .sessions-list h4 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .session-item {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .session-item:hover {
+  background: #334155;
+  border-color: #475569;
+}
+
+[data-theme="dark"] .session-date {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .session-hours {
+  background: #334155;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .sessions-summary {
+  background: #334155;
+  border-color: #475569;
+}
+
+[data-theme="dark"] .summary-label {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .summary-value {
+  color: #bda15f;
+}

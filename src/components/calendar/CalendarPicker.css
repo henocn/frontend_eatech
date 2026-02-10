@@ -190,3 +190,55 @@
     font-size: 0.75rem;
   }
 }
+
+/* ===== DARK MODE ===== */
+[data-theme="dark"] .calendar-picker {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .calendar-header h3 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .calendar-nav-btn {
+  background: #334155;
+  border-color: #475569;
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .calendar-nav-btn:hover:not(:disabled) {
+  background: #475569;
+  border-color: #64748b;
+}
+
+[data-theme="dark"] .calendar-month {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .calendar-weekday {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .calendar-day-filled.available {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .calendar-day-filled.available:hover {
+  background: #334155;
+}
+
+[data-theme="dark"] .calendar-day-filled.available.selected {
+  background: #3b82f630;
+  color: #60a5fa;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .calendar-day-filled.unavailable {
+  color: #64748b;
+}
+
+[data-theme="dark"] .legend-item {
+  color: #cbd5e1;
+}

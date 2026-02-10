@@ -37,11 +37,11 @@ function Footer() {
                         <ul className="footer-contact">
                             <li>
                                 <Mail size={18} />
-                                <span>contact@goldenstudio.com</span>
+                                <span>goldenstudioeatech@gmail.com</span>
                             </li>
                             <li>
                                 <Phone size={18} />
-                                <span>+228 99 88 77 66</span>
+                                <span>+228 70276414</span>
                             </li>
                             <li>
                                 <MapPin size={18} />

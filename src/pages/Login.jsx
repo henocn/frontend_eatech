@@ -146,7 +146,7 @@ const Login = () => {
                   Se souvenir de moi
                 </label>
 
-                <Link to="/forgot-password" className="forgot-link">
+                <Link to="/auth/forgot-password" className="forgot-link">
                   Mot de passe oublié ?
                 </Link>
               </div>

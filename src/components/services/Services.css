@@ -29,8 +29,8 @@
     padding: 0 1rem;
 }
 .intro-text p {
-    font-size: 1.15rem;
-    line-height: 2;
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    line-height: 1.8;
     color: var(--color-text);
     max-width: 60ch;
     margin: 0;
@@ -182,7 +182,7 @@
 }
 .marquee-title {
     font-weight: 800;
-    font-size: 16px;
+    font-size: clamp(12px, 2.5vw, 16px);
     color: var(--color-text);
 }
 .marquee-desc {
@@ -267,15 +267,36 @@
 
 @media (max-width: 768px) {
     .services {
-        padding: 4rem 1rem;
+        padding: 3rem 1rem;
     }
 
-    .services-intro { grid-template-columns: 1fr; gap: 18px; }
+    .section-title {
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
+    }
+
+    .intro-text p {
+        font-size: clamp(0.875rem, 2vw, 1rem);
+        line-height: 1.6;
+    }
+
+    .services-intro { grid-template-columns: 1fr; gap: 16px; }
     .intro-image img { width: 100%; max-width: 100%; height: auto; transform: translateY(0) rotate(0deg) skewX(0deg) scaleY(1); }
 
     .services-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.5rem;
     }
+
+    .marquee-item { 
+        min-width: 180px; 
+        height: auto; 
+        padding: 8px; 
+    }
+    
+    .marquee-title {
+        font-size: 13px;
+    }
+
+    .marquee-thumb { width: 75%; height: auto; max-height: 140px; }
 }
 

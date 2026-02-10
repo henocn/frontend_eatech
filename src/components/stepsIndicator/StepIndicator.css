@@ -5,7 +5,7 @@
   margin: 32px 0;
   gap: 0;
   padding-top: 2rem;
-  margin-top: 4.5rem;
+  margin-top: 2rem;
 }
 
 /* Étape */
@@ -92,6 +92,11 @@
 
 /* Mobile */
 @media (max-width: 640px) {
+  .step-indicator {
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+
   .step-label {
     display: none;
   }
@@ -100,4 +105,35 @@
     width: 32px;
     right: -16px;
   }
+}
+
+/* ===== DARK MODE ===== */
+[data-theme="dark"] .step-circle {
+  background: #334155;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .step-label {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .step-line {
+  background: #475569;
+}
+
+[data-theme="dark"] .step-item.active .step-circle {
+  border-color: #bda15f;
+  background: #bda15f;
+  color: #0f172a;
+}
+
+[data-theme="dark"] .step-item.active .step-label {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .step-item.completed .step-circle {
+  background: #bda15f;
+  border-color: #bda15f;
+  color: #0f172a;
 }

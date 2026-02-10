@@ -70,3 +70,26 @@
     font-size: 1.1rem;
   }
 }
+
+/* ===== DARK MODE ===== */
+[data-theme="dark"] .studio-list {
+  background-color: #0f172a;
+}
+
+[data-theme="dark"] .studio-card {
+  background-color: #1e293b;
+  border-color: #bda15f;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .studio-card:hover {
+  box-shadow: 0 16px 40px rgba(189, 161, 95, 0.2);
+}
+
+[data-theme="dark"] .studio-title {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .studio-description {
+  color: #cbd5e1;
+}

@@ -79,3 +79,35 @@
   object-fit: cover;
   border-radius: 6px;
 }
+
+/* ===== DARK MODE ===== */
+[data-theme="dark"] .decor-list {
+  background-color: #0f172a;
+}
+
+[data-theme="dark"] .decor-card {
+  background-color: #1e293b;
+  border-color: #bda15f;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .decor-card:hover {
+  box-shadow: 0 16px 40px rgba(189, 161, 95, 0.2);
+}
+
+[data-theme="dark"] .decor-title {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .decor-short {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .decor-select-btn {
+  background-color: #334155;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .decor-select-btn:hover {
+  background-color: #475569;
+}

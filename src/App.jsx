@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
 // login page is available at /account/login if needed
 
 /**
@@ -18,7 +19,7 @@ import Register from "./pages/Register";
 function App() {
   useEffect(() => {
     // Animation au chargement de la page
-    console.log(localStorage)
+    // console.log(localStorage)
     document.body.classList.add("fade-in");
 
     return () => {
@@ -43,8 +44,10 @@ function App() {
           } />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/register" element={<Register />} />
+          <Route path="/auth/forgot-password" element={<ForgotPassword />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>

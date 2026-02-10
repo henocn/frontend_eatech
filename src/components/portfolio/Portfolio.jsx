@@ -1,6 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, ChevronRight, Clapperboard } from 'lucide-react';
 import './Portfolio.css';
 import PhotographySets from '../photographysets/PhotographySets';
+import Modal from '../modal/Modal';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -8,18 +11,64 @@ import PhotographySets from '../photographysets/PhotographySets';
  * Composant Portfolio avec vidéo background et cards de réalisations
  */
 function Portfolio() {
+    const navigate = useNavigate();
+    const [selectedProject, setSelectedProject] = useState(null);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
     
     // photography carousel will handle video playback
 
     // Données de démonstration - sera remplacé par les vraies données plus tard
     const portfolioItems = [
-        { id: 1, type: 'video', title: 'Réalisation 1' },
-        { id: 2, type: 'image', title: 'Réalisation 2' },
-        { id: 3, type: 'video', title: 'Réalisation 3' },
-        { id: 4, type: 'image', title: 'Réalisation 4' },
-        { id: 5, type: 'video', title: 'Réalisation 5' },
-        { id: 6, type: 'image', title: 'Réalisation 6' },
+        { 
+            id: 1, 
+            type: 'video', 
+            title: 'Réalisation 1',
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+            media_type: 'video',
+            video_url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+        },
+        { 
+            id: 2, 
+            type: 'image', 
+            title: 'Réalisation 2',
+            description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+            media_type: 'images',
+            images: [
+              'https://via.placeholder.com/800x500?text=Image+1',
+              'https://via.placeholder.com/800x500?text=Image+2',
+              'https://via.placeholder.com/800x500?text=Image+3',
+            ]
+        },
+        { 
+            id: 3, 
+            type: 'video', 
+            title: 'Réalisation 3',
+            description: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliqua.',
+            media_type: 'video',
+            video_url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+        },
     ];
+
+    const handlePrevImage = () => {
+        if (selectedProject && selectedProject.media_type === 'images') {
+            setCurrentImageIndex((prev) => 
+                prev === 0 ? selectedProject.images.length - 1 : prev - 1
+            );
+        }
+    };
+
+    const handleNextImage = () => {
+        if (selectedProject && selectedProject.media_type === 'images') {
+            setCurrentImageIndex((prev) => 
+                prev === selectedProject.images.length - 1 ? 0 : prev + 1
+            );
+        }
+    };
+
+    const handleSelectProject = (item) => {
+        setSelectedProject(item);
+        setCurrentImageIndex(0);
+    };
 
     return (
         <section id="portfolio" className="portfolio">
@@ -34,6 +83,9 @@ function Portfolio() {
                         <p className="section-subtitle">
                             Découvrez quelques-uns de nos projets réalisés dans notre studio
                         </p>
+                        <p className="portfolio-description">
+                            Nous avons eu le privilège de travailler avec des clients variés : des particuliers souhaitant immortaliser leurs moments précieux, des agences créatives en quête de contenu de qualité, et même l'État togolais pour des projets d'envergure nationale. Nos réalisations couvrent plusieurs thématiques telles que la vidéographie publicitaire, les tournages haute gamme, les événements professionnels et bien d'autres, le tout avec des équipements et un support technique professionnel de pointe.
+                        </p>
                     </div>
 
                     <div className="portfolio-grid">
@@ -43,20 +95,110 @@ function Portfolio() {
                                 className="portfolio-card"
                                 data-aos="fade-up"
                                 data-aos-delay={index * 100}
+                                onClick={() => handleSelectProject(item)}
                             >
                                 <div className="portfolio-card-media">
                                     <div className="portfolio-placeholder">
-                                        {item.type === 'video' ? '🎬' : '🖼️'}
+                                        {item.media_type === 'video' ? '🎬' : '🖼️'}
                                     </div>
                                 </div>
                                 <div className="portfolio-card-content">
-                                    <h3 className="portfolio-card-title">{item.title}</h3>
+                                    <div>
+                                        <h3 className="portfolio-card-title">{item.title}</h3>
+                                        <p className="portfolio-card-description">{item.description}</p>
+                                    </div>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
+
+                {/* Section CTA - Réserver une session (style pub) */}
+                <div className="portfolio-cta-stylized" data-aos="fade-up">
+                    <div className="portfolio-cta-marquee">
+                        <div className="portfolio-cta-text-wrapper">
+                            <Clapperboard size={20} className="portfolio-cta-icon" />
+                            <a href="/booking" className="portfolio-cta-text">Réservez votre session de tournage</a>
+                            <a href="/booking" className="portfolio-cta-divider">•</a>
+                            <Clapperboard size={20} className="portfolio-cta-icon" />
+                            <a href="/booking" className="portfolio-cta-text">Réservez votre session de tournage</a>
+                            <a href="/booking" className="portfolio-cta-divider">•</a>
+                            <Clapperboard size={20} className="portfolio-cta-icon" />
+                            <a href="/booking" className="portfolio-cta-text">Réservez votre session de tournage</a>
+                            <a href="/booking" className="portfolio-cta-divider">•</a>
+                            <Clapperboard size={20} className="portfolio-cta-icon" />
+                            <a href="/booking" className="portfolio-cta-text">Réservez votre session de tournage</a>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            {/* Modal pour la description complète avec médias */}
+            <Modal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)}>
+                {selectedProject && (
+                    <div className="portfolio-modal-content">
+                        {/* Section médias */}
+                        {selectedProject.media_type === 'video' && (
+                            <div className="portfolio-modal-media-container">
+                                <iframe
+                                    className="portfolio-modal-video"
+                                    src={selectedProject.video_url}
+                                    title={selectedProject.title}
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
+                        )}
+
+                        {selectedProject.media_type === 'images' && selectedProject.images?.length > 0 && (
+                            <div className="portfolio-modal-carousel">
+                                <div className="portfolio-modal-image-container">
+                                    <img 
+                                        src={selectedProject.images[currentImageIndex]} 
+                                        alt={`${selectedProject.title} - Image ${currentImageIndex + 1}`}
+                                        className="portfolio-modal-image"
+                                    />
+                                </div>
+
+                                {selectedProject.images.length > 1 && (
+                                    <>
+                                        <button
+                                            className="portfolio-carousel-btn portfolio-carousel-prev"
+                                            onClick={handlePrevImage}
+                                            aria-label="Image précédente"
+                                        >
+                                            <ChevronLeft size={24} />
+                                        </button>
+                                        <button
+                                            className="portfolio-carousel-btn portfolio-carousel-next"
+                                            onClick={handleNextImage}
+                                            aria-label="Image suivante"
+                                        >
+                                            <ChevronRight size={24} />
+                                        </button>
+
+                                        <div className="portfolio-carousel-indicators">
+                                            {selectedProject.images.map((_, idx) => (
+                                                <button
+                                                    key={idx}
+                                                    className={`portfolio-indicator ${idx === currentImageIndex ? 'active' : ''}`}
+                                                    onClick={() => setCurrentImageIndex(idx)}
+                                                    aria-label={`Aller à l'image ${idx + 1}`}
+                                                ></button>
+                                            ))}
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Section texte */}
+                        <h2 className="portfolio-modal-title">{selectedProject.title}</h2>
+                        <p className="portfolio-modal-description">{selectedProject.description}</p>
+                    </div>
+                )}
+            </Modal>
         </section>
     );
 }

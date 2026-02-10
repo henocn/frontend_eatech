@@ -53,7 +53,7 @@ function PhotographySets() {
               </div>
               <div className="carousel-bottom">
                 <div className="bottom-left"><span className="label">{s.location}</span></div>
-                <div className="bottom-right"><span className="label">Jusqu'à {s.maxPeople} personnes</span></div>
+                <div className="bottom-right"><span className="label">{s.maxPeople} Pers.</span></div>
               </div>
             </div>
           ))}
