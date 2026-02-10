@@ -181,15 +181,9 @@ const BookingPage = () => {
       {/* Modal de confirmation */}
       <Modal isOpen={showConfirmModal} onClose={() => setShowConfirmModal(false)}>
         <div style={{ textAlign: "center" }}>
-          <h2 style={{ marginBottom: "24px", color: "#1f2937" }}>Confirmer l'ajout au panier?</h2>
+          <h2 className="modal-confirmation-title">Confirmer l'ajout au panier?</h2>
           
-          <div style={{ 
-            background: "#f9fafb", 
-            borderRadius: "8px", 
-            padding: "12px", 
-            marginBottom: "24px", 
-            textAlign: "left"
-          }}>
+          <div className="modal-confirmation-summary">
             {sessionsToAdd.map((session, index) => {
               const date = new Date(session.date);
               const dayName = date.toLocaleDateString('fr-FR', { weekday: 'long' });
@@ -198,15 +192,11 @@ const BookingPage = () => {
               const endHour = session.endTime.split(':')[0];
               
               return (
-                <div key={index} style={{ 
-                  padding: "12px", 
-                  marginBottom: index < sessionsToAdd.length - 1 ? "12px" : "0",
-                  borderBottom: index < sessionsToAdd.length - 1 ? "1px solid #e5e7eb" : "none"
-                }}>
-                  <p style={{ margin: "0", color: "#374151", fontWeight: "600" }}>
+                <div key={index} className="modal-session-item">
+                  <p className="modal-session-date">
                     {dayName.charAt(0).toUpperCase() + dayName.slice(1)} {formattedDate}
                   </p>
-                  <p style={{ margin: "8px 0 0 0", color: "#6b7280", fontSize: "0.9rem" }}>
+                  <p className="modal-session-time">
                     de {session.startTime} à {session.endTime}
                   </p>
                 </div>
@@ -214,47 +204,20 @@ const BookingPage = () => {
             })}
           </div>
 
-          <p style={{ color: "#6b7280", marginBottom: "24px", fontSize: "0.85rem" }}>
+          <p className="modal-summary-text">
             {sessionsToAdd.length} session{sessionsToAdd.length > 1 ? 's' : ''} • {sessionsToAdd.reduce((total, session) => total + session.hours, 0)}h de tournage
           </p>
 
-          <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
+          <div className="modal-button-group">
             <button
               onClick={() => setShowConfirmModal(false)}
-              style={{
-                padding: "10px 24px",
-                borderRadius: "6px",
-                border: "1px solid #d1d5db",
-                background: "#ffffff",
-                color: "#374151",
-                cursor: "pointer",
-                fontWeight: "600",
-                fontSize: "0.9rem",
-                transition: "all 0.2s ease"
-              }}
-              onMouseOver={(e) => e.target.style.background = "#f9fafb"}
-              onMouseOut={(e) => e.target.style.background = "#ffffff"}
+              className="modal-cancel-btn"
             >
               Annuler
             </button>
             <button
               onClick={handleConfirmAddToCart}
-              style={{
-                padding: "10px 24px",
-                borderRadius: "6px",
-                border: "none",
-                background: "#10b981",
-                color: "white",
-                cursor: "pointer",
-                fontWeight: "600",
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                fontSize: "0.9rem",
-                transition: "all 0.2s ease"
-              }}
-              onMouseOver={(e) => e.target.style.background = "#059669"}
-              onMouseOut={(e) => e.target.style.background = "#10b981"}
+              className="modal-confirm-btn"
             >
               <Check size={18} />
               Confirmer
@@ -266,9 +229,9 @@ const BookingPage = () => {
       {/* Modal de succès */}
       <Modal isOpen={showSuccessModal} onClose={() => {}}>
         <div style={{ textAlign: "center" }}>
-          <div style={{ fontSize: "56px", marginBottom: "16px" }}>✓</div>
-          <h2 style={{ marginBottom: "12px", color: "#10b981", fontSize: "1.5rem" }}>Panier validé!</h2>
-          <p style={{ color: "#6b7280", marginBottom: "24px", fontSize: "0.95rem", lineHeight: "1.6" }}>
+          <div className="modal-success-checkmark">✓</div>
+          <h2 className="modal-success-title">Panier validé!</h2>
+          <p className="modal-success-text">
             Vos sessions ont été ajoutées au panier. Allez dans l'onglet panier et validez le paiement pour terminer la procédure.
           </p>
           <button
@@ -276,23 +239,7 @@ const BookingPage = () => {
               setShowSuccessModal(false);
               navigate('/cart');
             }}
-            style={{
-              padding: "12px 28px",
-              borderRadius: "6px",
-              border: "none",
-              background: "#10b981",
-              color: "white",
-              cursor: "pointer",
-              fontWeight: "600",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              margin: "0 auto",
-              fontSize: "0.95rem",
-              transition: "all 0.2s ease"
-            }}
-            onMouseOver={(e) => e.target.style.background = "#059669"}
-            onMouseOut={(e) => e.target.style.background = "#10b981"}
+            className="modal-success-btn"
           >
             <span>Valider le paiement</span>
             <ArrowRight size={18} />

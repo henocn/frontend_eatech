@@ -148,3 +148,215 @@
     font-size: 1.25rem;
   }
 }
+
+/* ===== DARK MODE ===== */
+[data-theme="dark"] .modal-content {
+  background: #1e293b;
+  color: #e2e8f0;
+  border-color: #334155;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .modal-close {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .modal-close:hover {
+  color: #f87171;
+  background: #334155;
+}
+
+[data-theme="dark"] .modal-body {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+[data-theme="dark"] .modal-body::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+[data-theme="dark"] .modal-body::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+[data-theme="dark"] .modal-body h2 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .modal-body p {
+  color: #cbd5e1;
+}
+
+/* Modal confirmation content */
+.modal-confirmation-title {
+  margin-bottom: 24px;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .modal-confirmation-title {
+  color: #f1f5f9;
+}
+
+.modal-confirmation-summary {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+[data-theme="dark"] .modal-confirmation-summary {
+  background: #0f172a;
+  border: 1px solid #334155;
+}
+
+.modal-session-item {
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.modal-session-item:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.modal-session-item:not(:last-child) {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+[data-theme="dark"] .modal-session-item:not(:last-child) {
+  border-bottom-color: #334155;
+}
+
+.modal-session-date {
+  margin: 0;
+  color: #374151;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .modal-session-date {
+  color: #f1f5f9;
+}
+
+.modal-session-time {
+  margin: 8px 0 0 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+[data-theme="dark"] .modal-session-time {
+  color: #cbd5e1;
+}
+
+.modal-summary-text {
+  color: #6b7280;
+  margin-bottom: 24px;
+  font-size: 0.85rem;
+}
+
+[data-theme="dark"] .modal-summary-text {
+  color: #94a3b8;
+}
+
+.modal-button-group {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.modal-cancel-btn {
+  padding: 10px 24px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #374151;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.modal-cancel-btn:hover {
+  background: #f9fafb;
+}
+
+[data-theme="dark"] .modal-cancel-btn {
+  background: #334155;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .modal-cancel-btn:hover {
+  background: #475569;
+}
+
+.modal-confirm-btn {
+  padding: 10px 24px;
+  border-radius: 6px;
+  border: none;
+  background: #10b981;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.modal-confirm-btn:hover {
+  background: #059669;
+}
+
+/* Success Modal */
+.modal-success-checkmark {
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+
+.modal-success-title {
+  margin-bottom: 12px;
+  color: #10b981;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .modal-success-title {
+  color: #10b981;
+}
+
+.modal-success-text {
+  color: #6b7280;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+[data-theme="dark"] .modal-success-text {
+  color: #cbd5e1;
+}
+
+.modal-success-btn {
+  padding: 12px 28px;
+  border-radius: 6px;
+  border: none;
+  background: #10b981;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 auto;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.modal-success-btn:hover {
+  background: #059669;
+}
