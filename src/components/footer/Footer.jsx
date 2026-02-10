@@ -37,7 +37,7 @@ function Footer() {
                         <ul className="footer-contact">
                             <li>
                                 <Mail size={18} />
-                                <span>goldenstudio-eatech@gmail.com</span>
+                                <span>goldenstudioeatech@gmail.com</span>
                             </li>
                             <li>
                                 <Phone size={18} />
