@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, ArrowRight, Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clapperboard } from 'lucide-react';
 import './Portfolio.css';
 import PhotographySets from '../photographysets/PhotographySets';
 import Modal from '../modal/Modal';
@@ -113,29 +113,20 @@ function Portfolio() {
                     </div>
                 </div>
 
-                {/* Section CTA - Réserver une session */}
-                <div className="portfolio-cta-section" data-aos="fade-up">
-                    <div className="portfolio-cta-content">
-                        <div className="portfolio-cta-sparkles">
-                            <Sparkles size={32} />
+                {/* Section CTA - Réserver une session (style pub) */}
+                <div className="portfolio-cta-stylized" data-aos="fade-up">
+                    <div className="portfolio-cta-marquee">
+                        <div className="portfolio-cta-text-wrapper">
+                            <Clapperboard size={20} className="portfolio-cta-icon" />
+                            <span className="portfolio-cta-text">Réservez votre session de tournage</span>
+                            <span className="portfolio-cta-divider">•</span>
+                            <Clapperboard size={20} className="portfolio-cta-icon" />
+                            <span className="portfolio-cta-text">Réservez votre session de tournage</span>
                         </div>
-                        <h2 className="portfolio-cta-title">Prêt à réaliser votre projet ?</h2>
-                        <p className="portfolio-cta-description">
-                            Réservez dès maintenant votre session de tournage et donnez vie à votre vision cinématographique. Nos professionnels sont à votre écoute pour créer des contenus exceptionnels.
-                        </p>
-                        <button 
-                            className="portfolio-cta-button"
-                            onClick={() => navigate('/booking')}
-                        >
-                            <span>Réserver une session de tournage</span>
-                            <ArrowRight size={20} />
-                        </button>
                     </div>
-                    <div className="portfolio-cta-decoration">
-                        <div className="portfolio-cta-circle portfolio-cta-circle-1"></div>
-                        <div className="portfolio-cta-circle portfolio-cta-circle-2"></div>
-                        <div className="portfolio-cta-circle portfolio-cta-circle-3"></div>
-                    </div>
+                    <p className="portfolio-cta-link-text">
+                        Prêt? <a href="/booking" className="portfolio-cta-link">Cliquez ici</a>
+                    </p>
                 </div>
             </div>
 
