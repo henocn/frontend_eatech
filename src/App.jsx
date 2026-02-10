@@ -19,7 +19,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 function App() {
   useEffect(() => {
     // Animation au chargement de la page
-    console.log(localStorage)
+    // console.log(localStorage)
     document.body.classList.add("fade-in");
 
     return () => {
