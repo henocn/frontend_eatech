@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Palette, Menu, X, Moon, Sun, Globe, User, LogOut, Home, ShoppingCart } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Header.css';
 
 
@@ -16,6 +16,7 @@ function Header({ current }) {
     const { theme, toggleTheme } = useTheme();
     const { isAuthenticated, user, logout, cartItems } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -42,6 +43,25 @@ function Header({ current }) {
         setIsMobileMenuOpen(false);
     };
 
+    /**
+     * Navigation vers la section services
+     */
+    const handleServicesClick = (e) => {
+        e.preventDefault();
+        setIsMobileMenuOpen(false);
+        
+        if (location.pathname === '/') {
+            // Si déjà sur la page d'accueil, scroll vers services
+            const element = document.getElementById('services');
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        } else {
+            // Sinon, naviguer vers l'accueil puis scroll
+            navigate('/', { state: { scrollToServices: true } });
+        }
+    };
+
     return (
         <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
             <div className="header-container">
@@ -54,10 +74,10 @@ function Header({ current }) {
                         <Home className="nav-icon" size={18} />
                         Accueil
                     </Link>
-                    <a href="#services" className={`nav-link ${current === 'services' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+                    <button className={`nav-link ${current === 'services' ? 'active' : ''}`} onClick={handleServicesClick} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
                         <Palette className="nav-icon" size={18} />
                         Services
-                    </a>
+                    </button>
                     <a href="#contact" className={`nav-link ${current === 'contact' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                         <Globe className="nav-icon" size={18} />
                         Contact

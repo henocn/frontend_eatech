@@ -49,7 +49,13 @@ function Hero() {
     }, []);
 
 
-    // Contact scroll removed — secondary CTA will navigate to booking
+    // Scroll vers la section services
+    const handleServicesClick = () => {
+        const element = document.getElementById('services');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
     return (
         <section id="home" className="hero" ref={heroRef}>
@@ -83,7 +89,7 @@ function Hero() {
                     Nous réalisons un travail professionnel, créatif et réussi grâce à nos experts en design infographie et développement.
                 </p>
                 <div className="hero-cta" ref={ctaRef}>
-                    <button className="btn btn-primary">
+                    <button className="btn btn-primary" onClick={handleServicesClick}>
                         Nos services
                     </button>
                     <button className="btn btn-secondary" onClick={() => navigate('/booking')}>
