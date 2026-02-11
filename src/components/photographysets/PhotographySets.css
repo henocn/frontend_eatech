@@ -1,7 +1,56 @@
 .photography-carousel {
   padding: 0;
-  background: transparent;
+  background: #f8f9fa;
 }
+
+[data-theme="dark"] .photography-carousel {
+  background: #0f172a;
+}
+
+/* ===== INTRO SECTION ===== */
+.photography-intro {
+  text-align: center;
+  padding: 1.5rem 1.5rem 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.photography-intro-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.75rem;
+  position: relative;
+  display: inline-block;
+}
+
+.photography-intro-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #bda15f 0%, #d4b86a 100%);
+  border-radius: 2px;
+}
+
+.photography-intro-text {
+  font-size: 1.05rem;
+  color: #64748b;
+  line-height: 1.7;
+  margin-top: 1.25rem;
+}
+
+[data-theme="dark"] .photography-intro-title {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .photography-intro-text {
+  color: #94a3b8;
+}
+
 .carousel-wrapper {
   position: relative;
   width: 100%;

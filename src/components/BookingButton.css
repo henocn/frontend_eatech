@@ -7,21 +7,25 @@
     align-items: center;
     gap: 0.75rem;
     padding: 1rem 2rem;
-    background: linear-gradient(135deg, #8aafd4 0%, #764ba2 100%);
-    color: white;
-    border: none;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+    color: #bda15f;
+    border: 1px solid rgba(189, 161, 95, 0.4);
     border-radius: 50px;
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     animation: slideInRight 0.5s ease;
 }
 
 .booking-button:hover {
     transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+    box-shadow: 
+        0 12px 35px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(189, 161, 95, 0.3);
+    border-color: #bda15f;
+    background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
 }
 
 .booking-button:active {
@@ -53,11 +57,16 @@
 }
 
 [data-theme="dark"] .booking-button {
-    box-shadow: 0 8px 25px rgba(53, 88, 122, 0.6);
+    background: linear-gradient(135deg, #bda15f 0%, #d4b86a 100%);
+    color: #1a1a1a;
+    border-color: transparent;
+    box-shadow: 0 8px 25px rgba(189, 161, 95, 0.4);
 }
 
 [data-theme="dark"] .booking-button:hover {
-    box-shadow: 0 12px 35px rgba(53, 88, 122, 0.6);
+    box-shadow: 
+        0 12px 35px rgba(189, 161, 95, 0.5),
+        0 0 25px rgba(189, 161, 95, 0.4);
 }
 
 @media (max-width: 768px) {
