@@ -55,10 +55,10 @@
 
 .logo-icon {
     display: block;
-    height: 56px;
-    max-height: 70px;
+    height: 44px;
+    max-height: 56px;
     width: auto;
-    max-width: 220px;
+    max-width: 200px;
     object-fit: contain;
     transition: transform 0.3s ease, filter 0.25s ease, opacity 0.25s ease;
 }
