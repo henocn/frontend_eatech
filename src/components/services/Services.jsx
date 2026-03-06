@@ -8,7 +8,7 @@ import "./Services.css";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Section Nos Services : grille de cartes (affichage professionnel, sans carousel).
+ * Section Nos Services : design pro, images proportionnées, animations soignées.
  */
 function Services() {
   const [services, setServices] = useState([]);
@@ -16,6 +16,7 @@ function Services() {
   const [error, setError] = useState(null);
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
+  const lineRef = useRef(null);
   const introRef = useRef(null);
   const gridRef = useRef(null);
 
@@ -38,36 +39,55 @@ function Services() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         titleRef.current,
-        { opacity: 0, y: 24 },
+        { opacity: 0, y: 32 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
+          duration: 0.8,
           ease: "power3.out",
           scrollTrigger: { trigger: titleRef.current, start: "top 88%", toggleActions: "play none none none" },
         }
       );
       gsap.fromTo(
+        lineRef.current,
+        { scaleX: 0, opacity: 0 },
+        {
+          scaleX: 1,
+          opacity: 1,
+          duration: 0.6,
+          delay: 0.2,
+          ease: "power2.out",
+          transformOrigin: "center",
+          scrollTrigger: { trigger: lineRef.current, start: "top 88%", toggleActions: "play none none none" },
+        }
+      );
+      gsap.fromTo(
         introRef.current,
-        { opacity: 0, y: 20 },
+        { opacity: 0, y: 24 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
-          delay: 0.1,
+          duration: 0.7,
+          delay: 0.15,
           ease: "power3.out",
           scrollTrigger: { trigger: introRef.current, start: "top 88%", toggleActions: "play none none none" },
         }
       );
       gsap.fromTo(
         cards,
-        { opacity: 0, y: 28 },
+        {
+          opacity: 0,
+          y: 40,
+          scale: 0.96,
+        },
         {
           opacity: 1,
           y: 0,
-          duration: 0.5,
-          stagger: 0.08,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.1,
           ease: "power3.out",
+          delay: 0.1,
           scrollTrigger: { trigger: gridRef.current, start: "top 85%", toggleActions: "play none none none" },
         }
       );
@@ -118,6 +138,7 @@ function Services() {
           <h2 className="services-title" ref={titleRef}>
             Nos Services
           </h2>
+          <span className="services-title-line" ref={lineRef} aria-hidden />
           <div className="services-intro" ref={introRef}>
             <p className="services-intro-text">
               Nous concevons des dispositifs créatifs complets, du concept à la réalisation — identité visuelle,
@@ -130,12 +151,13 @@ function Services() {
         </header>
 
         <div className="services-grid" ref={gridRef}>
-          {services.map((service) => (
+          {services.map((service, index) => (
             <article key={service.id} className="service-card">
               <div className="service-card-media">
                 <img src={service.image} alt="" />
               </div>
               <div className="service-card-body">
+                <span className="service-card-number">{String(index + 1).padStart(2, "0")}</span>
                 <h3 className="service-card-title">{service.title}</h3>
                 <p className="service-card-desc">{service.description}</p>
               </div>
