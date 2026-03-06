@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import { Users, DollarSign, MapPin, Building2 } from "lucide-react";
+import { Users, DollarSign, MapPin, Building2, ChevronLeft, ChevronRight } from "lucide-react";
 import Modal from "../modal/Modal";
 import { getDecorById } from "../../services/decorService";
 import "./DecorDetailModal.css";
 
 /**
- * Modal de détail d’un décor (studio, description complète, galerie).
- * Données chargées via getDecorById pour avoir studio_details.
+ * Modal de détail d’un décor (studio, description, galerie carousel).
  */
 function DecorDetailModal({ decorId, initialDecor, onClose, onReserve }) {
   const [decor, setDecor] = useState(initialDecor || null);
   const [loading, setLoading] = useState(!initialDecor?.studio_details);
+  const [galleryIndex, setGalleryIndex] = useState(0);
 
   useEffect(() => {
     if (!decorId) return;
@@ -19,6 +19,7 @@ function DecorDetailModal({ decorId, initialDecor, onClose, onReserve }) {
         setLoading(true);
         const data = await getDecorById(decorId);
         setDecor(data);
+        setGalleryIndex(0);
       } catch (err) {
         setDecor(initialDecor || null);
       } finally {
@@ -30,9 +31,17 @@ function DecorDetailModal({ decorId, initialDecor, onClose, onReserve }) {
 
   const studio = decor?.studio_details || null;
   const medias = decor?.pub_medias_details || [];
+  const currentMedia = medias[galleryIndex];
+
+  const goPrev = () => {
+    setGalleryIndex((i) => (i <= 0 ? medias.length - 1 : i - 1));
+  };
+  const goNext = () => {
+    setGalleryIndex((i) => (i >= medias.length - 1 ? 0 : i + 1));
+  };
 
   return (
-    <Modal isOpen={true} onClose={onClose}>
+    <Modal isOpen={true} onClose={onClose} className="modal-content--tall">
       <div className="decor-detail-modal">
         {loading ? (
           <p className="decor-detail-modal-loading">Chargement…</p>
@@ -43,8 +52,8 @@ function DecorDetailModal({ decorId, initialDecor, onClose, onReserve }) {
             <header className="decor-detail-modal-header">
               <h2 className="decor-detail-modal-title">{decor.name}</h2>
               {studio && (
-                <div className="decor-detail-modal-studio">
-                  <Building2 size={18} />
+                <p className="decor-detail-modal-studio">
+                  <Building2 size={16} />
                   <span>{studio.name}</span>
                   {studio.location && (
                     <span className="decor-detail-modal-location">
@@ -52,14 +61,12 @@ function DecorDetailModal({ decorId, initialDecor, onClose, onReserve }) {
                       {studio.location}
                     </span>
                   )}
-                </div>
+                </p>
               )}
             </header>
 
             {decor.full_description && (
-              <div className="decor-detail-modal-description">
-                <p>{decor.full_description}</p>
-              </div>
+              <p className="decor-detail-modal-description">{decor.full_description}</p>
             )}
 
             <div className="decor-detail-modal-meta">
@@ -76,13 +83,38 @@ function DecorDetailModal({ decorId, initialDecor, onClose, onReserve }) {
             {medias.length > 0 && (
               <div className="decor-detail-modal-gallery">
                 <h3 className="decor-detail-modal-gallery-title">Galerie</h3>
-                <div className="decor-detail-modal-gallery-grid">
-                  {medias.map((img) => (
-                    <div key={img.id} className="decor-detail-modal-gallery-item">
-                      <img src={img.file_url} alt={decor.name} />
-                    </div>
-                  ))}
+                <div className="decor-detail-modal-carousel">
+                  {medias.length > 1 && (
+                    <button
+                      type="button"
+                      className="decor-detail-modal-carousel-btn decor-detail-modal-carousel-prev"
+                      onClick={goPrev}
+                      aria-label="Image précédente"
+                    >
+                      <ChevronLeft size={28} />
+                    </button>
+                  )}
+                  <img
+                    src={currentMedia?.file_url}
+                    alt={`${decor.name} - ${galleryIndex + 1}`}
+                    className="decor-detail-modal-carousel-image"
+                  />
+                  {medias.length > 1 && (
+                    <button
+                      type="button"
+                      className="decor-detail-modal-carousel-btn decor-detail-modal-carousel-next"
+                      onClick={goNext}
+                      aria-label="Image suivante"
+                    >
+                      <ChevronRight size={28} />
+                    </button>
+                  )}
                 </div>
+                {medias.length > 1 && (
+                  <p className="decor-detail-modal-carousel-counter">
+                    {galleryIndex + 1} / {medias.length}
+                  </p>
+                )}
               </div>
             )}
 

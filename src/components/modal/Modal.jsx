@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "./Modal.css";
 
-const Modal = ({ isOpen, onClose, children }) => {
+const Modal = ({ isOpen, onClose, children, className }) => {
   // Bloquer le scroll du body quand le modal est ouvert
   useEffect(() => {
     if (isOpen) {
@@ -19,7 +19,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className={`modal-content ${className || ""}`.trim()} onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose}>
           ×
         </button>
