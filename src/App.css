@@ -35,6 +35,14 @@
     width: 100%;
 }
 
+.booking-direct-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--color-text);
+}
+
 .schedule-step {
     display: grid;
     grid-template-columns: 2fr 1fr;

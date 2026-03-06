@@ -27,10 +27,18 @@
   color: #6b7280;
 }
 
+/* Nom du décor en grand, studio en petit */
+.decor-card-public .decor-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
 .decor-card-public-studio {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: #6b7280;
-  margin: -4px 0 4px 0;
+  margin: 0 0 6px 0;
+  font-weight: 500;
 }
 
 [data-theme="dark"] .decor-card-public-studio {
