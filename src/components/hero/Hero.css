@@ -105,6 +105,7 @@
 }
 
 .hero-welcome {
+    font-family: var(--font-heading);
     font-size: clamp(0.875rem, 1.5vw, 1.125rem);
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -113,16 +114,18 @@
 }
 
 .hero-title {
-    font-size: clamp(3rem, 10vw, 5.5rem);
-    font-weight: 900;
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 6.5vw, 4rem);
+    font-weight: 800;
     line-height: 1.1;
     margin-bottom: 2rem;
     letter-spacing: -0.02em;
-    -webkit-text-stroke: 2.5px #bda15f;
+    -webkit-text-stroke: 2px #bda15f;
 }
 
 .title-main {
     display: block;
+    white-space: nowrap;
     background: linear-gradient(
         90deg,
         #ffffff 0%,
@@ -218,6 +221,13 @@
     .btn {
         width: 100%;
         max-width: 300px;
+    }
+}
+
+/* Titre sur une seule ligne même sur petits écrans */
+@media (max-width: 420px) {
+    .hero-title {
+        font-size: clamp(1.5rem, 8vw, 2.25rem);
     }
 }
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ShoppingCart, Check, ArrowRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import Modal from "../components/modal/Modal";
@@ -23,15 +23,22 @@ import "../App.css";
  */
 const BookingPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { fetchCartItems } = useAuth();
 
-  // Étape courante
-  const [currentStep, setCurrentStep] = useState(1);
-  const [maxStepReached, setMaxStepReached] = useState(1);
+  const stateDecor = location.state?.decor;
 
-  // Sélections utilisateur
-  const [selectedStudio, setSelectedStudio] = useState(null);
-  const [selectedDecor, setSelectedDecor] = useState(null);
+  // Étape courante (si décor passé en state, on démarre à l’étape 3)
+  const [currentStep, setCurrentStep] = useState(stateDecor ? 3 : 1);
+  const [maxStepReached, setMaxStepReached] = useState(stateDecor ? 3 : 1);
+
+  // Sélections utilisateur (studio/décor pré-remplis si venant de la section décors)
+  const [selectedStudio, setSelectedStudio] = useState(
+    stateDecor?.studio_info ? { id: stateDecor.studio_info.id, name: stateDecor.studio_info.name } : null
+  );
+  const [selectedDecor, setSelectedDecor] = useState(
+    stateDecor ? { id: stateDecor.id, name: stateDecor.name, short_description: stateDecor.short_description, hour_price: stateDecor.hour_price, max_persons: stateDecor.max_persons } : null
+  );
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedSessions, setSelectedSessions] = useState([]);
 

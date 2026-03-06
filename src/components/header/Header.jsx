@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Palette, Menu, X, Moon, Sun, Globe, User, LogOut, Home, ShoppingCart } from 'lucide-react';
+import { LayoutGrid, Menu, X, Moon, Sun, Mail, User, DoorOpen, Home, ShoppingCart } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -65,9 +65,9 @@ function Header({ current }) {
     return (
         <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
             <div className="header-container">
-                <div className="logo">
-                    <img className='logo-icon' src="/images/logo2.png" alt="GardenDesign" />
-                </div>
+                <Link to="/" className="logo" aria-label="Accueil">
+                    <img className="logo-icon" src="/images/logo2.png" alt="EATECH - Studio" />
+                </Link>
 
                 <nav className={`nav ${isMobileMenuOpen ? 'open' : ''}`}>
                     <Link to="/" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
@@ -75,11 +75,11 @@ function Header({ current }) {
                         Accueil
                     </Link>
                     <button className={`nav-link ${current === 'services' ? 'active' : ''}`} onClick={handleServicesClick} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-                        <Palette className="nav-icon" size={18} />
+                        <LayoutGrid className="nav-icon" size={18} />
                         Services
                     </button>
                     <a href="#contact" className={`nav-link ${current === 'contact' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
-                        <Globe className="nav-icon" size={18} />
+                        <Mail className="nav-icon" size={18} />
                         Contact
                     </a>
 
@@ -97,7 +97,7 @@ function Header({ current }) {
                                 className="nav-link logout-btn"
                                 onClick={handleLogout}
                             >
-                                <LogOut className="nav-icon" size={18} />
+                                <DoorOpen className="nav-icon" size={18} />
                                 Déconnexion
                             </button>
                         </>
