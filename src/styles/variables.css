@@ -1,4 +1,8 @@
 :root {
+  /* Typography */
+  --font-heading: 'Syne', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
   /* Core colors */
   --color-bg: #ffffff;
   --color-text: #2c3e50;
@@ -6,6 +10,20 @@
   --color-primary-2: #764ba2;
   --color-link-hover: #764ba2;
   --color-outline: #667eea;
+
+  /* Navbar — design pro (couleurs accentuées pour une meilleure lisibilité) */
+  --nav-bg: rgba(255, 255, 255, 0.82);
+  --nav-bg-scrolled: rgba(255, 255, 255, 0.96);
+  --nav-border: rgba(0, 0, 0, 0.06);
+  --nav-text: #1a1d21;
+  --nav-text-muted: #374151;
+  --nav-icon: #1f2937;
+  --nav-accent: #8b6914;
+  --nav-accent-hover: #bda15f;
+  --nav-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+  --nav-shadow-scrolled: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --nav-link-underline: #bda15f;
+  --nav-transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Scrollbar */
   --scrollbar-track: #f1f1f1;
@@ -20,6 +38,19 @@
   --color-primary-2: #a5b4fc;
   --color-link-hover: #a5b4fc;
   --color-outline: #8b9aff;
+
+  /* Navbar dark */
+  --nav-bg: rgba(22, 25, 31, 0.88);
+  --nav-bg-scrolled: rgba(22, 25, 31, 0.98);
+  --nav-border: rgba(255, 255, 255, 0.06);
+  --nav-text: #f0f2f5;
+  --nav-text-muted: #c8d1dc;
+  --nav-icon: #e2e8f0;
+  --nav-accent: #d4b86a;
+  --nav-accent-hover: #e0c078;
+  --nav-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
+  --nav-shadow-scrolled: 0 4px 24px rgba(0, 0, 0, 0.35);
+  --nav-link-underline: #c9a962;
 
   --scrollbar-track: #2d3748;
   --scrollbar-thumb-start: #8b9aff;

@@ -1,0 +1,224 @@
+/* Modal détail décor — structure simplifiée, peu de marges, photo grande sans bordure */
+
+.decor-detail-modal {
+  max-width: 100%;
+}
+
+.decor-detail-modal-loading,
+.decor-detail-modal-error {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--color-text);
+}
+
+.decor-detail-modal-header {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.decor-detail-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text, #1f2937);
+  margin: 0 0 0.25rem 0;
+}
+
+.decor-detail-modal-studio {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.decor-detail-modal-studio svg {
+  flex-shrink: 0;
+  color: #bda15f;
+}
+
+.decor-detail-modal-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.decor-detail-modal-description {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  opacity: 0.9;
+}
+
+.decor-detail-modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.decor-detail-modal-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.9375rem;
+  color: #4b5563;
+}
+
+.decor-detail-modal-meta-item svg {
+  flex-shrink: 0;
+  color: #6b7280;
+}
+
+.decor-detail-modal-price {
+  font-weight: 700;
+  color: #bda15f;
+}
+
+/* Galerie : une grande image, pas de bordure ni fond autour */
+.decor-detail-modal-gallery {
+  margin-bottom: 0.75rem;
+}
+
+.decor-detail-modal-gallery-title {
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--color-text);
+}
+
+.decor-detail-modal-carousel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 0;
+}
+
+.decor-detail-modal-carousel-image {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  min-height: 320px;
+  max-height: 55vh;
+  object-fit: contain;
+  display: block;
+}
+
+.decor-detail-modal-carousel-btn {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: #374151;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.decor-detail-modal-carousel-btn:hover {
+  background: #fff;
+  transform: scale(1.05);
+}
+
+.decor-detail-modal-carousel-btn:active {
+  transform: scale(0.98);
+}
+
+.decor-detail-modal-carousel-counter {
+  text-align: center;
+  font-size: 0.8125rem;
+  color: #6b7280;
+  margin: 0.25rem 0 0 0;
+}
+
+.decor-detail-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 0.5rem;
+}
+
+.decor-detail-modal-btn-cancel,
+.decor-detail-modal-btn-reserve {
+  padding: 0.5rem 1.125rem;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.decor-detail-modal-btn-cancel {
+  background: #f3f4f6;
+  color: #374151;
+  border: none;
+}
+
+.decor-detail-modal-btn-cancel:hover {
+  background: #e5e7eb;
+}
+
+.decor-detail-modal-btn-reserve {
+  background: #bda15f;
+  color: #fff;
+  border: 2px solid #bda15f;
+}
+
+.decor-detail-modal-btn-reserve:hover {
+  background: #a88f4a;
+  border-color: #a88f4a;
+  transform: translateY(-1px);
+}
+
+/* Dark */
+[data-theme="dark"] .decor-detail-modal-header,
+[data-theme="dark"] .decor-detail-modal-actions {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .decor-detail-modal-studio,
+[data-theme="dark"] .decor-detail-modal-meta-item {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .decor-detail-modal-carousel-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #1f2937;
+}
+
+[data-theme="dark"] .decor-detail-modal-carousel-counter {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .decor-detail-modal-btn-cancel {
+  background: #374151;
+  color: #e5e7eb;
+}
+
+[data-theme="dark"] .decor-detail-modal-btn-cancel:hover {
+  background: #4b5563;
+}
+
+@media (max-width: 600px) {
+  .decor-detail-modal-carousel-image {
+    min-height: 260px;
+    max-height: 45vh;
+  }
+
+  .decor-detail-modal-carousel-btn {
+    width: 36px;
+    height: 36px;
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ShoppingCart, Check, ArrowRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Check, ArrowRight } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import Modal from "../components/modal/Modal";
@@ -15,30 +15,32 @@ import StepIndicator from "../components/stepsIndicator/StepIndicator";
 
 import "../App.css";
 
-/**
- * BookingPage orchestre les étapes de réservation :
- * 1. Studio
- * 2. Décor
- * 3. Date & heure
- */
+/** Réservation : soit 3 étapes (studio → décor → date/heure), soit une seule page date/heure si décor déjà choisi. */
 const BookingPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { fetchCartItems } = useAuth();
 
-  // Étape courante
-  const [currentStep, setCurrentStep] = useState(1);
-  const [maxStepReached, setMaxStepReached] = useState(1);
+  const stateDecor = location.state?.decor;
+  const isDirectDecorBooking = !!stateDecor;
 
-  // Sélections utilisateur
-  const [selectedStudio, setSelectedStudio] = useState(null);
-  const [selectedDecor, setSelectedDecor] = useState(null);
+  const [currentStep, setCurrentStep] = useState(isDirectDecorBooking ? 3 : 1);
+  const [maxStepReached, setMaxStepReached] = useState(isDirectDecorBooking ? 3 : 1);
+  const [selectedStudio, setSelectedStudio] = useState(
+    stateDecor?.studio_info ? { id: stateDecor.studio_info.id, name: stateDecor.studio_info.name } : null
+  );
+  const [selectedDecor, setSelectedDecor] = useState(
+    stateDecor ? { id: stateDecor.id, name: stateDecor.name, short_description: stateDecor.short_description, hour_price: stateDecor.hour_price, max_persons: stateDecor.max_persons } : null
+  );
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedSessions, setSelectedSessions] = useState([]);
-
-  // Modals
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [sessionsToAdd, setSessionsToAdd] = useState([]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname, location.state?.decor]);
 
   // Gestionnaire pour ajouter/supprimer des sessions
   const handleAddSession = (newSession, dateToRemove = null) => {
@@ -107,12 +109,14 @@ const BookingPage = () => {
       setTimeout(() => {
         setShowSuccessModal(false);
         setSelectedSessions([]);
-        setCurrentStep(1);
-        setMaxStepReached(1);
-        setSelectedStudio(null);
-        setSelectedDecor(null);
         setSelectedDate(null);
         setSessionsToAdd([]);
+        if (!isDirectDecorBooking) {
+          setCurrentStep(1);
+          setMaxStepReached(1);
+          setSelectedStudio(null);
+          setSelectedDecor(null);
+        }
         navigate('/cart');
       }, 5000);
     } catch (error) {
@@ -122,59 +126,64 @@ const BookingPage = () => {
     }
   };
 
+  const scheduleContent = selectedDecor && (
+    <div className="schedule-step">
+      {isDirectDecorBooking && (
+        <h2 className="booking-direct-title">
+          Choisir date et heure — {selectedDecor.name}
+        </h2>
+      )}
+      <CalendarPicker
+        selectedDate={selectedDate}
+        onSelectDate={setSelectedDate}
+        studioId={selectedStudio?.id}
+        selectedSessions={selectedSessions}
+      />
+      <TimePicker
+        selectedDate={selectedDate}
+        selectedSessions={selectedSessions}
+        onAddSession={handleAddSession}
+        selectedDecor={selectedDecor}
+        onAddToCart={handleAddToCart}
+      />
+    </div>
+  );
+
   return (
     <div className="app">
       <Header />
 
       <main className="booking-main">
-        {/* Indicateur d'étapes */}
-        <StepIndicator
-          currentStep={currentStep}
-          maxStepReached={maxStepReached}
-          onStepChange={setCurrentStep}
-        />
-
-        {/* ===== ÉTAPE 1 : STUDIO ===== */}
-        {currentStep === 1 && (
-          <StudioList
-            onSelectStudio={(studio) => {
-              setSelectedStudio(studio);
-              setCurrentStep(2);
-              setMaxStepReached(2);
-            }}
-          />
-        )}
-
-        {/* ===== ÉTAPE 2 : DÉCOR ===== */}
-        {currentStep === 2 && selectedStudio && (
-          <DecorList
-            studioId={selectedStudio.id}
-            onSelectDecor={(decor) => {
-              setSelectedDecor(decor);
-              setCurrentStep(3);
-              setMaxStepReached(3);
-            }}
-          />
-        )}
-
-        {/* ===== ÉTAPE 3 : DATE & HEURE ===== */}
-        {currentStep === 3 && selectedDecor && (
-          <div className="schedule-step">
-            <CalendarPicker
-              selectedDate={selectedDate}
-              onSelectDate={setSelectedDate}
-              studioId={selectedStudio?.id}
-              selectedSessions={selectedSessions}
+        {isDirectDecorBooking ? (
+          scheduleContent
+        ) : (
+          <>
+            <StepIndicator
+              currentStep={currentStep}
+              maxStepReached={maxStepReached}
+              onStepChange={setCurrentStep}
             />
-
-            <TimePicker
-              selectedDate={selectedDate}
-              selectedSessions={selectedSessions}
-              onAddSession={handleAddSession}
-              selectedDecor={selectedDecor}
-              onAddToCart={handleAddToCart}
-            />
-          </div>
+            {currentStep === 1 && (
+              <StudioList
+                onSelectStudio={(studio) => {
+                  setSelectedStudio(studio);
+                  setCurrentStep(2);
+                  setMaxStepReached(2);
+                }}
+              />
+            )}
+            {currentStep === 2 && selectedStudio && (
+              <DecorList
+                studioId={selectedStudio.id}
+                onSelectDecor={(decor) => {
+                  setSelectedDecor(decor);
+                  setCurrentStep(3);
+                  setMaxStepReached(3);
+                }}
+              />
+            )}
+            {currentStep === 3 && scheduleContent}
+          </>
         )}
       </main>
 

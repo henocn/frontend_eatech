@@ -20,14 +20,22 @@ const DecorList = ({ studioId, onSelectDecor }) => {
   }, [studioId]);
 
   return (
-    <div className="decor-list">
-      {decors.map((decor) => (
-        <DecorCard
-          key={decor.id}
-          decor={decor}
-          onSelect={() => onSelectDecor && onSelectDecor(decor)}
-        />
-      ))}
+    <div className="decor-section">
+      <div className="decor-intro">
+        <h3 className="decor-intro-title">Nos Décors Vidéo</h3>
+        <p className="decor-intro-text">
+          Découvrez notre collection de décors professionnels que vous pouvez réserver pour vos tournages et productions vidéo.
+        </p>
+      </div>
+      <div className="decor-list">
+        {decors.map((decor) => (
+          <DecorCard
+            key={decor.id}
+            decor={decor}
+            onSelect={() => onSelectDecor && onSelectDecor(decor)}
+          />
+        ))}
+      </div>
     </div>
   );
 };

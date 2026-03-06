@@ -1,115 +1,172 @@
-import { useState, useEffect } from 'react';
-import servicesData from '../../data/services.json';
-import './Services.css';
+import { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import servicesData from "../../data/services.json";
 
+import "./Services.css";
 
+gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Composant Services qui affiche la liste des services disponibles
+ * Section Nos Services : design pro, images proportionnées, animations soignées.
  */
 function Services() {
-    const [services, setServices] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const sectionRef = useRef(null);
+  const titleRef = useRef(null);
+  const lineRef = useRef(null);
+  const introRef = useRef(null);
+  const gridRef = useRef(null);
 
-    useEffect(() => {
-        loadServices();
-    }, []);
+  useEffect(() => {
+    try {
+      setLoading(true);
+      setServices(servicesData);
+      setError(null);
+    } catch (err) {
+      setError("Erreur lors du chargement des services");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
-    const loadServices = () => {
-        try {
-            setLoading(true);
-            setServices(servicesData);
-            setError(null);
-        } catch (err) {
-            setError('Erreur lors du chargement des services');
-            console.error(err);
-        } finally {
-            setLoading(false);
+  useEffect(() => {
+    if (loading || error || !gridRef.current) return;
+
+    const cards = gridRef.current.querySelectorAll(".service-card");
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        titleRef.current,
+        { opacity: 0, y: 32 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: { trigger: titleRef.current, start: "top 88%", toggleActions: "play none none none" },
         }
-    };
+      );
+      gsap.fromTo(
+        lineRef.current,
+        { scaleX: 0, opacity: 0 },
+        {
+          scaleX: 1,
+          opacity: 1,
+          duration: 0.6,
+          delay: 0.2,
+          ease: "power2.out",
+          transformOrigin: "center",
+          scrollTrigger: { trigger: lineRef.current, start: "top 88%", toggleActions: "play none none none" },
+        }
+      );
+      gsap.fromTo(
+        introRef.current,
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          delay: 0.15,
+          ease: "power3.out",
+          scrollTrigger: { trigger: introRef.current, start: "top 88%", toggleActions: "play none none none" },
+        }
+      );
+      gsap.fromTo(
+        cards,
+        {
+          opacity: 0,
+          y: 40,
+          scale: 0.96,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power3.out",
+          delay: 0.1,
+          scrollTrigger: { trigger: gridRef.current, start: "top 85%", toggleActions: "play none none none" },
+        }
+      );
+    }, sectionRef);
 
+    return () => ctx.revert();
+  }, [loading, error]);
 
-    if (loading) {
-        return (
-            <section id="services" className="services">
-                <div className="services-container">
-                    <div className="loading-spinner">
-                        <div className="spinner"></div>
-                        <p>Chargement des services...</p>
-                    </div>
-                </div>
-            </section>
-        );
-    }
-
-    if (error) {
-        return (
-            <section id="services" className="services">
-                <div className="services-container">
-                    <div className="error-message">
-                        <p>{error}</p>
-                        <button onClick={loadServices} className="btn btn-primary">
-                            Réessayer
-                        </button>
-                    </div>
-                </div>
-            </section>
-        );
-    }
-
+  if (loading) {
     return (
-        <section id="services" className="services">
-            <div className="services-container">
-                <div className="services-header">
-                    <h2 className="section-title">Nos Services</h2>
-                    <div className="services-intro">
-                        <div className="intro-text">
-                            <p>
-                                Nous proposons une gamme complète de services créatifs pour accompagner vos projets du concept à la livraison. 
-                                De la conception graphique à l'animation, en passant par l'UI/UX et la création d'icônes sur mesure, notre équipe conçoit des solutions esthétiques et fonctionnelles. 
-                                Nous adaptons nos propositions à vos besoins : identité visuelle, supports print et web, animations interactives et prototypes.
-                                Chaque prestation est pensée pour renforcer votre message et améliorer l'expérience utilisateur, avec un suivi professionnel et des livrables prêts pour la production.
-                            </p>
-                        </div>
-                        <div className="intro-image">
-                            <img src="/images/services.jpg" alt="Services" />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="services-marquee-wrapper">
-                    <div className="services-marquee" aria-hidden="false">
-                        <div className="marquee-track">
-                            {services.map((service) => {
-                                return (
-                                    <div className="marquee-item" key={service.id}>
-                                        <div>
-                                            <span className="marquee-title">{service.title}</span>
-                                        </div>
-                                        <img className="marquee-thumb" src={service.image} alt={service.title} />
-                                    </div>
-                                )
-                            })}
-                            {/* duplicate once to create seamless loop */}
-                            {services.map((service) => {
-                                return (
-                                    <div className="marquee-item" key={`${service.id}-dup`}>
-                                        <div>
-                                            <span className="marquee-title">{service.title}</span>
-                                        </div>
-                                        <img className="marquee-thumb" src={service.image} alt={service.title} />
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <section id="services" className="services">
+        <div className="services-container">
+          <div className="services-loading">
+            <div className="services-spinner" />
+            <p>Chargement des services…</p>
+          </div>
+        </div>
+      </section>
     );
+  }
+
+  if (error) {
+    return (
+      <section id="services" className="services">
+        <div className="services-container">
+          <div className="services-error">
+            <p>{error}</p>
+            <button
+              type="button"
+              className="services-retry"
+              onClick={() => {
+                setError(null);
+                setServices(servicesData);
+              }}
+            >
+              Réessayer
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="services" className="services" ref={sectionRef}>
+      <div className="services-container">
+        <header className="services-header">
+          <h2 className="services-title" ref={titleRef}>
+            Nos Services
+          </h2>
+          <span className="services-title-line" ref={lineRef} aria-hidden />
+          <div className="services-intro" ref={introRef}>
+            <p className="services-intro-text">
+              Nous concevons des dispositifs créatifs complets, du concept à la réalisation — identité visuelle,
+              contenus graphiques et interactifs, pour des univers cohérents et des livrables prêts à déployer.
+            </p>
+            <div className="services-intro-image">
+              <img src="/images/services.jpg" alt="" />
+            </div>
+          </div>
+        </header>
+
+        <div className="services-grid" ref={gridRef}>
+          {services.map((service, index) => (
+            <article key={service.id} className="service-card">
+              <div className="service-card-media">
+                <img src={service.image} alt="" />
+              </div>
+              <div className="service-card-body">
+                <span className="service-card-number">{String(index + 1).padStart(2, "0")}</span>
+                <h3 className="service-card-title">{service.title}</h3>
+                <p className="service-card-desc">{service.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default Services;
-

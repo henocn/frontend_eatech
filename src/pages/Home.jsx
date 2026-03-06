@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Hero from "../components/hero/Hero";
 import Services from "../components/services/Services";
+import DecorsSection from "../components/decorsPublic/DecorsSection";
 import Portfolio from "../components/portfolio/Portfolio";
-import PhotographySets from "../components/photographysets/PhotographySets";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import BookingButton from "../components/BookingButton";
@@ -31,7 +31,7 @@ const Home = () => {
       <main>
         <Hero />
         <Services />
-        {/* <PhotographySets /> */}
+        <DecorsSection />
         <Portfolio />
       </main>
       <BookingButton />

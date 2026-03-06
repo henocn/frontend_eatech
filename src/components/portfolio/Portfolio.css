@@ -386,7 +386,7 @@
 }
 
 .portfolio-cta-text {
-    font-family: 'Segoe Print', 'Comic Sans MS', cursive;
+    font-family: var(--font-body);
     font-size: 1.3rem;
     font-style: italic;
     font-weight: 500;
