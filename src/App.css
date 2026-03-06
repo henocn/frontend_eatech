@@ -30,6 +30,7 @@
 .booking-main {
     flex: 1;
     padding: 2rem;
+    padding-top: 5.5rem;
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
@@ -39,7 +40,8 @@
     font-family: var(--font-heading);
     font-size: 1.35rem;
     font-weight: 700;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem;
+    margin-top: 0;
     color: var(--color-text);
 }
 
@@ -47,7 +49,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 2rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
     align-items: start;
 }
 
@@ -98,14 +100,14 @@
 @media (max-width: 768px) {
     .booking-main {
         padding: 1rem;
-        padding-top: 6rem;
+        padding-top: 5.5rem;
     }
 
     .schedule-step {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
-        margin-top: 1.5rem;
+        margin-top: 1rem;
     }
 
     .schedule-step .calendar-picker {

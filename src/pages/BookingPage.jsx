@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Check, ArrowRight } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../components/header/Header";
@@ -37,6 +37,10 @@ const BookingPage = () => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [sessionsToAdd, setSessionsToAdd] = useState([]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname, location.state?.decor]);
 
   // Gestionnaire pour ajouter/supprimer des sessions
   const handleAddSession = (newSession, dateToRemove = null) => {
