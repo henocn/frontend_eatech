@@ -9,7 +9,7 @@ import "./DecorCardPublic.css";
  * Carte d’un décor pour la section publique (accueil).
  * Affiche résumé, "En savoir plus" (modal détail) et "Réserver" (→ booking avec ce décor).
  */
-function DecorCardPublic({ decor }) {
+function DecorCardPublic({ decor, compact = false }) {
   const navigate = useNavigate();
   const [detailOpen, setDetailOpen] = useState(false);
 
@@ -44,6 +44,22 @@ function DecorCardPublic({ decor }) {
       <span>{decor.name?.charAt(0) || "?"}</span>
     </div>
   );
+
+  if (compact) {
+    return (
+      <article className="decor-card decor-card-public decor-card-public-compact">
+        <div className="decor-images-container">
+          {imageBlock}
+        </div>
+        <div className="decor-content decor-card-public-compact-content">
+          <h3 className="decor-title">{decor.name}</h3>
+          <p className="decor-card-public-compact-description">
+            {decor.short_description}
+          </p>
+        </div>
+      </article>
+    );
+  }
 
   return (
     <>

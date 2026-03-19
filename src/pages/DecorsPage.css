@@ -1,0 +1,62 @@
+.decors-page-main {
+  flex: 1;
+  padding: 5.5rem 1.5rem 3rem;
+}
+
+.decors-page-section {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.decors-page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.decors-page-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.decors-page-lead {
+  margin: 0.6rem auto 0;
+  max-width: 650px;
+  color: var(--color-text);
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+.decors-page-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.decors-page-state {
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-text);
+}
+
+.decors-page-error {
+  color: #dc2626;
+}
+
+@media (max-width: 1024px) {
+  .decors-page-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .decors-page-main {
+    padding: 5.25rem 1rem 2rem;
+  }
+
+  .decors-page-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

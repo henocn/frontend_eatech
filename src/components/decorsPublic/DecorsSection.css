@@ -44,7 +44,7 @@
 
 .decors-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.5rem;
 }
 
@@ -93,4 +93,17 @@
 [data-theme="dark"] .decors-btn-more:hover {
   background: var(--nav-accent-hover);
   color: #1a1d21;
+}
+
+@media (max-width: 1024px) {
+  .decors-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .decors-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }
