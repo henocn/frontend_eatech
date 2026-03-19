@@ -117,12 +117,17 @@
   font-size: 56px;
   margin: 0 0 12px;
   pointer-events: auto;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
 }
 .label-name {
   display: inline-block;
   color: #ffffff;
   font-size: 50px;
   font-weight: 800;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .carousel-caption .meta {
   display: flex;
@@ -139,6 +144,7 @@
   padding: 12px 15px;
   border-radius: 20px;
   font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .carousel-bottom {
@@ -194,14 +200,94 @@
   .carousel-video {
     height: 60vh;
   }
-  .carousel-caption h3 {
-    font-size: 28px;
-  }
+
   .carousel-caption {
-    top: 40%;
+    width: 92%;
+    top: 42%;
   }
+
+  .carousel-caption .tag {
+    font-size: 0.78rem;
+    padding: 2px 12px;
+    margin-bottom: 8px;
+  }
+
+  .carousel-caption h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .label-name {
+    font-size: 24px;
+    line-height: 1.15;
+  }
+
+  .book-btn {
+    padding: 8px 12px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+  }
+
   .carousel-bottom {
     padding: 0 12px;
     bottom: 12px;
+  }
+
+  .carousel-bottom .label {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .carousel-caption {
+    top: 40%;
+    width: 94%;
+  }
+
+  .carousel-caption .tag {
+    font-size: 0.72rem;
+    padding: 2px 10px;
+    margin-bottom: 6px;
+  }
+
+  .carousel-caption h3 {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+
+  .label-name {
+    font-size: 30px;
+  }
+
+  .book-btn {
+    padding: 7px 10px;
+    font-size: 0.74rem;
+  }
+
+  .carousel-bottom {
+    bottom: 8px;
+    padding: 0 8px;
+  }
+
+  .carousel-bottom .label {
+    padding: 5px 8px;
+    font-size: 0.7rem;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 390px) {
+  .carousel-caption h3 {
+    font-size: 17px;
+  }
+
+  .label-name {
+    font-size: 45px;
+  }
+
+  .book-btn {
+    font-size: 0.68rem;
+    padding: 6px 9px;
   }
 }
