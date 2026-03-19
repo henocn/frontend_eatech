@@ -17,6 +17,18 @@ function Header({ current }) {
     const { isAuthenticated, user, logout, cartItems } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
+    const isHomeActive = location.pathname === '/' && !current;
+    const isDecorsActive = location.pathname === '/decors';
+    const isServicesActive = location.pathname === '/' && current === 'services';
+    const isContactActive = location.pathname === '/' && current === 'contact';
+    const isCartActive = location.pathname === '/cart';
+    const isAuthActive =
+        location.pathname === '/login' ||
+        location.pathname === '/register' ||
+        location.pathname === '/forgot-password' ||
+        location.pathname === '/auth/login' ||
+        location.pathname === '/auth/register' ||
+        location.pathname === '/auth/forgot-password';
 
     useEffect(() => {
         const handleScroll = () => {
@@ -70,30 +82,30 @@ function Header({ current }) {
                 </Link>
 
                 <nav className={`nav ${isMobileMenuOpen ? 'open' : ''}`}>
-                    <Link to="/" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Link to="/" className={`nav-link ${isHomeActive ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                         <Home className="nav-icon" size={18} />
                         Accueil
                     </Link>
                     <Link
                         to="/decors"
-                        className={`nav-link ${location.pathname === '/decors' ? 'active' : ''}`}
+                        className={`nav-link ${isDecorsActive ? 'active' : ''}`}
                         onClick={() => setIsMobileMenuOpen(false)}
                     >
                         <ImageIcon className="nav-icon" size={18} />
                         Décors
                     </Link>
-                    <button className={`nav-link ${current === 'services' ? 'active' : ''}`} onClick={handleServicesClick} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                    <button className={`nav-link ${isServicesActive ? 'active' : ''}`} onClick={handleServicesClick} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
                         <LayoutGrid className="nav-icon" size={18} />
                         Services
                     </button>
-                    <a href="#contact" className={`nav-link ${current === 'contact' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+                    <a href="#contact" className={`nav-link ${isContactActive ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                         <Mail className="nav-icon" size={18} />
                         Contact
                     </a>
 
                     {isAuthenticated ? (
                         <>
-                            <Link to="/cart" className="nav-link cart-link" onClick={() => setIsMobileMenuOpen(false)}>
+                            <Link to="/cart" className={`nav-link cart-link ${isCartActive ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                                 <div className="cart-container">
                                     <ShoppingCart className="nav-icon" size={18} />
                                     Panier
@@ -110,7 +122,7 @@ function Header({ current }) {
                             </button>
                         </>
                     ) : (
-                        <Link to="/login" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                        <Link to="/login" className={`nav-link ${isAuthActive ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
                             <User className="nav-icon" size={18} />
                             Connexion
                         </Link>

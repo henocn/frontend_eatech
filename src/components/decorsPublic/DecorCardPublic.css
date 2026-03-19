@@ -2,7 +2,7 @@
 
 .decor-card-public {
   border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1.5px solid #bda15f;
   overflow: hidden;
   background: var(--color-bg, #fff);
   cursor: pointer;
@@ -12,11 +12,11 @@
 .decor-card-public:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
-  border-color: rgba(189, 161, 95, 0.45);
+  border-color: #d4b86a;
 }
 
 [data-theme="dark"] .decor-card-public {
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: #bda15f;
 }
 
 .decor-images-container {
