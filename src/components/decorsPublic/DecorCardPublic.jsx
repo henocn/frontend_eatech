@@ -1,8 +1,6 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Users, DollarSign, Info, Calendar } from "lucide-react";
 import DecorDetailModal from "./DecorDetailModal";
-import "../decors/DecorCard.css";
 import "./DecorCardPublic.css";
 
 /**
@@ -12,9 +10,27 @@ import "./DecorCardPublic.css";
 function DecorCardPublic({ decor, compact = false }) {
   const navigate = useNavigate();
   const [detailOpen, setDetailOpen] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
 
   const images = decor.pub_medias_details || [];
   const coverUrl = decor.cover_image_url || (images[0]?.file_url ?? null);
+  const slideImages = useMemo(() => {
+    const urls = images.map((img) => img?.file_url).filter(Boolean);
+    if (urls.length > 0) return urls;
+    return coverUrl ? [coverUrl] : [];
+  }, [images, coverUrl]);
+
+  useEffect(() => {
+    setImageIndex(0);
+  }, [decor?.id]);
+
+  useEffect(() => {
+    if (slideImages.length <= 1) return undefined;
+    const timer = setInterval(() => {
+      setImageIndex((prev) => (prev + 1) % slideImages.length);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, [slideImages.length]);
 
   const buildDecorForBooking = (d) => {
     const info = d?.studio_info || (d?.studio_details ? { id: d.studio_details.id, name: d.studio_details.name } : null) || { id: d?.studio_id, name: d?.studio_name };
@@ -35,9 +51,11 @@ function DecorCardPublic({ decor, compact = false }) {
     navigate("/booking", { state: { decor: buildDecorForBooking(d) } });
   };
 
-  const imageBlock = coverUrl ? (
+  const activeImageUrl = slideImages[imageIndex] || coverUrl;
+
+  const imageBlock = activeImageUrl ? (
     <div className="decor-image-single decor-card-public-cover">
-      <img src={coverUrl} alt={decor.name} />
+      <img src={activeImageUrl} alt={decor.name} />
     </div>
   ) : (
     <div className="decor-card-public-placeholder">
@@ -45,66 +63,26 @@ function DecorCardPublic({ decor, compact = false }) {
     </div>
   );
 
-  if (compact) {
-    return (
-      <article className="decor-card decor-card-public decor-card-public-compact">
+  return (
+    <>
+      <article
+        className={`decor-card-public ${compact ? "decor-card-public-compact" : ""}`}
+        onClick={() => setDetailOpen(true)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setDetailOpen(true);
+          }
+        }}
+      >
         <div className="decor-images-container">
           {imageBlock}
         </div>
-        <div className="decor-content decor-card-public-compact-content">
+        <div className="decor-card-public-content">
           <h3 className="decor-title">{decor.name}</h3>
-          <p className="decor-card-public-compact-description">
-            {decor.short_description}
-          </p>
-        </div>
-      </article>
-    );
-  }
-
-  return (
-    <>
-      <article className="decor-card decor-card-public">
-        <div className="decor-images-container" onClick={() => setDetailOpen(true)}>
-          {imageBlock}
-          <div className="decor-images-overlay">
-            <span className="decor-view-more">Voir toutes les photos</span>
-          </div>
-        </div>
-
-        <div className="decor-content">
-          <h3 className="decor-title">{decor.name}</h3>
-          {decor.studio_name && (
-            <p className="decor-card-public-studio">{decor.studio_name}</p>
-          )}
-          <p className="decor-description">{decor.short_description}</p>
-          <div className="decor-details">
-            <span className="decor-capacity">
-              <Users size={16} className="decor-icon" />
-              {decor.max_persons} personnes
-            </span>
-            <span className="decor-price">
-              <DollarSign size={16} className="decor-icon" />
-              {decor.hour_price} F/h
-            </span>
-          </div>
-          <div className="decor-card-public-actions">
-            <button
-              type="button"
-              className="decor-card-public-btn decor-card-public-btn-secondary"
-              onClick={() => setDetailOpen(true)}
-            >
-              <Info size={16} />
-              En savoir plus
-            </button>
-            <button
-              type="button"
-              className="decor-select-btn decor-card-public-btn-primary"
-              onClick={handleReserve}
-            >
-              <Calendar size={16} />
-              Réserver
-            </button>
-          </div>
+          <p className="decor-card-public-description">{decor.short_description}</p>
         </div>
       </article>
 

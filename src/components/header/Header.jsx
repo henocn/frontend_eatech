@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { LayoutGrid, Menu, X, Moon, Sun, Mail, User, DoorOpen, Home, ShoppingCart } from 'lucide-react';
+import { LayoutGrid, Menu, X, Moon, Sun, Mail, User, DoorOpen, Home, ShoppingCart, Image as ImageIcon } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -73,6 +73,14 @@ function Header({ current }) {
                     <Link to="/" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
                         <Home className="nav-icon" size={18} />
                         Accueil
+                    </Link>
+                    <Link
+                        to="/decors"
+                        className={`nav-link ${location.pathname === '/decors' ? 'active' : ''}`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                        <ImageIcon className="nav-icon" size={18} />
+                        Décors
                     </Link>
                     <button className={`nav-link ${current === 'services' ? 'active' : ''}`} onClick={handleServicesClick} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
                         <LayoutGrid className="nav-icon" size={18} />

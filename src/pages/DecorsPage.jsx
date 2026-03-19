@@ -45,7 +45,7 @@ function DecorsPage() {
           {!loading && !error && (
             <div className="decors-page-grid">
               {decors.map((decor) => (
-                <DecorCardPublic key={decor.id} decor={decor} />
+                <DecorCardPublic key={decor.id} decor={decor} compact />
               ))}
             </div>
           )}
