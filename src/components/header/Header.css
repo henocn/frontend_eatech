@@ -244,12 +244,15 @@
     display: flex;
     align-items: center;
     gap: 0.375rem;
+    width: max-content;
+    white-space: nowrap;
+    padding-right: 0.8rem; /* reserve space for badge */
 }
 
 .cart-badge {
     position: absolute;
-    top: -6px;
-    right: -6px;
+    top: -7px;
+    right: -2px;
     min-width: 18px;
     height: 18px;
     padding: 0 5px;
@@ -281,6 +284,11 @@
 @media (max-width: 768px) {
     .menu-toggle {
         display: flex;
+        position: relative;
+        z-index: 1003;
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid var(--nav-border);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     }
 
     .nav {
@@ -289,19 +297,40 @@
         left: 0;
         right: 0;
         bottom: 0;
+        width: 100vw;
+        min-height: 100dvh;
+        max-height: 100dvh;
+        /* Fond non transparent pour le menu mobile */
+        background: rgba(255, 255, 255, 0.88);
         background: var(--nav-bg-scrolled);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
+        border-top: 1px solid var(--nav-border);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         gap: 0.5rem;
-        padding: 5rem 1.5rem 2rem;
+        padding: 6.5rem 1.5rem 2rem;
         opacity: 0;
         visibility: hidden;
         transform: translateY(-8px);
         transition: opacity var(--nav-transition), visibility var(--nav-transition), transform var(--nav-transition);
-        z-index: 999;
+        z-index: 1001;
+        overflow-y: auto;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+
+    [data-theme="dark"] .nav {
+        background: rgba(22, 25, 31, 0.98);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    [data-theme="dark"] .menu-toggle {
+        background: rgba(22, 25, 31, 0.95);
+        border-color: var(--nav-border);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
     }
 
     .nav.open {
@@ -314,7 +343,7 @@
         font-size: 1.125rem;
         padding: 0.75rem 1.25rem;
         width: 100%;
-        max-width: 280px;
+        max-width: 320px;
         justify-content: center;
         border-radius: 12px;
     }
@@ -327,6 +356,8 @@
 
     .header-actions {
         gap: 0.375rem;
+        position: relative;
+        z-index: 1002;
     }
 
     .icon-button,

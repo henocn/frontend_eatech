@@ -142,7 +142,8 @@ function Services() {
           <div className="services-intro" ref={introRef}>
             <p className="services-intro-text">
               Nous concevons des dispositifs créatifs complets, du concept à la réalisation — identité visuelle,
-              contenus graphiques et interactifs, pour des univers cohérents et des livrables prêts à déployer.
+              contenus graphiques et interactifs, pour des univers cohérents et des livrables prêts à déployer. <br /> <br />
+              Nous intervenons également pour couvrir des événements, des stands, des salons, des conférences avec un délai de livraison très rapide.
             </p>
             <div className="services-intro-image">
               <img src="/images/services.jpg" alt="" />

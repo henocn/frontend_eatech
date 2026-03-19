@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import BookingPage from "./pages/BookingPage";
 import Cart from "./pages/Cart";
+import DecorsPage from "./pages/DecorsPage";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
@@ -32,6 +33,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/decors" element={<DecorsPage />} />
           <Route path="/booking" element={
             <ProtectedRoute>
               <BookingPage />

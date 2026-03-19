@@ -101,6 +101,7 @@
     text-align: center;
     color: white;
     max-width: 1000px;
+    width: 100%;
     padding: 2rem;
 }
 
@@ -154,6 +155,8 @@
     font-size: clamp(1.25rem, 2.5vw, 1.75rem);
     font-weight: 600;
     margin-bottom: 1.5rem;
+    overflow-wrap: anywhere;
+    word-break: normal;
 }
 
 .hero-description {
@@ -163,6 +166,8 @@
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
+    overflow-wrap: anywhere;
+    word-break: normal;
 }
 
 .hero-cta {
@@ -213,6 +218,20 @@
 
 
 @media (max-width: 768px) {
+    .hero-content {
+        padding: 1rem;
+    }
+
+    .hero-welcome {
+        letter-spacing: 0.12em;
+        overflow-wrap: anywhere;
+    }
+
+    .hero-subtitle,
+    .hero-description {
+        max-width: 100%;
+    }
+
     .hero-cta {
         flex-direction: column;
         align-items: center;
@@ -227,7 +246,13 @@
 /* Titre sur une seule ligne même sur petits écrans */
 @media (max-width: 420px) {
     .hero-title {
-        font-size: clamp(1.5rem, 8vw, 2.25rem);
+        font-size: clamp(1.25rem, 7vw, 1.95rem);
+    }
+}
+
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: clamp(1.05rem, 6.6vw, 1.6rem);
     }
 }
 
