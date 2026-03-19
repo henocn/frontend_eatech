@@ -1,38 +1,20 @@
 [
   {
     "id": "s1",
-    "title": "Direction Artistique",
-    "image": "/images/services/artistic.png",
-    "description": "Nous définissons l'univers visuel de votre marque avec une approche stratégique et créative. De la conception de l'identité à la supervision de tous les supports, nous assurons une cohérence esthétique qui renforce votre positionnement et captive votre audience cible."
-  },
-  {
-    "id": "s2",
-    "title": "UI / UX",
-    "image": "/images/services/ux.png",
-    "description": "Nous concevons des interfaces intuitives et des expériences utilisateur mémorables. Notre approche centrée sur l'humain combine recherche approfondie, prototypage et tests utilisateurs pour créer des produits digitaux qui engagent et convertissent efficacement."
-  },
-  {
-    "id": "s3",
-    "title": "Photographie",
-    "image": "/images/services/photography.png",
-    "description": "Nos photographes capturent l'essence de votre marque à travers des images percutantes. Du shooting produit au reportage corporate, nous créons des visuels authentiques qui racontent votre histoire et subliment votre communication visuelle."
-  },
-  {
-    "id": "s4",
     "title": "Tournage Vidéo",
     "image": "/images/services/video.png",
     "description": "Nous produisons des contenus vidéo captivants qui marquent les esprits. Films institutionnels, spots publicitaires, contenus pour réseaux sociaux — notre équipe maîtrise toute la chaîne de production pour des réalisations professionnelles et impactantes."
   },
   {
-    "id": "s5",
-    "title": "Illustration",
-    "image": "/images/services/illustration.png",
-    "description": "Nos illustrateurs donnent vie à vos idées avec un style unique et personnalisé. Que ce soit pour l'éditorial, le branding ou l'animation, nous créons des illustrations originales qui différencient votre marque et enrichissent votre storytelling."
-  },
-  {
-    "id": "s6",
+    "id": "s2",
     "title": "Publicités Sociales",
     "image": "/images/services/adds.png",
     "description": "Nous concevons des campagnes publicitaires performantes pour les réseaux sociaux. Stratégie, création de contenus, optimisation — nous maximisons votre visibilité et votre ROI avec des formats adaptés à chaque plateforme et objectif marketing."
+  },
+  {
+    "id": "s3",
+    "title": "Direction Artistique",
+    "image": "/images/services/artistic.png",
+    "description": "Nous définissons l'univers visuel de votre marque avec une approche stratégique et créative. De la conception de l'identité à la supervision de tous les supports, nous assurons une cohérence esthétique qui renforce votre positionnement et captive votre audience cible."
   }
 ]
